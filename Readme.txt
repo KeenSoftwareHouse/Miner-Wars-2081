@@ -7,7 +7,8 @@ MinerWars.exe and Original Content (textures, models, audio) is not part of MOD 
 
 Official modding website: http://www.MinerWars.com/SourceCode.aspx
 Official modding forum: http://www.minerwars.com/ForumCategory.aspx?id=13
-Source code: [TODO: Add Url]
+Source code: https://github.com/KeenSoftwareHouse/Miner-Wars-2081
+Source code ZIP, direct download: https://github.com/KeenSoftwareHouse/Miner-Wars-2081/archive/master.zip
 30-seconds video tutorial: [TODO: Add Url]
 
 When we refer to MinerWars folder, we have MinerWars folder in Steam client on our mind. 
