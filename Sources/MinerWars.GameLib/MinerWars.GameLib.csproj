@@ -1,0 +1,1356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F2AA32D9-F560-4DEF-BBF2-3DCCF4B17320}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MinerWars</RootNamespace>
+    <AssemblyName>MinerWars.GameLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;PACKED_VERTEX_FORMAT;noRENDER_PROFILING;noMEMORY_PROFILING;noGPU_PROFILING;noDETECT_LEAKS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>162,612,618,429,414,169,649</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS;dontENABLE_NETWORK_VERBOSE_LOGGING;PACKED_VERTEX_FORMAT;noRENDER_PROFILING;noMEMORY_PROFILING;noGPU_PROFILING</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS;PACKED_VERTEX_FORMAT;noRENDER_PROFILING;noMEMORY_PROFILING;noGPU_PROFILING;noDETECT_LEAKS</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>162,612,618,429,414,169,649</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS;dontENABLE_NETWORK_VERBOSE_LOGGING;PACKED_VERTEX_FORMAT;noRENDER_PROFILING;noMEMORY_PROFILING;noGPU_PROFILING</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\..\3rd\SharpDX\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9">
+      <HintPath>..\..\3rd\SharpDX\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput">
+      <HintPath>..\..\3rd\SharpDX\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.RawInput">
+      <HintPath>..\..\3rd\SharpDX\SharpDX.RawInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XACT3">
+      <HintPath>..\..\3rd\SharpDX\SharpDX.XACT3.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.XAudio2">
+      <HintPath>..\..\3rd\SharpDX\SharpDX.XAudio2.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppCode\App\MyEditorGameBase.cs" />
+    <Compile Include="AppCode\App\MyMinerGame.cs" />
+    <Compile Include="AppCode\App\MyRuntime.cs" />
+    <Compile Include="AppCode\App\MySectorExporter.cs" />
+    <Compile Include="AppCode\Game\Audio\AudioCategory.cs" />
+    <Compile Include="AppCode\Game\Audio\AudioEngineExtensions.cs" />
+    <Compile Include="AppCode\Game\Audio\Dialogues\MyDialogue.cs" />
+    <Compile Include="AppCode\Game\Audio\Dialogues\MyDialogueConstants.cs" />
+    <Compile Include="AppCode\Game\Audio\Dialogues\MyDialogues.cs" />
+    <Compile Include="AppCode\Game\Audio\Dialogues\MyDialogueSentence.cs" />
+    <Compile Include="AppCode\Game\Audio\Dialogues\MyShouts.cs" />
+    <Compile Include="AppCode\Game\Audio\MyAudio.cs" />
+    <Compile Include="AppCode\Game\Audio\MyAudio_Data.cs" />
+    <Compile Include="AppCode\Game\Audio\MyCueInfo.cs" />
+    <Compile Include="AppCode\Game\Audio\MyCuePool.cs" />
+    <Compile Include="AppCode\Game\Audio\MyCueProxy.cs" />
+    <Compile Include="AppCode\Game\Audio\MyHudAudio.cs" />
+    <Compile Include="AppCode\Game\Audio\MyInMemoryWaveBank.cs" />
+    <Compile Include="AppCode\Game\Audio\MySoundCue.cs" />
+    <Compile Include="AppCode\Game\Audio\MyX3DAudio.cs" />
+    <Compile Include="AppCode\Game\Audio\MyXactVariables.cs" />
+    <Compile Include="AppCode\Game\BackgroundCube\MyBackgroundCube.cs" />
+    <Compile Include="AppCode\Game\BackgroundCube\MyDistantImpostors.cs" />
+    <Compile Include="AppCode\Game\BackgroundCube\MyDistantObjectImpostor.cs" />
+    <Compile Include="AppCode\Game\BackgroundCube\MyDistantObjectImpostors.cs" />
+    <Compile Include="AppCode\Game\BackgroundCube\MyVoxelMapImpostors.cs" />
+    <Compile Include="AppCode\Game\Cockpit\MyCockpitGlass.cs" />
+    <Compile Include="AppCode\Game\Cockpit\MyCockpitGlassDecals.cs" />
+    <Compile Include="AppCode\Game\Cockpit\MyCockpitGlassDecalsBuffer.cs" />
+    <Compile Include="AppCode\Game\Debugging\MyDebugConsole.cs" />
+    <Compile Include="AppCode\Game\Debugging\MyFpsManager.cs" />
+    <Compile Include="AppCode\Game\Debugging\MyGarbageCollectionManager.cs" />
+    <Compile Include="AppCode\Game\Debugging\MyPerformanceCounter.cs" />
+    <Compile Include="AppCode\Game\Debugging\MyPerformanceTimer.cs" />
+    <Compile Include="AppCode\Game\Debugging\MySmallShipTemplate.cs" />
+    <Compile Include="AppCode\Game\Debugging\MySmallShipTemplates.cs" />
+    <Compile Include="AppCode\Game\Decals\MyDecals.cs" />
+    <Compile Include="AppCode\Game\Decals\MyDecalsForPhysObjects.cs" />
+    <Compile Include="AppCode\Game\Decals\MyDecalsForPhysObjectsTriangleBuffer.cs" />
+    <Compile Include="AppCode\Game\Decals\MyDecalsForVoxels.cs" />
+    <Compile Include="AppCode\Game\Decals\MyDecalsForVoxelsTriangleBuffer.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditor.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionBase.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionClearSector.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionEntityAdd.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionEntityCopy.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionEntityDelete.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionEntityPropertiesChange.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionEntityTransform.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActions.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionVoxelHand.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorActionWithObjectBuildersBase.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorGizmo.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorGrid.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorShortcutManager.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorTransformData.cs" />
+    <Compile Include="AppCode\Game\Editor\MyEditorVoxelHand.cs" />
+    <Compile Include="AppCode\Game\Editor\MyMouseInputTool.cs" />
+    <Compile Include="AppCode\Game\Editor\MySelectionTool.cs" />
+    <Compile Include="AppCode\Game\Editor\MySnapPointLink.cs" />
+    <Compile Include="AppCode\Game\Effects\BaseEffects\MyEffectBase.cs" />
+    <Compile Include="AppCode\Game\Effects\BaseEffects\MyEffectDynamicLightingBase.cs" />
+    <Compile Include="AppCode\Game\Effects\BaseEffects\MyEffectPerlinNoiseBase.cs" />
+    <Compile Include="AppCode\Game\Effects\BaseEffects\MyEffectReflectorBase.cs" />
+    <Compile Include="AppCode\Game\Effects\BaseEffects\MyEffectShadowBase.cs" />
+    <Compile Include="AppCode\Game\Effects\BaseEffects\MyEffectSpotShadowBase.cs" />
+    <Compile Include="AppCode\Game\Effects\BaseEffects\MyEffectVoxelsBase.cs" />
+    <Compile Include="AppCode\Game\Effects\Lights\MyEffectBlendLights.cs" />
+    <Compile Include="AppCode\Game\Effects\Lights\MyEffectDirectionalLight.cs" />
+    <Compile Include="AppCode\Game\Effects\Lights\MyEffectPointLight.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectAmbientPrecalculation.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectAntiAlias.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectBackgroundCube.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectClearGbuffer.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectCockpitGlass.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectContrast.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectDecals.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectDistantImpostors.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectGaussianBlur.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectGodRays.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectHDR.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectHDRBase.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectHud.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectHudRadar.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectLuminance.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectModelsDiffuse.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectModelsDNS.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectOcclusionQueryDraw.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectRenderGizmo.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectScale.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectScreenshot.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectShadowMap.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectSolarMapGrid.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectSpriteBatchShader.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectThreshold.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectTransparentGeometry.cs" />
+    <Compile Include="AppCode\Game\Effects\MyEffectVolumetricFog.cs" />
+    <Compile Include="AppCode\Game\Effects\SSAO\MyEffectDownsampleDepthForSSAO.cs" />
+    <Compile Include="AppCode\Game\Effects\SSAO\MyEffectSSAOBlur2.cs" />
+    <Compile Include="AppCode\Game\Effects\SSAO\MyEffectVolumetricSSAO2.cs" />
+    <Compile Include="AppCode\Game\Effects\Voxels\MyEffectVoxels.cs" />
+    <Compile Include="AppCode\Game\Effects\Voxels\MyEffectVoxelsDebris.cs" />
+    <Compile Include="AppCode\Game\Effects\Voxels\MyEffectVoxelsStaticAsteroid.cs" />
+    <Compile Include="AppCode\Game\Entities\Asteroids\MyMeteor.cs" />
+    <Compile Include="AppCode\Game\Entities\Asteroids\MyStaticAsteroid.cs" />
+    <Compile Include="AppCode\Game\Entities\Asteroids\MyVoxelMap.cs" />
+    <Compile Include="AppCode\Game\Entities\CargoBox\MyCargoBox.cs" />
+    <Compile Include="AppCode\Game\Entities\CargoBox\MyMysteriousCube.cs" />
+    <Compile Include="AppCode\Game\Entities\Debris\MyExplosionDebrisBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Debris\MyExplosionDebrisModel.cs" />
+    <Compile Include="AppCode\Game\Entities\Debris\MyExplosionDebrisVoxel.cs" />
+    <Compile Include="AppCode\Game\Entities\Debris\MyLargeDebrisField.cs" />
+    <Compile Include="AppCode\Game\Entities\Debris\MySmallDebris .cs" />
+    <Compile Include="AppCode\Game\Entities\DummyPoints\MyDummyEffectHelper.cs" />
+    <Compile Include="AppCode\Game\Entities\DummyPoints\MyDummyEffectHelpers.cs" />
+    <Compile Include="AppCode\Game\Entities\DummyPoints\MyDummyPoint.cs" />
+    <Compile Include="AppCode\Game\Entities\Editor\MyVoxelHandBox.cs" />
+    <Compile Include="AppCode\Game\Entities\Editor\MyVoxelHandCuboid.cs" />
+    <Compile Include="AppCode\Game\Entities\Editor\MyVoxelHandCylinder.cs" />
+    <Compile Include="AppCode\Game\Entities\Editor\MyVoxelHandShape.cs" />
+    <Compile Include="AppCode\Game\Entities\Editor\MyVoxelHandSphere.cs" />
+    <Compile Include="AppCode\Game\Entities\EntityDetector\MyEntityDetector.cs" />
+    <Compile Include="AppCode\Game\Entities\EntityDetector\MyEntityDetectorCriterium.cs" />
+    <Compile Include="AppCode\Game\Entities\EntityDetector\MyEntityDetectorsManager.cs" />
+    <Compile Include="AppCode\Game\Entities\FoundationFactory\MyBuildingRequirement.cs" />
+    <Compile Include="AppCode\Game\Entities\FoundationFactory\MyBuildingSpecification.cs" />
+    <Compile Include="AppCode\Game\Entities\FoundationFactory\MyFoundationFactory.cs" />
+    <Compile Include="AppCode\Game\Entities\FoundationFactory\MyObjectToBuild.cs" />
+    <Compile Include="AppCode\Game\Entities\IMyEditableEntity.cs" />
+    <Compile Include="AppCode\Game\Entities\IMyHasFaction.cs" />
+    <Compile Include="AppCode\Game\Entities\InfluenceSpheres\MyInfluenceSphere.cs" />
+    <Compile Include="AppCode\Game\Entities\IResetable.cs" />
+    <Compile Include="AppCode\Game\Entities\MyEntities.cs" />
+    <Compile Include="AppCode\Game\Entities\MyEntity.cs" />
+    <Compile Include="AppCode\Game\Entities\MyEntityIdentifier.cs" />
+    <Compile Include="AppCode\Game\Entities\MyEntityIdRemapContext.cs" />
+    <Compile Include="AppCode\Game\Entities\MyGamePruningStructure.cs" />
+    <Compile Include="AppCode\Game\Entities\Notifications\IMyNotifyEntityChanged.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\Jobs\MyDetectEnemiesJob.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\Jobs\MyTestPositionJob.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyAtackedByEnemyDesire.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyAttackFormations.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotAITemplates.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorAttack.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorCurious.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorFollow.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorIdle.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorKamikadze.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorPanic.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorPatrol.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotBehaviorRunAway.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotCoordinator.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyBotDesire.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyCuriousDesire.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyDangerZones.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyFindSmallshipHelper.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyFlashedDesire.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyGotoLocationHelper.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyKillDesire.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyLowHealthDesire.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyPathfindingHelper.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MyRoutefindingHelper.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\AI\MySeeEnemyDesire.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\Config\MyReflectorConfig.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\Config\MySmallShipConfig.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\MyDrone.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\MyEnemyTargeting.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\MyLargeShip.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\MyShip.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\MySmallShip.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\MySmallShipBot.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\MySmallShipInteraction.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\SubObjects\MyCameraHeadShake.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\SubObjects\MyCameraSpring.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\SubObjects\MyCockpit.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\SubObjects\MyCockpitGlassEntity.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\SubObjects\MyCockpitWeapons.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\SubObjects\MyCubeBuilder.cs" />
+    <Compile Include="AppCode\Game\Entities\Ships\SubObjects\MySecondaryCamera.cs" />
+    <Compile Include="AppCode\Game\Entities\SpawnPoints\MySpawnPoint.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyContactDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyCrusherDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyCrusherDrillBit.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyDirectionalDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyDrillBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyDrillHead.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyHackingTool.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyHarvestingDevice.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyHarvestingHead.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyLaserDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyMedicine.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyNanoRepairToolBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyNanoRepairToolEntity.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyNanoRepairToolFoundationFactory.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyNanoRepairToolSmallShip.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyNuclearDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyPressureDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MySawDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\MyThermalDrill.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\ToolKits\MyToolKit.cs" />
+    <Compile Include="AppCode\Game\Entities\Tools\ToolKits\MyToolKits.cs" />
+    <Compile Include="AppCode\Game\Entities\WayPoints\MyWayPoint.cs" />
+    <Compile Include="AppCode\Game\Entities\WayPoints\MyWayPointGraph.cs" />
+    <Compile Include="AppCode\Game\Entities\WayPoints\MyWayPointPath.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyAmmoAssignment.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyAmmoBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyAmmoConstants.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyAmmoInventoryItems.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyCannonShot.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyCannonShots.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyMissile.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\MyMissiles.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyAsteroidKiller.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyDecoyFlare.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyDirectionalExplosive.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyEMPBomb.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyFlashBomb.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyGravityBomb.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyHologram.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyHologramShips.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyIlluminatingShell.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyMineBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyMineBasic.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyMineBioChem.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyMineSmart.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyRemoteBomb.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyRemoteCamera.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MySmokeBomb.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MySphereExplosive.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyTimeBomb.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyUniversalLauncher.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Ammo\UniversalLauncher\MyUniversalLauncherShells.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyAutocanonGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyAutomaticRifleSilencerGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyCannonGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyGunBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipAutocannon.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipBarrelBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipCIWS.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipGunBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipMachineGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipMissileLauncherBarrel.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipMissileLauncherGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyLargeShipWeaponPrediction.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyMachineGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyMissileLauncherGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MyShotGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MySmallShipGunBase.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Guns\MySniperGun.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\MySmallShipWeapons.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\MyWeaponSlot.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Projectile\MyProjectile.cs" />
+    <Compile Include="AppCode\Game\Entities\Weapons\Projectile\MyProjectiles.cs" />
+    <Compile Include="AppCode\Game\Explosions\MyExplosion.cs" />
+    <Compile Include="AppCode\Game\Explosions\MyExplosions.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\IMyGuiControlsParent.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\Listbox\MyGuiControlListboxDragAndDrop.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\Listbox\MyGuiControlListboxItem.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\Listbox\MyGuiControlListboxRow.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\Listbox\MyGuiControlListboxScrollBar.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyColoredText.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlBase.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlButton.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlCheckbox.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlColor.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlCombobox.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlLabel.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlList.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlListbox.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlMultilineText.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlPanel.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlParent.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlProgressBar.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlRadioButton.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlRotatingWheel.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControls.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlSelectAmmo.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlShipPreview.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlSlider.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlTabControl.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlTextbox.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlTreeView.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiControlWheelControl.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiFont.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiInput.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiLocalizedKeyboardState.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiManager.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiScreenBase.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiScreenLogo.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiScreenMasterServiceCallProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiScreenPerformanceWarning.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiScreenProgressBase.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiScreenProgressBaseAsync.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyGuiScreenSectorServiceCallProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyIconTexts.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\MyToolTips.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\RichTextLabel\MyRichLabel.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\RichTextLabel\MyRichLabelImage.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\RichTextLabel\MyRichLabelLine.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\RichTextLabel\MyRichLabelText.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\RichTextLabel\MyRichTextPart.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\TreeView\MyScrollbar.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\TreeView\MyTreeView.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\TreeView\MyTreeViewBase.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\TreeView\MyTreeViewBody.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\TreeView\MyTreeViewItem.cs" />
+    <Compile Include="AppCode\Game\GUI\Core\TreeView\MyTreeViewItemDragAndDrop.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugBase.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugBot.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugColors.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugDebris.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugDeveloper.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugDialogues.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugFillSector.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugGame.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugGlobalEvents.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugInput.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugPlayerCameraSpring.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugPlayerFriends.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugPlayerShake.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRender.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRenderGlobalFX.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRenderHDR.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRenderLights.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRenderModelFX.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRenderOptimizations.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRenderPruning.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugRenderSectorFX.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugShip.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugSmallShipWeaponsOffset.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugStatistics.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugSystem.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugTiming.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenDebugVolumetricSSAO.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenRenderModule.cs" />
+    <Compile Include="AppCode\Game\GUI\DebugScreens\MyGuiScreenRenderModules.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiAsteroidHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiAsteroidHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiContextMenuHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiContextMenuHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiContextMenuItemHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiControlEditLights.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiControlEditVoxelHand.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiEditorControlsBase.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiEditorVoxelHandHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiEditorVoxelHandHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiEventHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiEventHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiFoundationFactoryHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiGameControlsHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiGodEditorControls.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiHelperBase.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiInfluenceSphereHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiInfluenceSphereHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiIngameEditorControls.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiInventoryTemplateTypeHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiLargeShipHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiLargeShipHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiObjectBuilderHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiPrefabBuildTypeHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiPrefabCategoryTypeHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiPrefabHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiPrefabHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiPrefabSubCategoryTypeHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiScreenInventoryManagerForGame.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallDebrisHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallDebrisHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperAmmo.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperArmor.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperBlueprint.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperEngine.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperOre.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperRadar.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelpers.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperSmallShip.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperTool.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiSmallShipHelperWeapon.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyGuiVoxelMaterialHelper.cs" />
+    <Compile Include="AppCode\Game\GUI\Helpers\MyQuoteOfTheDay.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenCheats.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenChooseDifficulty.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenChoosePlay.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenDemoAccessInfo.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenEnterFriendSectorMap.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenEnterSectorMap.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenEnterSectorProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenFake.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenFlyThrough.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenGameChat.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenGameCredits.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenGameOver.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenGamePlay.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenGamePlay_World.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenGameScore.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenHelp.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenHostGame.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenInputString.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenIntroVideo.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenInventory.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenJoinGame.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenJournal.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenLoadChapter.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenLoadCheckpointProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenLoading.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenLoadSectorIdentifiersProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenLogin.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenLoginProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenLogoutProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenMainMenu.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenMessageBox.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenMission.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenMultiplayer.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenMultiplayerEnterGameRequest.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenOptions.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenOptionsAudio.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenOptionsControls.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenOptionsGame.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenOptionsVideo.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenProfile.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenProgressAsync.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenRegister.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenRegisterProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenRenameCheckpoint.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSaveCheckpoint.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSecurityControlHUB.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSelectEditor.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSelectSandboxProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSelectStory.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenShipCustomization.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSimpleProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSimpleProgressBar.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenSolarSystemMap.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenStartQuickLaunch.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenStartSessionProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenUnloading.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenUseProgressBar.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenUserInfo.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenWaiting.cs" />
+    <Compile Include="AppCode\Game\GUI\MyGuiScreenWaitingOnHost.cs" />
+    <Compile Include="AppCode\Game\GUI\Prefabs\MyGuiControlEntityUse.cs" />
+    <Compile Include="AppCode\Game\GUI\Prefabs\MyGuiControlPrefabAlarmUse.cs" />
+    <Compile Include="AppCode\Game\GUI\Prefabs\MyGuiControlPrefabCameraUse.cs" />
+    <Compile Include="AppCode\Game\GUI\Prefabs\MyGuiControlPrefabLargeWeaponUse.cs" />
+    <Compile Include="AppCode\Game\GUI\Prefabs\MyGuiControlPrefabUse.cs" />
+    <Compile Include="AppCode\Game\GUI\Prefabs\MyGuiSceenEntityUseBase.cs" />
+    <Compile Include="AppCode\Game\GUI\Prefabs\MyGuiScreenEntityUseSolo.cs" />
+    <Compile Include="AppCode\Game\GUI\PreviewRenderer\MyGuiPreviewRenderer.cs" />
+    <Compile Include="AppCode\Game\GUI\RichControls\MyGuiControlSize.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiControlUseProperties.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorCopyTool.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorCopyToolSelectSector.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorDialogBase.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorEditProperties.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorGroups.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorHelp.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorLoadGroup.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorLoadSectorObjectsProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorOptions.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorPrefabKinematicParts.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorRenameGroup.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorSaveProgress.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorSelectAndHide.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorSelectSector.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorSettingsFog.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorSettingsSun.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorWayPointList.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenEditorWayPointPath.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenSaveSector.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenSelectDeactivatedEntity.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\MyGuiScreenSmallShipTemplates.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorAsteroid.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorCargoBox.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorDummyPoint.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorInfluenceSphere.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorLargeShip.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorLargeWeapon.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorObject3DBase.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorPrefab.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorPrefabContainer.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorScanner.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorSecurityControlHUB.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorSmallShip.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorSpawnPoint.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEditorWaypoint.cs" />
+    <Compile Include="AppCode\Game\GUI\ScreenEditor\Object3D\MyGuiScreenEntityWithInventory.cs" />
+    <Compile Include="AppCode\Game\HUD\MyComputeGPSJob.cs" />
+    <Compile Include="AppCode\Game\HUD\MyEffectHudSectorBorder.cs" />
+    <Compile Include="AppCode\Game\HUD\MyHud.cs" />
+    <Compile Include="AppCode\Game\HUD\MyHudGPS.cs" />
+    <Compile Include="AppCode\Game\HUD\MyHudNotification.cs" />
+    <Compile Include="AppCode\Game\HUD\MyHudRadar.cs" />
+    <Compile Include="AppCode\Game\HUD\MyHudSectorBorder.cs" />
+    <Compile Include="AppCode\Game\HUD\MyHudText.cs" />
+    <Compile Include="AppCode\Game\HUD\MyHudWarning.cs" />
+    <Compile Include="AppCode\Game\Inventory\MyInventory.cs" />
+    <Compile Include="AppCode\Game\Inventory\MyInventoryItem.cs" />
+    <Compile Include="AppCode\Game\Inventory\MyInventoryItemsRepository.cs" />
+    <Compile Include="AppCode\Game\Inventory\MyInventorySynchronizer.cs" />
+    <Compile Include="AppCode\Game\Inventory\MyInventoryTemplate.cs" />
+    <Compile Include="AppCode\Game\Journal\MyEventLog.cs" />
+    <Compile Include="AppCode\Game\Journal\MyEventLogEntry.cs" />
+    <Compile Include="AppCode\Game\Lights\MyDirectionalLight.cs" />
+    <Compile Include="AppCode\Game\Lights\MyLight.cs" />
+    <Compile Include="AppCode\Game\Lights\MyLights.cs" />
+    <Compile Include="AppCode\Game\Localization\MyDialoguesWrapper.cs" />
+    <Compile Include="AppCode\Game\Localization\MyDialoguesWrapperGenerated.cs">
+      <DependentUpon>MyDialoguesWrapperGenerated.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="AppCode\Game\Localization\MyLanguagesEnum.cs" />
+    <Compile Include="AppCode\Game\Localization\MySubtitles.cs" />
+    <Compile Include="AppCode\Game\Localization\MyTextsWrapper.cs" />
+    <Compile Include="AppCode\Game\Localization\MyTextsWrapperGenerated.cs">
+      <DependentUpon>MyTextsWrapperGenerated.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="AppCode\Game\Managers\MyManager.cs" />
+    <Compile Include="AppCode\Game\Managers\MyResource.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MyBlinkingObjects.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MyDetectorDialogue.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MyHeadshake.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MyMinesField.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MyMovingEntity.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MySpawnpointLimiter.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MySpawnpointSmartWaves.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MySpawnpointWaves.cs" />
+    <Compile Include="AppCode\Game\Missions\Components\MyTimedDialogue.cs" />
+    <Compile Include="AppCode\Game\Missions\MyActorProgress.cs" />
+    <Compile Include="AppCode\Game\Missions\MyFriendlyFire.cs" />
+    <Compile Include="AppCode\Game\Missions\MyMission.cs" />
+    <Compile Include="AppCode\Game\Missions\MyMissionBase.cs" />
+    <Compile Include="AppCode\Game\Missions\MyMissionComponent.cs" />
+    <Compile Include="AppCode\Game\Missions\MyMissions.cs" />
+    <Compile Include="AppCode\Game\Missions\MyMissionSandboxBase.cs" />
+    <Compile Include="AppCode\Game\Missions\MyScriptWrapper.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyDestroyWavesObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyFollowHostObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyMeetObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyMultipleObjectives.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyMultipleUseObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveDefend.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveDestroy.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveDialog.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveDisablePrefabs.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveEnablePrefabs.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveEnterInventory.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveFollowBot.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveGetItems.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveGetToLocations.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveRace.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyObjectiveWatchSigns.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyTimedMeetObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyTimedObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyTimedReachLocationObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Objectives\MyUseObjective.cs" />
+    <Compile Include="AppCode\Game\Missions\Sandbox\MyHubShowcaseMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SideMissions\MySideMissionAssassination.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyAlienGateMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyArabianBorderMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyArabianCapitalMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyAsteroidComplexMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyAsteroidResearchFieldMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyAutonomousOutpostMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyBarthsMoonConvinceMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyBarthsMoonMissionBase.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyBarthsMoonPlantMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyBarthsMoonTransmitterMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyBiofacilityMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyChineseCapitalMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyChineseEscapeMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyChineseRefineryMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyChineseSolarArrayAttackMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyChineseTransmitterMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyChineseTransportMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyCKDMothershipFacilityMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyConvoyMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyDumpingGroundMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyEACCapitalMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyEACPrisonMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyEACSurveySiteMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyEACTransmitterMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyFactoryAmbushMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyFollowHostMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyForgottenFacilityMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyFortValiantMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyFortValiantMissionB.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyFortValiantMissionBase.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyFortValiantMissionC.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyGatesOfHellMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyHeliumMinesMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyHippieOutpostMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyIndustrialSectorMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyIntergalacticHighwayMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyIntroMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyJunkyardConvinceMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyJunkyardEACAmbushMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyJunkyardReturnMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyLaikaMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyLastHopeMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyMedina622Mission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyMilitaryOutpostMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyMinerUprisingMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyMothershipCrashMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyNewJerusalemMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyNewNanjingMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyNewSingaporeIndustryMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyPirateBaseMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyPlaygroundMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyPlutoniumMineMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyReichstagAMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyReichstagCMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyResearchVesselMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyRiftMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyRimeConvinceMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyRussianCapitalMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyRussianTransmitterMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyRussianWarehouseMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MySlaverBase2Mission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MySlaverBaseMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MySmallPirateBase2Mission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MySmallPirateBaseMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MySolarFactoryEACMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyStealthPlaygroundMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyTestAttackMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyTestMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyTradeStationChinaMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyTradeStationEACMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyTwinTowersMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyWhiteWolvesResearchMission.cs" />
+    <Compile Include="AppCode\Game\Missions\SinglePlayer\MyZombieLevelMission.cs" />
+    <Compile Include="AppCode\Game\Missions\Submissions\MyHarvestOreSubmission.cs" />
+    <Compile Include="AppCode\Game\Missions\Submissions\MySabotageSubmission.cs" />
+    <Compile Include="AppCode\Game\Missions\Submissions\MySubmissionGotoAny.cs" />
+    <Compile Include="AppCode\Game\Missions\Utils\MyCountdownTimer.cs" />
+    <Compile Include="AppCode\Game\Missions\Utils\MyEntityAnimator.cs" />
+    <Compile Include="AppCode\Game\Missions\Utils\MyItemToGetDefinition.cs" />
+    <Compile Include="AppCode\Game\Missions\Utils\MyMissionTimer.cs" />
+    <Compile Include="AppCode\Game\Models\IMyTriangePruningStructure.cs" />
+    <Compile Include="AppCode\Game\Models\MyMesh.cs" />
+    <Compile Include="AppCode\Game\Models\MyMeshMaterial.cs" />
+    <Compile Include="AppCode\Game\Models\MyModel.cs" />
+    <Compile Include="AppCode\Game\Models\MyModelObj .cs" />
+    <Compile Include="AppCode\Game\Models\MyModelOctree.cs" />
+    <Compile Include="AppCode\Game\Models\MyModelOctreeNode.cs" />
+    <Compile Include="AppCode\Game\Models\MyModels.cs" />
+    <Compile Include="AppCode\Game\Models\MyModelSubObjects.cs" />
+    <Compile Include="AppCode\Game\Models\MyModels_Data.cs" />
+    <Compile Include="AppCode\Game\MyOctree.cs" />
+    <Compile Include="AppCode\Game\Networking\MyClientServer.cs" />
+    <Compile Include="AppCode\Game\Networking\MyPlayerBase.cs" />
+    <Compile Include="AppCode\Game\Networking\MyPlayerLocal.cs" />
+    <Compile Include="AppCode\Game\Networking\MyPlayerRemote.cs" />
+    <Compile Include="AppCode\Game\Networking\MyPlayerStatistics.cs" />
+    <Compile Include="AppCode\Game\Physics\MyContactEventExtensions.cs" />
+    <Compile Include="AppCode\Game\Physics\MyPhysicsBody.cs" />
+    <Compile Include="AppCode\Game\Physics\MyPhysicsForceType.cs" />
+    <Compile Include="AppCode\Game\Prefabs\Container\MyPrefabContainer.cs" />
+    <Compile Include="AppCode\Game\Prefabs\Container\MyPrefabContainerManager.cs" />
+    <Compile Include="AppCode\Game\Prefabs\IMyUseableEntity.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefab.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabAlarm.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabBankNode.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabBase.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabCamera.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabConstants.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabFactory.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabFoundationFactory.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabGenerator.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabHangar.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabKinematic.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabKinematicPart.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabKinematicPartBase.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabKinematicRotatingPart.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabKinematicSensor.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabLamp.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabLargeShip.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabLargeWeapon.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabLight.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabParticles.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabScanner.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabSecurityControlHUB.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabSnapPoint.cs" />
+    <Compile Include="AppCode\Game\Prefabs\MyPrefabSound.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfiguration.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationAlarm.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationBankNode.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationCamera.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationFoundationFactory.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationGenerator.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationHangar.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationKinematic.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationKinematicPart.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationLargeShip.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationLargeWeapon.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationLight.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationParticles.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationScanner.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationSecurityControlHUB.cs" />
+    <Compile Include="AppCode\Game\Prefabs\PrefabConfigurations\MyPrefabConfigurationSound.cs" />
+    <Compile Include="AppCode\Game\Radar\MyDetectedObject.cs" />
+    <Compile Include="AppCode\Game\Radar\MyObjectToDetect.cs" />
+    <Compile Include="AppCode\Game\Radar\MyRadar.cs" />
+    <Compile Include="AppCode\Game\Render\EnvironmentMap\MyEnvironmentMap.cs" />
+    <Compile Include="AppCode\Game\Render\EnvironmentMap\MyEnvironmentMapRenderer.cs" />
+    <Compile Include="AppCode\Game\Render\MyRender-Content.cs" />
+    <Compile Include="AppCode\Game\Render\MyRender-Debug.cs" />
+    <Compile Include="AppCode\Game\Render\MyRender-Draw.cs" />
+    <Compile Include="AppCode\Game\Render\MyRender-Lights.cs" />
+    <Compile Include="AppCode\Game\Render\MyRender-Management.cs" />
+    <Compile Include="AppCode\Game\Render\MyRender.Alternative.cs" />
+    <Compile Include="AppCode\Game\Render\MyRender.cs" />
+    <Compile Include="AppCode\Game\Render\MyRenderConstants.cs" />
+    <Compile Include="AppCode\Game\Render\MySortedElements.Comparers.cs" />
+    <Compile Include="AppCode\Game\Render\MySortedElements.cs" />
+    <Compile Include="AppCode\Game\Render\MySortedElements.Models.cs" />
+    <Compile Include="AppCode\Game\Render\MySortedElements.Voxels.cs" />
+    <Compile Include="AppCode\Game\Render\PostProcesses\MyPostProcessAntiAlias.cs" />
+    <Compile Include="AppCode\Game\Render\PostProcesses\MyPostProcessBase.cs" />
+    <Compile Include="AppCode\Game\Render\PostProcesses\MyPostProcessContrast.cs" />
+    <Compile Include="AppCode\Game\Render\PostProcesses\MyPostProcessGodRays.cs" />
+    <Compile Include="AppCode\Game\Render\PostProcesses\MyPostProcessHDR.cs" />
+    <Compile Include="AppCode\Game\Render\PostProcesses\MyPostProcessVolumetricFog.cs" />
+    <Compile Include="AppCode\Game\Render\PostProcesses\MyPostProcessVolumetricSSAO2.cs" />
+    <Compile Include="AppCode\Game\Render\Scene\MyCullableRenderObject.cs" />
+    <Compile Include="AppCode\Game\Render\Scene\MyOcclusionQuery.cs" />
+    <Compile Include="AppCode\Game\Render\Scene\MyRenderObject.cs" />
+    <Compile Include="AppCode\Game\Render\SecondaryCamera\MySecondaryCameraRenderer.cs" />
+    <Compile Include="AppCode\Game\Render\Shadows\MyCastShadowJob.cs" />
+    <Compile Include="AppCode\Game\Render\Shadows\MyOrthographicCamera.cs" />
+    <Compile Include="AppCode\Game\Render\Shadows\MyPerspectiveCamera.cs" />
+    <Compile Include="AppCode\Game\Render\Shadows\MyRenderCamera.cs" />
+    <Compile Include="AppCode\Game\Render\Shadows\MyShadowRenderer.cs" />
+    <Compile Include="AppCode\Game\Render\Shadows\MyShadowRendererBase.cs" />
+    <Compile Include="AppCode\Game\Render\Shadows\MySpotShadowRenderer.cs" />
+    <Compile Include="AppCode\Game\Render\Statistics\MyRenderProfiler.cs" />
+    <Compile Include="AppCode\Game\Render\Statistics\MyRenderStatistics.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerConfiguration.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerExtensions.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.Entity.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.Join.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.Locking.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.Misc.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.Scripts.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.SmallShip.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerGameplay.Story.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerLobby.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyMultiplayerPeers.cs" />
+    <Compile Include="AppCode\Game\Sessions\Multiplayer\MyNatIntroduction.cs" />
+    <Compile Include="AppCode\Game\Sessions\MyDataCorruptedException.cs" />
+    <Compile Include="AppCode\Game\Sessions\MyMasterServerAction.cs" />
+    <Compile Include="AppCode\Game\Sessions\MyMotherShipPosition.cs" />
+    <Compile Include="AppCode\Game\Sessions\MySandboxSession.cs" />
+    <Compile Include="AppCode\Game\Sessions\MyServerAction.cs" />
+    <Compile Include="AppCode\Game\Sessions\MySession.cs" />
+    <Compile Include="AppCode\Game\Sessions\MySinglePlayerSession.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySectorGenerator.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySectorProperties.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemArea.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemAreaCircle.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemAreaOrbit.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemGenerator.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemMapCamera.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemMapData.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemRandomExtensions.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MySolarSystemUtils.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\MyTemplateGroups.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\Renderer\MySolarMapRenderer.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystem3rdTransmitterConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemAfterMarsConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemAsteroidBelt2Constants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemAsteroidBeltConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemChineseMinesConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemChineseRafineryConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemChineseSolarPlantConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemChineseTransmitterConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemEarthConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemHallConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemHell25DConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemJunkyardConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemJupiter2Constants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemJupiterBorderConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemJupiterConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemLaikaConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemMars3Constants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemMarsConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemMedina622Constants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemMercuryConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemNearSunConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemNebulaConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemNeptunConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemRimeConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemRussianTransmitterConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemSaturnConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemSkyConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemSlaverBaseConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemSlaversBase2Constants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemSmallPirateBase2Constants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemUranConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemValiantConstants.cs" />
+    <Compile Include="AppCode\Game\SolarSystem\SolarAreas\MySolarSystemVenusConstants.cs" />
+    <Compile Include="AppCode\Game\Textures\MyTexture.cs" />
+    <Compile Include="AppCode\Game\Textures\MyTexture2D.cs" />
+    <Compile Include="AppCode\Game\Textures\MyTextureCube.cs" />
+    <Compile Include="AppCode\Game\Textures\MyTextureManager.cs" />
+    <Compile Include="AppCode\Game\Trailer\MyTrailerLoad.cs" />
+    <Compile Include="AppCode\Game\Trailer\MyTrailerSave.cs" />
+    <Compile Include="AppCode\Game\Trailer\MyTrailerXml.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyBillboard.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyDebrisField.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyFlashes.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyIceComet.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyIceStorm.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyLightGlare.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyMeteorWind.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyNuclearExplosion.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyParticle.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyParticleEffects.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyParticlesDustField.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyRayCastOcclusionJob.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MySunGlare.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MySunWind.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyTransparentGeometry.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\MyTransparentMaterialConstants.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyAnimatedParticle.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyAnimatedProperty.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyAnimatedProperty2D.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyConstProperty.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyParticleEffect.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyParticleEmitter.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyParticleFactory.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyParticleGeneration.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyParticlesLibrary.cs" />
+    <Compile Include="AppCode\Game\TransparentGeometry\Particles\MyParticlesManager.cs" />
+    <Compile Include="AppCode\Game\Utils\MyBotDebugUtils.cs" />
+    <Compile Include="AppCode\Game\Utils\MyCamera.cs" />
+    <Compile Include="AppCode\Game\Utils\MyCameraZoomProperties.cs" />
+    <Compile Include="AppCode\Game\Utils\MyConfig.cs" />
+    <Compile Include="AppCode\Game\Utils\MyConstants.cs" />
+    <Compile Include="AppCode\Game\Utils\MyControl.cs" />
+    <Compile Include="AppCode\Game\Utils\MyCuboid.cs" />
+    <Compile Include="AppCode\Game\Utils\MyCustomGraphicsDeviceManagerDX.cs" />
+    <Compile Include="AppCode\Game\Utils\MyDDSFile.cs" />
+    <Compile Include="AppCode\Game\Utils\MyDebugDraw.cs" />
+    <Compile Include="AppCode\Game\Utils\MyDebugDrawCachedLines.cs" />
+    <Compile Include="AppCode\Game\Utils\MyDebugDrawCoordSystem.cs" />
+    <Compile Include="AppCode\Game\Utils\MyDebugDrawCurve.cs" />
+    <Compile Include="AppCode\Game\Utils\MyEnumToStrings.cs" />
+    <Compile Include="AppCode\Game\Utils\MyEnumToStringsGenerated.cs">
+      <DependentUpon>MyEnumToStringsGenerated.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="AppCode\Game\Utils\MyFakes.cs" />
+    <Compile Include="AppCode\Game\Utils\MyFullscreenQuad.cs" />
+    <Compile Include="AppCode\Game\Utils\MyGraphicTest.cs" />
+    <Compile Include="AppCode\Game\Utils\MyGridIntersection.cs" />
+    <Compile Include="AppCode\Game\Utils\MyIntersectionResultLineBoundingSphere.cs" />
+    <Compile Include="AppCode\Game\Utils\MyIntersectionResultLineTriangle.cs" />
+    <Compile Include="AppCode\Game\Utils\MyKeysToString.cs" />
+    <Compile Include="AppCode\Game\Utils\MyLineBatch.cs" />
+    <Compile Include="AppCode\Game\Utils\MyLoadingPerformance.cs" />
+    <Compile Include="AppCode\Game\Utils\MyMaterialConstants.cs" />
+    <Compile Include="AppCode\Game\Utils\MyMath.cs" />
+    <Compile Include="AppCode\Game\Utils\MyMemoryProfiler.cs" />
+    <Compile Include="AppCode\Game\Utils\MyMeshHelper.cs" />
+    <Compile Include="AppCode\Game\Utils\MyMissileHelperUtil.cs" />
+    <Compile Include="AppCode\Game\Utils\MyOrientedBoundingBox.cs" />
+    <Compile Include="AppCode\Game\Utils\MyPerformanceTests.cs" />
+    <Compile Include="AppCode\Game\Utils\MyPlugins.cs" />
+    <Compile Include="AppCode\Game\Utils\MyReflectionMethod.cs" />
+    <Compile Include="AppCode\Game\Utils\MyScreenshot.cs" />
+    <Compile Include="AppCode\Game\Utils\MyShipTypeConstants.cs" />
+    <Compile Include="AppCode\Game\Utils\MySimpleObjectDraw.cs" />
+    <Compile Include="AppCode\Game\Utils\MySmallShipArmorTypeConstants.cs" />
+    <Compile Include="AppCode\Game\Utils\MySmallShipEngineTypeConstants.cs" />
+    <Compile Include="AppCode\Game\Utils\MySpectator.cs" />
+    <Compile Include="AppCode\Game\Utils\MySpriteListVideoPlayer.cs" />
+    <Compile Include="AppCode\Game\Utils\MyStateObjects.cs" />
+    <Compile Include="AppCode\Game\Utils\MyStopwatch.cs" />
+    <Compile Include="AppCode\Game\Utils\MyStructs.cs" />
+    <Compile Include="AppCode\Game\Utils\MySystemTimer.cs" />
+    <Compile Include="AppCode\Game\Utils\MyTextureAtlas.cs" />
+    <Compile Include="AppCode\Game\Utils\MyThirdPersonSpectator.cs" />
+    <Compile Include="AppCode\Game\Utils\MyUtilRandomVector3ByDeviatingVector.cs" />
+    <Compile Include="AppCode\Game\Utils\MyUtils.cs" />
+    <Compile Include="AppCode\Game\Utils\MyVertexFormats.cs" />
+    <Compile Include="AppCode\Game\Utils\MyWindowsAPIWrapper.cs" />
+    <Compile Include="AppCode\Game\Utils\WM.cs" />
+    <Compile Include="AppCode\Game\VideoMode\MyVideoModeAntiAliasing.cs" />
+    <Compile Include="AppCode\Game\VideoMode\MyVideoModeAspectRatio.cs" />
+    <Compile Include="AppCode\Game\VideoMode\MyVideoModeManager.cs" />
+    <Compile Include="AppCode\Game\VideoMode\MyVideoModeStructs.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyDataCellStitcher.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyLocalVoxelTrianglesCache.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyMeshSimplifier.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelCacheCellRender.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelCacheCellRenderBatch.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelCacheCellRenderHelper.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelCacheData.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelContentCell.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelContentCellContent.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelContentCellContents.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelElement.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelFiles.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelGenerator.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelImport.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelMapOreDepositCell.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelMapOreMaterials.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelMaps.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelMaterial.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelMaterialCell.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelMaterials.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelPrecalc.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelPrecalcConstants.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelPrecalcTask.cs" />
+    <Compile Include="AppCode\Game\Voxels\MyVoxelPrecalcWork.cs" />
+    <Compile Include="AppCode\Game\World\Global\MyActorConstants.cs" />
+    <Compile Include="AppCode\Game\World\Global\MyFactionConstants.cs" />
+    <Compile Include="AppCode\Game\World\Global\MyFactions.cs" />
+    <Compile Include="AppCode\Game\World\Global\MyGamePlayCheats.cs" />
+    <Compile Include="AppCode\Game\World\Global\MyGamePlayConstants.cs" />
+    <Compile Include="AppCode\Game\World\Global\MyGameWorld.cs" />
+    <Compile Include="AppCode\Game\World\Global\MySecretRooms.cs" />
+    <Compile Include="AppCode\Game\World\MyPlayer.cs" />
+    <Compile Include="AppCode\Game\World\MyPlayerFriends.cs" />
+    <Compile Include="AppCode\Game\World\MySector.cs" />
+    <Compile Include="AppCode\Networking\MasterService\MyMasterServiceClient.cs" />
+    <Compile Include="AppCode\Networking\MyLocalCache.cs" />
+    <Compile Include="AppCode\Networking\MySteam.cs" />
+    <Compile Include="AppCode\Networking\MySteamStats.cs" />
+    <Compile Include="AppCode\Networking\SectorService\MyLoggingBehavior.cs" />
+    <Compile Include="AppCode\Networking\SectorService\MySectorServerCallback.cs" />
+    <Compile Include="AppCode\Networking\SectorService\MySectorServiceClient.cs" />
+    <Compile Include="AppCode\Networking\SectorService\MyServiceException.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyBoxBoxInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyBoxBoxSensorInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyBoxCapsuleInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyBoxOtherSensorInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyBoxSphereSensorInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyBoxTriangleMeshInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyBoxVoxelInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyCapsuleCapsuleInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyCapsuleTriangleMeshInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyCapsuleVoxelInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyElementInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyInteractionInfo.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyRBInteractionModule.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySensorInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereBoxInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereBoxSensorInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereCapsuleInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereOtherSensorInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereSphereInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereSphereSensorInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereTriangleMeshInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MySphereVoxelInteraction.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyTriangle.cs" />
+    <Compile Include="AppCode\Physics\Collisions\Interactions\MyTriangleCache.cs" />
+    <Compile Include="AppCode\Physics\Collisions\MyElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\MyElementDesc.cs" />
+    <Compile Include="AppCode\Physics\Collisions\MyFiltering.cs" />
+    <Compile Include="AppCode\Physics\Collisions\MyGroupMask.cs" />
+    <Compile Include="AppCode\Physics\Collisions\MyLineSegmentOverlapResult.cs" />
+    <Compile Include="AppCode\Physics\Collisions\MyQuantizedBvhAdapter.cs" />
+    <Compile Include="AppCode\Physics\Collisions\MyQuantizedBvhResult.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\MyRBElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\MyRBElementDefs.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\MyRBElementDesc.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\MyRBMaterial.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\Types\Geometry\MyBox.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\Types\MyRBBoxElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\Types\MyRBCapsuleElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\Types\MyRBSphereElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\Types\MyRBTriangleMeshElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\RBElements\Types\MyRBVoxelElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\SensorElements\MyBoxSensorElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\SensorElements\MySensorElement.cs" />
+    <Compile Include="AppCode\Physics\Collisions\SensorElements\MySensorElementDefs.cs" />
+    <Compile Include="AppCode\Physics\Collisions\SensorElements\MySensorElementDesc.cs" />
+    <Compile Include="AppCode\Physics\Collisions\SensorElements\MySphereSensorElement.cs" />
+    <Compile Include="AppCode\Physics\Core\Broadphase\MyBroadphase.cs" />
+    <Compile Include="AppCode\Physics\Core\Broadphase\MyDAABBTreeBp.cs" />
+    <Compile Include="AppCode\Physics\Core\Modules\MyContactConstraintModule.cs" />
+    <Compile Include="AppCode\Physics\Core\Modules\MyRigidBodyModule.cs" />
+    <Compile Include="AppCode\Physics\Core\Modules\MySensorInteractionModule.cs" />
+    <Compile Include="AppCode\Physics\Core\Modules\MySensorModule.cs" />
+    <Compile Include="AppCode\Physics\Core\MyPhysics.cs" />
+    <Compile Include="AppCode\Physics\Core\MyPhysicsConfig.cs" />
+    <Compile Include="AppCode\Physics\Core\MyPhysicsObjects.cs" />
+    <Compile Include="AppCode\Physics\Core\MySimulationHandler.cs" />
+    <Compile Include="AppCode\Physics\Core\Prunning\MyDynamicAABBTree.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\Constaints\MyRBConstraint.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\Constaints\MyRBContactConstraint.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\Constaints\MyRBSolverConstraint.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\MyRBIslandGeneration.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\MyRBIslandNSolver.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\MyRBIslandSleepState.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\MyRBSolverBody.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\Base\MyRigidBodyIsland.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MyContactEventHandler.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MyContactModifyEventHandler.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MyRigidBody.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MyRigidBodyDefs.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MyRigidBodyDesc.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MyRigidBodyEvent.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MySensor.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MySensorDesc.cs" />
+    <Compile Include="AppCode\Physics\Dynamics\MySensorEventHandler.cs" />
+    <Compile Include="AppCode\Physics\Utils\MyBoundingBoxHelper.cs" />
+    <Compile Include="AppCode\Physics\Utils\MyDistance.cs" />
+    <Compile Include="AppCode\Physics\Utils\MyElementHelper.cs" />
+    <Compile Include="AppCode\Physics\Utils\MyPhysUtils.cs" />
+    <Compile Include="AppCode\Physics\Utils\MyRingBuffer.cs" />
+    <Compile Include="AppCode\Physics\Utils\MySegment.cs" />
+    <Compile Include="AppCode\Physics\Utils\MyTransform.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsBugWO.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsControl.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsCore.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsDevice.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsDVD.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsExtend.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsUtils.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\DsUuids.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\QEdit.cs" />
+    <Compile Include="AppCode\Toolkit\DShow\VideoPlayer.cs" />
+    <Compile Include="AppCode\Toolkit\Game.cs" />
+    <Compile Include="AppCode\Toolkit\GameGraphicsParameters.cs" />
+    <Compile Include="AppCode\Toolkit\GamePlatform.cs" />
+    <Compile Include="AppCode\Toolkit\GamePlatformDesktop.cs" />
+    <Compile Include="AppCode\Toolkit\GameTime.cs" />
+    <Compile Include="AppCode\Toolkit\GameWindow.cs" />
+    <Compile Include="AppCode\Toolkit\GameWindowDesktop.cs" />
+    <Compile Include="AppCode\Toolkit\GameWindowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AppCode\Toolkit\GraphicsDeviceInformation.cs" />
+    <Compile Include="AppCode\Toolkit\GraphicsDeviceManager.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\BlendState.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\DepthStencilState.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\GraphicsAdapter.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\GraphicsResource.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\RasterizerState.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\SamplerState.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\SpriteBatch.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\SpriteEffects.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\SpriteFont.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\SpriteFontContentReader.cs" />
+    <Compile Include="AppCode\Toolkit\Graphics\SpriteSortMode.cs" />
+    <Compile Include="AppCode\Toolkit\Input\Keys.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyHidInputArgs.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyKeyboardBuffer.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyKeyboardInputArgs.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyKeyboardState.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyKeyTranslationTable.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyMouseInputArgs.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyMouseState.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyRawInput.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyWindowsKeyboard.cs" />
+    <Compile Include="AppCode\Toolkit\Input\MyWindowsMouse.cs" />
+    <Compile Include="AppCode\Toolkit\Input\RawHid.cs" />
+    <Compile Include="AppCode\Toolkit\Input\RawInput.cs" />
+    <Compile Include="AppCode\Toolkit\Input\RawInputHeader.cs" />
+    <Compile Include="AppCode\Toolkit\Input\RawInputInner0.cs" />
+    <Compile Include="AppCode\Toolkit\Input\RawKeyboard.cs" />
+    <Compile Include="AppCode\Toolkit\Input\RawMouse.cs" />
+    <Compile Include="AppCode\Toolkit\PreparingDeviceSettingsEventArgs.cs" />
+    <Compile Include="AppCode\Toolkit\SharpDXHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\MyDialogues.Designer.cs">
+      <DependentUpon>MyDialogues.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\MyTexts.Designer.cs">
+      <DependentUpon>MyTexts.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Service References\AppCode.Networking.MasterService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AppCode.Networking.SectorService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Microsoft.Xna.Framework.Vector3.datasource" />
+    <None Include="Properties\DataSources\MinerWars.CommonLIB.AppCode.Networking.MyMwcSectorIdentifier.datasource" />
+    <None Include="Properties\DataSources\MinerWars.CommonLIB.AppCode.Networking.MyMwcUserDetail.datasource" />
+    <None Include="Properties\DataSources\System.Net.IPEndPoint.datasource" />
+    <None Include="Service References\AppCode.Networking.MasterService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.MasterService\MinerWars.CommonLIB.AppCode.Networking.Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.MasterService\MinerWars.CommonLIB.AppCode.Networking.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.MasterService\MinerWars.MasterServerLIB.MasterService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.MasterService\service.wsdl" />
+    <None Include="Service References\AppCode.Networking.MasterService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.MasterService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\Microsoft.Xna.Framework.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\MinerWars.AppCode.Networking.SectorService.ExportInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\MinerWars.AppCode.Networking.SectorService.MyUserInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\MinerWars.CommonLIB.AppCode.Networking.Services.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\MinerWars.CommonLIB.AppCode.Networking.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\MinerWars.CommonLIB.AppCode.Utils.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\SectorServerLIB.SectorService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\service.wsdl" />
+    <None Include="Service References\AppCode.Networking.SectorService\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AppCode.Networking.SectorService\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AppCode\Game\Localization\MyDialoguesWrapperGenerated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MyDialoguesWrapperGenerated.cs</LastGenOutput>
+    </None>
+    <None Include="AppCode\Game\Localization\MyTextsWrapperGenerated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MyTextsWrapperGenerated.cs</LastGenOutput>
+    </None>
+    <None Include="AppCode\Game\Utils\MyEnumToStringsGenerated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MyEnumToStringsGenerated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLIB\MinerWarsCommonLIB.csproj">
+      <Project>{2C96F0AB-7962-4B73-A075-B0E0B09F6195}</Project>
+      <Name>MinerWarsCommonLIB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Trace\Library.Trace.csproj">
+      <Project>{8E36615C-ACDA-4002-BF65-8032577E754C}</Project>
+      <Name>Library.Trace</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{26FE022E-42AB-40BE-BA9D-97CBE34E7D99}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MinerWars.GameServices\MinerWars.GameServices.csproj">
+      <Project>{7B22B556-B0CD-4EA0-A638-1F33975C7764}</Project>
+      <Name>MinerWars.GameServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MinerWarsMath\MinerWarsMath.csproj">
+      <Project>{40CE67D5-C89F-4A56-AE52-85DB1BEA07FE}</Project>
+      <Name>MinerWarsMath</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MinerWarsPluginAPI\MinerWarsPluginAPI.csproj">
+      <Project>{5609DC59-63E9-4262-90BB-4E31329244B1}</Project>
+      <Name>MinerWarsPluginAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ParallelTasks\ParallelTasks.csproj">
+      <Project>{D0B69D3D-70AD-4C7C-BEFB-AFF902AB9BD2}</Project>
+      <Name>ParallelTasks</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AppCode.Networking.MasterService\" />
+    <WCFMetadataStorage Include="Service References\AppCode.Networking.SectorService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AppCode.Networking.MasterService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AppCode.Networking.MasterService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AppCode.Networking.MasterService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AppCode.Networking.SectorService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AppCode.Networking.SectorService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AppCode.Networking.SectorService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\MyDialogues.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MyDialogues.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MyTexts.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MyTexts.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets. -->
+  <Target Name="BeforeBuild">
+    <Exec Command="echo %time% Running templates..." />
+    <Exec Command="RunTemplate.bat $(ProjectDir)AppCode\Game\Localization\MyTextsWrapperGenerated" />
+    <Exec Command="RunTemplate.bat $(ProjectDir)AppCode\Game\Localization\MyDialoguesWrapperGenerated" />
+    <Exec Command="RunTemplate.bat $(ProjectDir)AppCode\Game\Utils\MyEnumToStringsGenerated" />
+    <Exec Command="echo %time% Templates completed" />
+  </Target>
+</Project>

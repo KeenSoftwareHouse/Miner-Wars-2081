@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SectorServerLIB.SectorService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SectorServerLIB.SectorService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfExportInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ExportInfo" type="tns:ExportInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfExportInfo" nillable="true" type="tns:ArrayOfExportInfo" />
+  <xs:complexType name="ExportInfo">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" minOccurs="0" name="SectorId" type="q1:MyMwcSectorIdentifier" />
+      <xs:element minOccurs="0" name="Version" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ExportInfo" nillable="true" type="tns:ExportInfo" />
+  <xs:complexType name="MyUserInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdditionalInfo" nillable="true" type="tns:MyAdditionalUserInfo" />
+      <xs:element minOccurs="0" name="CanAccess25D" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CanAccessDemo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CanAccessEditorForMMO" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CanAccessEditorForStory" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CanAccessMMO" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CanSave" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CanUseCheats" type="xs:boolean" />
+      <xs:element minOccurs="0" name="DisplayName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HasAnyCheckpoints" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyUserInfo" nillable="true" type="tns:MyUserInfo" />
+  <xs:complexType name="MyAdditionalUserInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AffiliateUniqueClicks" type="xs:int" />
+      <xs:element minOccurs="0" name="AffiliateUrlRegistrations" type="xs:int" />
+      <xs:element minOccurs="0" name="Age" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Contributions" type="xs:float" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ForumPosts" type="xs:int" />
+      <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="LastGameLogin" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastWebsiteLogin" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="QualificationPoinsts" type="xs:float" />
+      <xs:element minOccurs="0" name="Registered" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyAdditionalUserInfo" nillable="true" type="tns:MyAdditionalUserInfo" />
+</xs:schema>

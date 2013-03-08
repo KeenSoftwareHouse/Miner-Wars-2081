@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Utils" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="MyMwcSectorIdentifier">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Utils" minOccurs="0" name="Position" type="q1:MyMwcVector3Int" />
+      <xs:element minOccurs="0" name="SectorName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SectorType" type="tns:MyMwcSectorTypeEnum" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyMwcSectorIdentifier" nillable="true" type="tns:MyMwcSectorIdentifier" />
+  <xs:simpleType name="MyMwcSectorTypeEnum">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="short" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="STORY">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MMO">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SANDBOX">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyMwcSectorTypeEnum" nillable="true" type="tns:MyMwcSectorTypeEnum" />
+  <xs:complexType name="ArrayOfMyMwcSectorIdentifier">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MyMwcSectorIdentifier" type="tns:MyMwcSectorIdentifier" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMyMwcSectorIdentifier" nillable="true" type="tns:ArrayOfMyMwcSectorIdentifier" />
+  <xs:simpleType name="MyMwcSelectSectorRequestTypeEnum">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RANDOM_FRIENDS" />
+      <xs:enumeration value="FIND_BY_PLAYER_NAME" />
+      <xs:enumeration value="FIND_BY_PLAYER_NAME_FULLTEXT" />
+      <xs:enumeration value="STORY" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyMwcSelectSectorRequestTypeEnum" nillable="true" type="tns:MyMwcSelectSectorRequestTypeEnum" />
+  <xs:complexType name="ArrayOfMyMwcUserDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MyMwcUserDetail" type="tns:MyMwcUserDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMyMwcUserDetail" nillable="true" type="tns:ArrayOfMyMwcUserDetail" />
+  <xs:complexType name="MyMwcUserDetail">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DisplayName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyMwcUserDetail" nillable="true" type="tns:MyMwcUserDetail" />
+  <xs:simpleType name="MyMwcSessionStateEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NEW_GAME">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LOAD_CHECKPOINT">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="JOIN_GAME">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="EDITOR">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyMwcSessionStateEnum" nillable="true" type="tns:MyMwcSessionStateEnum" />
+  <xs:simpleType name="MyMwcTravelTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NEIGHBOUR">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="SOLAR">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyMwcTravelTypeEnum" nillable="true" type="tns:MyMwcTravelTypeEnum" />
+  <xs:simpleType name="MyMwcLeaveSectorReasonEnum">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LOGOUT" />
+      <xs:enumeration value="EXIT_TO_MAIN_MENU" />
+      <xs:enumeration value="TRAVEL" />
+      <xs:enumeration value="RELOAD" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyMwcLeaveSectorReasonEnum" nillable="true" type="tns:MyMwcLeaveSectorReasonEnum" />
+  <xs:simpleType name="MyMwcVoxelMaterialsEnum">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Indestructible_01" />
+      <xs:enumeration value="Indestructible_02" />
+      <xs:enumeration value="Treasure_01" />
+      <xs:enumeration value="Treasure_02" />
+      <xs:enumeration value="Iron_01" />
+      <xs:enumeration value="Iron_02" />
+      <xs:enumeration value="Helium3_01" />
+      <xs:enumeration value="Helium4_01" />
+      <xs:enumeration value="Stone_01" />
+      <xs:enumeration value="Stone_02" />
+      <xs:enumeration value="Stone_03" />
+      <xs:enumeration value="Stone_04" />
+      <xs:enumeration value="Stone_05" />
+      <xs:enumeration value="Stone_06" />
+      <xs:enumeration value="Stone_07" />
+      <xs:enumeration value="Stone_08" />
+      <xs:enumeration value="Indestructible_03" />
+      <xs:enumeration value="Stone_10" />
+      <xs:enumeration value="Indestructible_04" />
+      <xs:enumeration value="Indestructible_05_Craters_01" />
+      <xs:enumeration value="Stone_13_Wall_01" />
+      <xs:enumeration value="Ice_01" />
+      <xs:enumeration value="Gold_01" />
+      <xs:enumeration value="Silver_01" />
+      <xs:enumeration value="Organic_01" />
+      <xs:enumeration value="Nickel_01" />
+      <xs:enumeration value="Magnesium_01" />
+      <xs:enumeration value="Platinum_01" />
+      <xs:enumeration value="Uranite_01" />
+      <xs:enumeration value="Silicon_01" />
+      <xs:enumeration value="Cobalt_01" />
+      <xs:enumeration value="Snow_01" />
+      <xs:enumeration value="Lava_01" />
+      <xs:enumeration value="Concrete_01" />
+      <xs:enumeration value="Concrete_02" />
+      <xs:enumeration value="Sandstone_01" />
+      <xs:enumeration value="Stone_Red" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyMwcVoxelMaterialsEnum" nillable="true" type="tns:MyMwcVoxelMaterialsEnum" />
+</xs:schema>

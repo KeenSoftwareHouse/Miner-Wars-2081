@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharpDX.Toolkit.CompilerTask</name>
+    </assembly>
+    <members>
+        <member name="T:SharpDX.Toolkit.EffectCompilerTask">
+            <summary>
+            TODO: COMMENT THIS CODE
+            </summary>
+        </member>
+        <member name="T:SharpDX.Toolkit.EffectCompilerDependencyTask">
+            <summary>
+            TODO: COMMENT THIS CODE
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWars.GameLib", "Sources\MinerWars.GameLib\MinerWars.GameLib.csproj", "{F2AA32D9-F560-4DEF-BBF2-3DCCF4B17320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWarsCommonLIB", "Sources\CommonLIB\MinerWarsCommonLIB.csproj", "{2C96F0AB-7962-4B73-A075-B0E0B09F6195}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Sources\Library\Library.csproj", "{26FE022E-42AB-40BE-BA9D-97CBE34E7D99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWarsMath", "Sources\MinerWarsMath\MinerWarsMath.csproj", "{40CE67D5-C89F-4A56-AE52-85DB1BEA07FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.Trace", "Sources\Library.Trace\Library.Trace.csproj", "{8E36615C-ACDA-4002-BF65-8032577E754C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWarsPluginAPI", "Sources\MinerWarsPluginAPI\MinerWarsPluginAPI.csproj", "{5609DC59-63E9-4262-90BB-4E31329244B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelTasks", "Sources\ParallelTasks\ParallelTasks.csproj", "{D0B69D3D-70AD-4C7C-BEFB-AFF902AB9BD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWars.GameServices", "Sources\MinerWars.GameServices\MinerWars.GameServices.csproj", "{7B22B556-B0CD-4EA0-A638-1F33975C7764}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2AA32D9-F560-4DEF-BBF2-3DCCF4B17320}.Debug|x86.ActiveCfg = Debug|x86
+		{F2AA32D9-F560-4DEF-BBF2-3DCCF4B17320}.Debug|x86.Build.0 = Debug|x86
+		{F2AA32D9-F560-4DEF-BBF2-3DCCF4B17320}.Release|x86.ActiveCfg = Release|x86
+		{F2AA32D9-F560-4DEF-BBF2-3DCCF4B17320}.Release|x86.Build.0 = Release|x86
+		{2C96F0AB-7962-4B73-A075-B0E0B09F6195}.Debug|x86.ActiveCfg = Debug|x86
+		{2C96F0AB-7962-4B73-A075-B0E0B09F6195}.Debug|x86.Build.0 = Debug|x86
+		{2C96F0AB-7962-4B73-A075-B0E0B09F6195}.Release|x86.ActiveCfg = Release|x86
+		{2C96F0AB-7962-4B73-A075-B0E0B09F6195}.Release|x86.Build.0 = Release|x86
+		{26FE022E-42AB-40BE-BA9D-97CBE34E7D99}.Debug|x86.ActiveCfg = Debug|x86
+		{26FE022E-42AB-40BE-BA9D-97CBE34E7D99}.Debug|x86.Build.0 = Debug|x86
+		{26FE022E-42AB-40BE-BA9D-97CBE34E7D99}.Release|x86.ActiveCfg = Release|x86
+		{26FE022E-42AB-40BE-BA9D-97CBE34E7D99}.Release|x86.Build.0 = Release|x86
+		{40CE67D5-C89F-4A56-AE52-85DB1BEA07FE}.Debug|x86.ActiveCfg = Debug|x86
+		{40CE67D5-C89F-4A56-AE52-85DB1BEA07FE}.Debug|x86.Build.0 = Debug|x86
+		{40CE67D5-C89F-4A56-AE52-85DB1BEA07FE}.Release|x86.ActiveCfg = Release|x86
+		{40CE67D5-C89F-4A56-AE52-85DB1BEA07FE}.Release|x86.Build.0 = Release|x86
+		{8E36615C-ACDA-4002-BF65-8032577E754C}.Debug|x86.ActiveCfg = Debug|x86
+		{8E36615C-ACDA-4002-BF65-8032577E754C}.Debug|x86.Build.0 = Debug|x86
+		{8E36615C-ACDA-4002-BF65-8032577E754C}.Release|x86.ActiveCfg = Release|x86
+		{8E36615C-ACDA-4002-BF65-8032577E754C}.Release|x86.Build.0 = Release|x86
+		{5609DC59-63E9-4262-90BB-4E31329244B1}.Debug|x86.ActiveCfg = Debug|x86
+		{5609DC59-63E9-4262-90BB-4E31329244B1}.Debug|x86.Build.0 = Debug|x86
+		{5609DC59-63E9-4262-90BB-4E31329244B1}.Release|x86.ActiveCfg = Release|x86
+		{5609DC59-63E9-4262-90BB-4E31329244B1}.Release|x86.Build.0 = Release|x86
+		{D0B69D3D-70AD-4C7C-BEFB-AFF902AB9BD2}.Debug|x86.ActiveCfg = Debug|x86
+		{D0B69D3D-70AD-4C7C-BEFB-AFF902AB9BD2}.Debug|x86.Build.0 = Debug|x86
+		{D0B69D3D-70AD-4C7C-BEFB-AFF902AB9BD2}.Release|x86.ActiveCfg = Release|x86
+		{D0B69D3D-70AD-4C7C-BEFB-AFF902AB9BD2}.Release|x86.Build.0 = Release|x86
+		{7B22B556-B0CD-4EA0-A638-1F33975C7764}.Debug|x86.ActiveCfg = Debug|x86
+		{7B22B556-B0CD-4EA0-A638-1F33975C7764}.Debug|x86.Build.0 = Debug|x86
+		{7B22B556-B0CD-4EA0-A638-1F33975C7764}.Release|x86.ActiveCfg = Release|x86
+		{7B22B556-B0CD-4EA0-A638-1F33975C7764}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

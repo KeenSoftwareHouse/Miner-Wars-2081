@@ -1,0 +1,7 @@
+FXAA - Copyright (c) 2010 NVIDIA Corporation. All rights reserved.
+Lidgren networking library - Copyright (c) 2010 Michael Lidgren
+StringBuilderExt - Copyright (c) Gavin Pugh 2010 - Released under the zlib license
+SharpDX - Copyright (c) 2010-2012 SharpDX - Alexandre Mutel
+Parallel Tasks - Microsoft Public License (Ms-PL), http://paralleltasks.codeplex.com/
+Perlin's Improved Noise - http://mrl.nyu.edu/~perlin/noise/, http://mrl.nyu.edu/~perlin/paper445.pdf, sgg 6/26/04
+Trace Tool - Common Public License Version 1.0 (CPL), http://www.codeproject.com/Articles/5498/TraceTool-12-4-The-Swiss-Army-Knife-of-Trace

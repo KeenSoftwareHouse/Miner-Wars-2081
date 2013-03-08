@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MinerWars.MasterServerLIB.MasterService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MinerWars.MasterServerLIB.MasterService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" />
+  <xs:complexType name="MyRegistrationFault">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" minOccurs="0" name="ErrorCode" type="q1:MyMwcRegisterResponseResultEnum" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyRegistrationFault" nillable="true" type="tns:MyRegistrationFault" />
+  <xs:complexType name="MySteamFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SteamFaultCode" type="tns:SteamFaultCode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MySteamFault" nillable="true" type="tns:MySteamFault" />
+  <xs:simpleType name="SteamFaultCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="InvalidTicket" />
+      <xs:enumeration value="InvalidUsernameAndPassword" />
+      <xs:enumeration value="NotRegistered" />
+      <xs:enumeration value="SerialKeyIsNotAssignedToAccount" />
+      <xs:enumeration value="AlreadyRegistered" />
+      <xs:enumeration value="SerialKeyNotFound" />
+      <xs:enumeration value="SerialKeyProductIsInvalid" />
+      <xs:enumeration value="SerialKeyAlreadyUsed" />
+      <xs:enumeration value="SerialKeyDeleted" />
+      <xs:enumeration value="NoMW1ProductsOwned" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SteamFaultCode" nillable="true" type="tns:SteamFaultCode" />
+</xs:schema>

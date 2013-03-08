@@ -1,0 +1,1777 @@
+﻿//-----------------------------------------------------------------------
+// <copyright file="MyEntity.cs" company="Keen Software House">
+//     Copyright (c) Keen Software House 2011. All rights reserved.
+// </copyright>
+// <author>Ondřej Štorek</author>
+//-----------------------------------------------------------------------
+
+namespace MinerWars.AppCode.Game.Managers.EntityManager.Entities
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Reflection;
+    using System.Runtime.Serialization;
+    using System.Text;
+    using Audio;
+    using CommonLIB.AppCode.ObjectBuilders;
+    using CommonLIB.AppCode.ObjectBuilders.Object3D;
+    using CommonLIB.AppCode.Utils;
+    using GUI;
+    using KeenSoftwareHouse.Library.Collections;
+    using KeenSoftwareHouse.Library.Remoting;
+    using KeenSoftwareHouse.Library.Extensions;
+    using Microsoft.Xna.Framework;
+    using Models;
+    using Notifications;
+    using Physics; //TODO: Get rid of direct physics usage.
+    using PhysicsManager.Physics;
+    using SysUtils;
+    using Utils;
+    using Render;
+    using HUD;
+    using MinerWarsCustomContentImporters;
+
+    /// <summary>
+    /// Enumeration flags
+    /// </summary>
+    [Flags]
+    public enum EnumerationFlags
+    {
+        /// <summary>
+        /// No flags
+        /// </summary>
+        None = 1 << 0,
+
+        /// <summary>
+        /// Enumerate also all sub-children.
+        /// </summary>
+        Hierarchically = 1 << 1,
+    }
+
+    /// <summary>
+    /// Abstract engine entity object representing non-mass point object in space.
+    /// Resources can extend this object and give it purpose. Game entities inherites directly from this class.
+    /// </summary>
+    [RemoContract("Entity")]
+    internal abstract class MyEntity : MyResource, IMyNotifyEntityChanged, INotifyMemberChanged, IMyEditableEntity
+    {
+        #region Enums
+        
+        /// <summary>
+        /// Entity flags.
+        /// </summary>
+        [Flags]
+        private enum EntityFlags
+        {
+            /// <summary>
+            /// No flags
+            /// </summary>
+            None = 1 << 0,
+
+            /// <summary>
+            /// Specified that position changed and all dependent values should be recalculated.
+            /// </summary>
+            PositionDirty = 1 << 1,
+
+            /// <summary>
+            /// Specifies that volume is dirty and should be recalculated in parents.
+            /// </summary>
+            VolumeDirty = 1 << 2,
+            
+            /// <summary>
+            /// Draw also all chidren of this entity.
+            /// TODO: Temporary flag. To be removed when everybody use Children collection.
+            /// </summary>
+            DrawChildren = 1 << 3,
+
+            /// <summary>
+            /// Specifies whether draw this entity or not.
+            /// </summary>
+            Visible = 1 << 4
+        }
+
+        #endregion
+
+        #region Constants
+
+        private static readonly MemberInfo LocalMatrixMember = MemberHelper<MyEntity>.GetMember(i => i.localMatrix);
+        private static readonly MemberInfo WorldMatrixMember = MemberHelper<MyEntity>.GetMember(i => i.worldMatrix);
+
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        /// Internal world matrix of entity.
+        /// </summary>
+        [Remoting(1, User, DenyPolicy = DenyPolicy.Cache)]
+        private Matrix worldMatrix;
+
+        /// <summary>
+        /// Internal local matrix relative to parent of entity.
+        /// </summary>
+        [Remoting(2, User, DenyPolicy = DenyPolicy.Cache)]
+        private Matrix localMatrix;
+
+        /// <summary>
+        /// Gets the childs collection.
+        /// </summary>
+        [Remoting(3, User)]
+        private readonly ObservableCollection<MyEntity> children;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private Vector3 localVolumeOffset;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private BoundingSphere localVolume;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private BoundingSphere worldVolume;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// World matrix of this physic object. Use it whenever you want to do world-matrix transformations with this physic objects.
+        /// </summary>
+        public Matrix WorldMatrix
+        {
+            get { return this.worldMatrix; }
+            set { SetWorldMatrix(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the local matrix.
+        /// </summary>
+        /// <value>
+        /// The local matrix.
+        /// </value>
+        public Matrix LocalMatrix
+        {
+            get { return this.localMatrix; }
+            set { SetLocalMatrix(value); }
+        }
+
+        /// <summary>
+        /// Gets the world volume.
+        /// </summary>
+        public BoundingSphere WorldVolume
+        {
+            get { return worldVolume; }
+        }
+
+        /// <summary>
+        /// Gets the hiearchical volume in world.
+        /// </summary>
+        public BoundingSphere WorldVolumeHr
+        {
+            get
+            {
+                BoundingSphere sphere = new BoundingSphere();
+
+                UpdateVolumeHr(ref sphere);
+                
+                return sphere;
+            }
+        }
+
+        /// <summary>
+        /// Sets the local volume.
+        /// </summary>
+        /// <value>
+        /// The local volume.
+        /// </value>
+        public BoundingSphere LocalVolume
+        {
+            set
+            {
+                localVolume = value;
+                
+                UpdateWorldVolume();
+
+                NotifyEntityVolumeChange(null);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the local volume offset.
+        /// </summary>
+        /// <value>
+        /// The local volume offset.
+        /// </value>
+        public Vector3 LocalVolumeOffset
+        {
+            get
+            {
+                return this.localVolumeOffset;
+            }
+            set
+            {
+                this.localVolumeOffset = value;
+
+                UpdateWorldVolume();
+
+                NotifyEntityVolumeChange(null);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the parent.
+        /// </summary>
+        /// <value>
+        /// The parent.
+        /// </value>
+        public MyEntity Parent { get; private set; }
+
+        /// <summary>
+        /// Gets the childs collection.
+        /// </summary>
+        //[Remoting(Controller)]
+        public ICollection<MyEntity> Children
+        {
+            get
+            {
+                return this.children;
+            }
+        }
+
+        /// <summary>
+        /// Gets the physic body representation of the entity.
+        /// </summary>
+        public MyPhysicsBody Physics { get; internal set; }
+
+        /// <summary>
+        /// Gets the graphics representation of entity.
+        /// </summary>
+        public int Graphics { get; internal set; }
+
+        /// <summary>
+        /// Gets the sound representation of entity.
+        /// </summary>
+        public int Sound { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="MyEntity"/> is visible.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if visible; otherwise, <c>false</c>.
+        /// </value>
+        public bool Visible 
+        { 
+            get
+            {
+                return (Flags & EntityFlags.Visible) != 0;
+            }
+
+            set
+            {
+                if (value)
+                {
+                    Flags = Flags | EntityFlags.Visible;
+                }
+                else
+                {
+                    Flags = Flags & (~EntityFlags.Visible);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [draw children].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [draw children]; otherwise, <c>false</c>.
+        /// </value>
+        public bool DrawChildren
+        {
+            get
+            {
+                return (this.Flags & EntityFlags.DrawChildren) == EntityFlags.DrawChildren;
+            }
+            set
+            {
+                this.Flags = this.Flags.SetFlags(EntityFlags.DrawChildren, value);
+            }
+        }
+
+        /// <summary>
+        /// Scaling of this object's model. 
+        /// Actualy used only for drawing and JLX collision skins. 
+        /// I don't use it for line-triangleVertexes intersections in octree (but it can be added).
+        /// </summary>
+        // TODO: Move to graphics object.
+        protected Vector3? Scale { get; set; }
+
+        /// <summary>
+        /// Gets or sets the entity flags.
+        /// </summary>
+        /// <value>
+        /// The flags.
+        /// </value>
+        private EntityFlags Flags { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MyEntity"/> class.
+        /// </summary>
+        protected MyEntity()
+        {
+            this.children = new ObservableCollection<MyEntity>();
+            this.children.CollectionChanged += NotifyChidrenCollectionChanged;
+            this.localMatrix = Matrix.Identity;
+            this.Flags = EntityFlags.Visible;
+        }
+
+        /// <summary>
+        /// Updates resource.
+        /// </summary>
+        public override void Update()
+        {
+            for (int i = 0; i < this.children.Count; i++)
+            {
+                 this.children[i].Update();
+            }
+        }
+
+        /// <summary>
+        /// Animates resource.
+        /// </summary>
+        public override void Animate()
+        {
+            for (int i = 0; i < this.children.Count; i++)
+            {
+                this.children[i].Animate();
+            }
+        }
+
+        /// <summary>
+        /// Notify objects that its local access rights just changed.
+        /// </summary>
+        /// <param name="newAccessLevel">The new access level.</param>
+        /// <returns></returns>
+        public override bool AccessRightsChanged(byte newAccessLevel)
+        {
+            var entityManager = (MyEntityManager)this.Manager;
+
+            if (entityManager == null)
+            {
+                return true;
+            }
+
+            if ((newAccessLevel & Controller) == Controller)
+            {
+                entityManager.RegisterForUpdate(this);
+            }
+            else
+            {
+                entityManager.UnRegisterForUpdate(this);
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Collects all sub-resources of this object.
+        /// </summary>
+        /// <param name="collectedResources">The collected resources.</param>
+        /// <param name="hierarchically"></param>
+        public override void CollectResources(ICollection<MyResource> collectedResources, bool hierarchically = true)
+        {
+            base.CollectResources(collectedResources);
+
+            for (int i = 0; i < this.children.Count; i++)
+            {
+                var entity = this.children[i];
+
+                collectedResources.Add(entity);
+
+                if (hierarchically)
+                {
+                    entity.CollectResources(collectedResources);
+                }
+            }
+
+            if (this.Physics != null)
+            {
+                collectedResources.Add(this.Physics);
+
+                if (hierarchically)
+                {
+                    this.Physics.CollectResources(collectedResources);
+                }
+            }
+        }
+
+        /// <summary>
+        /// GetWorldBoundingBox - return BoundingBox in world (not rotated! just translated)
+        /// </summary>
+        /// <returns></returns>
+        /// TODO time consuming! precalculate aabox
+        public virtual BoundingBox GetWorldBoundingBox() 
+        {
+            if (this.m_modelLod0 == null)
+            {
+                BoundingBox aabb = BoundingBox.CreateFromSphere(worldVolume);
+                return aabb;
+            }
+
+            BoundingBox aabbModel = this.m_modelLod0.BoundingBox;
+            aabbModel = aabbModel.Transform(worldMatrix);
+
+            return aabbModel;
+
+        }
+
+        /// <summary>
+        /// Generates new debug name for entity.
+        /// </summary>
+        [Conditional("DEBUG")]
+        private void DebugGenerateEntityName()
+        {
+            if (this.Name == null)
+            {
+                this.Name = string.Format("{0}:{1}", this.GetType().Name, this.GetHashCode());
+            }
+        }
+
+        #endregion
+        
+        #region Position And Movement Methods
+
+        /// <summary>
+        /// Sets the world matrix.
+        /// </summary>
+        /// <param name="worldMatrix">The world matrix.</param>
+        /// <param name="source">The source object that caused this change or null when not important.</param>
+        public void SetWorldMatrix(Matrix worldMatrix, object source = null)
+        {
+            MyUtils.AssertIsValid(worldMatrix);
+
+            if (this.Parent == null)
+            {
+                this.worldMatrix = worldMatrix;
+
+                Remoting.Post(this, WorldMatrixMember);
+            }
+            else
+            {
+                Matrix matParentInv = Matrix.Invert(Parent.WorldMatrix);
+                this.localMatrix = worldMatrix * matParentInv;
+
+                Remoting.Post(this, LocalMatrixMember);
+            }
+
+            UpdateWorldMatrix(source);
+        }
+
+        /// <summary>
+        /// Sets the local matrix.
+        /// </summary>
+        /// <param name="localMatrix">The local matrix.</param>
+        /// <param name="source">The source object that caused this change or null when not important.</param>
+        public void SetLocalMatrix(Matrix localMatrix, object source = null)
+        {
+            this.localMatrix = localMatrix;
+
+            Remoting.Post(this, LocalMatrixMember);
+
+            UpdateWorldMatrix(source);
+        }
+
+        /// <summary>
+        /// Gets the entity position.
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 GetPosition()
+        {
+            return this.worldMatrix.Translation;
+        }
+
+        /// <summary>
+        /// Sets the position.
+        /// </summary>
+        /// <param name="pos">The pos.</param>
+        public void SetPosition(Vector3 pos)
+        {
+            this.worldMatrix.Translation = pos;
+            
+            UpdateWorldMatrix();
+        }
+
+
+        /// <summary>
+        /// Gets the world rotation.
+        /// </summary>
+        /// <returns></returns>
+        public Matrix GetWorldRotation()
+        {
+            var rot = Matrix.Identity;
+            rot.Forward = this.WorldMatrix.Forward;
+            rot.Up = this.WorldMatrix.Up;
+            rot.Right = this.WorldMatrix.Right;
+            
+            return rot;
+        }
+
+
+        /// <summary>
+        /// Gets the local rotation.
+        /// </summary>
+        /// <returns></returns>
+        public Matrix GetLocalRotation()
+        {
+            var rot = Matrix.Identity;
+            rot.Forward = this.LocalMatrix.Forward;
+            rot.Up = this.LocalMatrix.Up;
+            rot.Right = this.LocalMatrix.Right;
+
+            return rot;
+        }
+
+
+        /// <summary>
+        /// Inverted world matrix of this physic object calculated on-demand (non cached).
+        /// Use it whenever you want to do world-matrix transformations with this physic objects.
+        /// </summary>
+        public Matrix GetWorldMatrixInverted()
+        {
+            Matrix inv;
+            Matrix.Invert(ref this.worldMatrix, out inv);
+
+            return inv;
+        }
+
+        /// <summary>
+        /// Gets the world matrix for draw.
+        /// </summary>
+        /// <returns></returns>
+        public virtual Matrix GetWorldMatrixForDraw()
+        {
+            Matrix outMatrix;
+            Matrix inMatrix = GetScaleMatrix() * this.worldMatrix;
+            
+            Matrix.Multiply(ref inMatrix, ref MyCamera.InversePositionTranslationMatrix, out outMatrix);
+            
+            return outMatrix;
+        }
+
+        
+        /// <summary>
+        /// Gets the scale matrix.
+        /// </summary>
+        /// <returns></returns>
+        public virtual Matrix GetScaleMatrix()
+        {
+            if (Scale != null)
+                return Matrix.CreateScale(Scale.Value);
+            else
+                return Matrix.Identity;
+        }
+
+        /// <summary>
+        /// Moves the and rotate.
+        /// </summary>
+        /// <param name="newPosition">The new position.</param>
+        /// <param name="newOrientation">The new orientation.</param>
+        /// <returns> return false, if object cannot be moved - this method is most important for editor and moving objects there</returns>
+        // TODO: Remove this functions, person who is moving with object should handle special cases! Or better remove them all.
+        public virtual bool MoveAndRotate(Vector3 newPosition, Matrix newOrientation)
+        {
+            newOrientation.Translation = newPosition;
+
+            SetWorldMatrix(newOrientation);
+
+            return true;
+        }
+
+        public virtual bool CanMoveAndRotate(Vector3 newPosition, Matrix newOrientation)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Resets rotation of entity to default.
+        /// </summary>
+        public virtual void ResetRotation()
+        {
+            Matrix resettedOrientation = Matrix.Identity;
+            resettedOrientation.Translation = this.GetPosition();
+            
+            SetWorldMatrix(resettedOrientation);
+        }
+
+        /// <summary>
+        /// Updates the world matrix (change caused by this entity)
+        /// </summary>
+        private void UpdateWorldMatrix(object source = null)
+        {
+            if (this.Parent != null)
+            {
+                Matrix parentWorldMatrix = this.Parent.WorldMatrix;
+                UpdateWorldMatrix(ref parentWorldMatrix);
+
+                return;
+            }
+
+            UpdateChildren(source);
+            UpdateWorldVolume();
+            
+            NotifyEntityChange(source);
+        }
+
+        /// <summary>
+        /// Updates the world matrix (change caused by parent)
+        /// </summary>
+        private void UpdateWorldMatrix(ref Matrix parentWorldMatrix, object source = null)
+        {
+            Matrix.Multiply(ref this.localMatrix, ref parentWorldMatrix, out this.worldMatrix);
+
+            UpdateChildren(source);
+            UpdateWorldVolume();
+
+            NotifyEntityChange(source);
+        }
+
+        /// <summary>
+        /// Updates the childs of this entity.
+        /// </summary>
+        private void UpdateChildren(object source)
+        {
+            for (int i = 0; i < this.children.Count; i++)
+            {
+                this.children[i].UpdateWorldMatrix(ref this.worldMatrix, source);
+            }
+        }
+
+        /// <summary>
+        /// Updates the volume of this entity.
+        /// </summary>
+        private void UpdateWorldVolume()
+        {
+            Matrix mat = Matrix.CreateTranslation(LocalVolumeOffset + localVolume.Center);
+
+            mat = mat * this.WorldMatrix;
+
+            worldVolume = new BoundingSphere(mat.Translation, localVolume.Radius);
+        }
+
+        /// <summary>
+        /// Update volume hr and of all children.
+        /// </summary>
+        /// <param name="volume"></param>
+        private void UpdateVolumeHr(ref BoundingSphere volume)
+        {
+            BoundingSphere.CreateMerged(ref volume, ref this.worldVolume, out volume);
+
+            for (int i = 0; i < this.children.Count; i++)
+            {
+                this.children[i].UpdateVolumeHr(ref volume);
+            }
+        }
+
+        #endregion
+
+        #region Draw Methods
+
+        /// <summary>
+        /// Check if we have to draw this phys object in this frame.
+        /// </summary>
+        /// <returns>Returns true if visible from camera.</returns>
+        public virtual bool IsVisible()
+        {
+            if (this is MyVoxelMap) return true;
+
+            if (this.m_modelLod0 == null)
+            {
+                return false;
+            }
+
+            if (!this.Visible)
+            {
+                return false;
+            }
+
+            BoundingSphere volumeHr = this.WorldVolumeHr;
+
+            return !this.m_frustumCheckBeforeDrawEnabled || MyCamera.IsInFrustum(ref volumeHr);
+        }
+
+        /// <summary>
+        /// Draws this object's model and return true. If object isn't in frustum or for whatever reason we won't draw it, return false.
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool Draw()
+        {
+            bool retVal = IsVisible();
+
+            if (retVal)
+            {
+                MyRender.AddPhysObjectToDraw(this);
+            }
+
+                if (this.DrawChildren)
+                {
+                    for (int i = 0; i < this.children.Count; i++)
+                    {
+                        this.children[i].Draw();
+                    }
+                }
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Draw debug.  
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool DebugDraw()
+        {
+            bool retVal = IsVisible();
+
+            if (retVal)
+            {
+                if (MyMwcFinalBuildConstants.DrawHelperPrimitives)
+                {
+                    DebugDrawVolume();
+                    DebugDrawBox();
+                    MyDebugDraw.DrawAxis(WorldMatrix, 5, 1);
+                }
+
+                if (MyMwcFinalBuildConstants.DrawJLXCollisionPrimitives)
+                {
+                    DebugDrawPhysics();
+                }
+
+                if (MyMwcFinalBuildConstants.DrawNormalVectors)
+                {
+                    DebugDrawNormalVectors();
+                }
+            }
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Draws world bounding box of this entity
+        /// </summary>
+        [Conditional("DEBUG"), Conditional("DEVELOP")]
+        public void DebugDrawWorldAABB()
+        {
+            BoundingBox aabb = GetWorldBoundingBox();
+            Vector4 color = Vector4.One;
+            MyDebugDraw.DrawAABB(ref aabb, ref color ,1.0f);
+        }
+
+        /// <summary>
+        /// Debug draw volume of this entity.
+        /// </summary>
+        [Conditional("DEBUG"), Conditional("DEVELOP")]
+        public void DebugDrawVolume()
+        {
+            if ((this is MyVoxelMap) == false)
+            {
+                MyDebugDraw.DrawSphereWireframe(Matrix.CreateScale(worldVolume.Radius) * Matrix.CreateTranslation(worldVolume.Center), Color.Red.ToVector3(), 1);
+            }
+        }
+
+        /// <summary>
+        /// Debug draw box of this entity.
+        /// </summary>
+        [Conditional("DEBUG"), Conditional("DEVELOP")]
+        public virtual void DebugDrawBox()
+        {
+            Vector3 boundingBoxSize;
+
+            if (this is MyVoxelMap)
+            {
+                BoundingBox bbox = ((MyVoxelMap)this).BoundingBox;
+                boundingBoxSize = bbox.Max - bbox.Min;
+            }
+            else if (this.m_modelLod0 != null)
+            {
+                boundingBoxSize = this.m_modelLod0.BoundingBoxSize;
+            }
+            else
+            {
+                return;
+            }
+
+            const float alpha = 1.0f;
+            MyDebugDraw.DrawHiresBoxWireframe(Matrix.CreateScale(boundingBoxSize) * Matrix.CreateTranslation(this.LocalVolumeOffset) * this.worldMatrix, Color.DarkRed.ToVector3(), alpha);
+        }
+
+
+        /// <summary>
+        /// Debug draw box of this entity.
+        /// </summary>
+        [Conditional("DEBUG"), Conditional("DEVELOP"), Conditional("RELEASE")]
+        public virtual void DebugDrawBox(Vector4 color, bool bWireFrame)
+        {
+            BoundingBox worldBB = GetWorldBoundingBox();
+            Vector3 size = worldBB.Max - worldBB.Min;
+            Vector3 center = size / 2f;
+            center = center + worldBB.Min;
+            //Matrix mat = Matrix.CreateWorld(center, this.worldMatrix.Forward, this.worldMatrix.Up);
+
+            Matrix tmpInv = Matrix.Identity;
+            tmpInv.Translation = -center;
+            BoundingBox localbox = worldBB.Transform(tmpInv);    //to local
+
+
+            Matrix mat = Matrix.CreateTranslation(LocalVolumeOffset) * this.WorldMatrix;
+            MySimpleObjectDraw.DrawTransparentBox(ref mat, ref localbox, ref color, bWireFrame, 1);
+
+            //@ for debug JK
+            /*foreach (MyEntity child in children)
+            {
+                child.DebugDrawBox(color, bWireFrame);
+            }*/
+        }
+
+
+        /// <summary>
+        /// If model of this phys object uses alpha for rendering, this method will calculate that alpha
+        /// Of course childs of this class must implement it's own alpha calculation, because this one will throw an exception.
+        /// Children shouldn't call this base method
+        /// Only for drawing this object, because some objects need to use special world matrix
+        /// </summary>
+        /// <returns></returns>
+        [Conditional("DEBUG"), Conditional("DEVELOP")]
+        public virtual void DebugDrawNormalVectors()
+        {
+            bool retVal = IsVisible();
+            
+            if (retVal == false) 
+                return;
+            
+            // Must be enabled
+            if (!MyMwcFinalBuildConstants.ENABLE_VERTEX_NORMALS_DEBUG_DRAW)
+                return;
+           
+
+            if ((this == MyGuiScreenGamePlay.Static.PlayerShip) && 
+                (MyGuiScreenGamePlay.Static.CameraAttachedTo == MyCameraAttachedToEnum.PlayerMinerShip)) return;
+
+            const float MAX_DRAW_DISTANCE = 300;
+            if (GetDistanceBetweenCameraAndBoundingSphere() > MAX_DRAW_DISTANCE) return;
+
+            //Matrix worldMatrixNotCentered = Matrix.CreateTranslation(-m_invertedCenterOfMass) * WorldMatrix;
+            Matrix worldMatrixNotCentered = WorldMatrix;
+            Matrix transformMatrix = worldMatrixNotCentered;
+
+            MyDebugDrawCachedLines.Clear();
+
+            //  This is just a reserve
+            const int NUMBER_OF_ADD_TRIANGLES_IN_LOOP = 1;
+
+            int vertexIndex = 0;
+            while (true)
+            {
+                //bool finished = triangleIndex >= mesh.GetNumTriangles();
+                bool finished = vertexIndex >= m_modelLod0.GetVerticesCount();
+
+                if ((MyDebugDrawCachedLines.IsFull(-NUMBER_OF_ADD_TRIANGLES_IN_LOOP)) || (finished))
+                {
+                    MyDebugDrawCachedLines.DrawLines();
+                    MyDebugDrawCachedLines.Clear();
+                }
+
+                if (finished)
+                {
+                    break;
+                }
+
+                //  We now transform the triangleVertexes into world space (we could keep leave the mesh alone
+                //  but at this point 3 vector transforms is probably not a major slow down)
+                Vector3 vertex0 = m_modelLod0.Vertexes[vertexIndex];
+                Vector3 normal = m_modelLod0.GetVertexNormal(vertexIndex);
+                Vector3 vertex1 = vertex0 + normal * 1;
+
+                Vector3.Transform(ref vertex0, ref transformMatrix, out vertex0);
+                Vector3.Transform(ref vertex1, ref transformMatrix, out vertex1);
+
+                MyDebugDrawCachedLines.AddLine(vertex0, vertex1, Color.Red, Color.Red);
+
+                vertexIndex++;
+            }
+        }
+
+        
+
+        /// <summary>
+        /// Draw physical representation of entity
+        /// </summary>
+        [Conditional("DEBUG"), Conditional("DEVELOP")]
+        public void DebugDrawPhysics()
+        {
+            if (this.Physics == null)
+            {
+                return;
+            }
+
+            const float maxDrawDistance = 1000;
+
+            if (!IsVisible() || GetDistanceBetweenCameraAndBoundingSphere() > maxDrawDistance)
+            {
+                return;
+            }
+
+            this.Physics.DebugDraw();
+
+            MyDebugDraw.DrawLine3D(GetPosition(), GetPosition() + Physics.LinearVelocity * 4, Color.Red, Color.Red);
+        }
+
+
+        protected virtual void InitDrawTechniques()
+        {
+        }
+
+        protected void InitDrawTechniques(MyMeshDrawTechnique drawTechnique)
+        {
+            InitDrawTechnique(ModelLod0, drawTechnique);
+            InitDrawTechnique(ModelLod1, drawTechnique);
+        }
+
+        private void InitDrawTechnique(MyModel model, MyMeshDrawTechnique drawTechnique)
+        {
+            if (model != null)
+            {
+                model.SetDrawTechnique(drawTechnique);
+                foreach (MyMesh mesh in model.GetMeshList())
+                {
+                    mesh.GetMaterial().DrawTechnique = drawTechnique;
+                }
+            }
+        }
+
+        #endregion
+        
+        #region Intersection Methods
+
+        //  Calculates intersection of line with any triangleVertexes in this model instance. Closest intersection and intersected triangleVertexes will be returned.
+        public virtual MyIntersectionResultLineTriangleEx? GetIntersectionWithLine(ref MyLine line)
+        {
+            if (m_modelLod0 != null)
+                return m_modelLod0.GetOctree().GetIntersectionWithLine(this, ref line);
+            return null;
+        }
+
+        //  Calculates intersection of line with any bounding sphere in this model instance. Center of the bounding sphere will be returned.
+        //  It takes boundingSphereRadiusMultiplier argument which serves for extending the influence (radius) for interaction with line.
+        public virtual Vector3? GetIntersectionWithLineAndBoundingSphere(ref MyLine line, float boundingSphereRadiusMultiplier)
+        {
+            if (m_modelLod0 == null)
+                return null;
+
+            BoundingSphere vol = this.WorldVolume;
+            vol.Radius *= boundingSphereRadiusMultiplier;
+
+            //  Check if line intersects phys object's current bounding sphere, and if not, return 'no intersection'
+            if (!MyUtils.IsLineIntersectingBoundingSphere(ref line, ref vol))
+                return null;
+
+            return vol.Center;
+        }
+
+        //  Return true if object intersects specified sphere.
+        //  This method doesn't return exact point of intersection or any additional data.
+        //  We don't look for closest intersection - so we stop on first intersection found.
+        public virtual bool GetIntersectionWithSphere(ref BoundingSphere sphere)
+        {
+            if (m_modelLod0 != null)
+                return m_modelLod0.GetOctree().GetIntersectionWithSphere(this, ref sphere);
+            return false;
+        }
+
+        //  Return list of triangles intersecting specified sphere. 
+        public void GetTrianglesIntersectingSphere(ref BoundingSphere sphere, Vector3? referenceNormalVector, float? maxAngle, 
+                                                   List<MyTriangle_Vertex_Normals> retTriangles, int maxNeighbourTriangles)
+        {
+            if (m_modelLod0 != null)
+            {
+                m_modelLod0.GetOctree().GetTrianglesIntersectingSphere(this, ref sphere, referenceNormalVector, maxAngle, retTriangles, maxNeighbourTriangles);
+            }
+        }
+
+        //  Return true if bounding sphere of this object intersects bounding frustum
+        public virtual bool GetIntersectionWithBoundingFrustum(ref BoundingFrustum boundingFrustum)
+        {
+            ContainmentType con = boundingFrustum.Contains(this.GetWorldBoundingBox());
+            if (con == ContainmentType.Contains || con == ContainmentType.Intersects)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //  Smalles distance between camera and bounding sphere of this phys object. Result is always positive, even if camera is inside the sphere.
+        public float GetSmallestDistanceBetweenCameraAndBoundingSphere()
+        {
+            return MyUtils.GetSmallestDistanceToSphereAlwaysPositive(ref MyCamera.Position, ref worldVolume);
+        }
+
+        //  Largest distance from camera to bounding sphere of this phys object. Result is always positive, even if camera is inside the sphere.
+        //  It's actualy distance between camera and opposite side of the sphere
+        public float GetLargestDistanceBetweenCameraAndBoundingSphere()
+        {
+            return MyUtils.GetLargestDistanceToSphere(ref MyCamera.Position, ref worldVolume);
+        }
+        
+        //  Distance from camera to bounding sphere of this phys object. Result is always positive, even if camera is inside the sphere.
+        public float GetDistanceBetweenCameraAndBoundingSphere()
+        {
+            return MyUtils.GetSmallestDistanceToSphereAlwaysPositive(ref MyCamera.Position, ref worldVolume);
+        }
+
+        //  Distance from camera to position of entity.
+        public float GetDistanceBetweenCameraAndPosition()
+        {
+            return Vector3.Distance(MyCamera.Position, this.GetPosition());
+        }
+
+        #endregion
+
+        #region Children Methods
+
+        /// <summary>
+        /// Adds the child.
+        /// </summary>
+        /// <param name="child">The child.</param>
+        /// <param name="preserveWorldPos">if set to <c>true</c> [preserve absolute position].</param>
+        public void AddChild(MyEntity child, bool preserveWorldPos = false)
+        {
+            if (preserveWorldPos)
+            {
+                var tmpWorldMatrix = child.WorldMatrix;
+
+                this.Children.Add(child);
+
+                child.WorldMatrix = tmpWorldMatrix;
+            }
+            else
+            {
+                this.Children.Add(child);
+            }
+        }
+
+        /// <summary>
+        /// Adds the child.
+        /// </summary>
+        /// <param name="child">The child.</param>
+        /// <param name="preserveWorldPos">if set to <c>true</c> [preserve absolute position].</param>
+        public void RemoveChild(MyEntity child, bool preserveWorldPos = false)
+        {
+            if (preserveWorldPos)
+            {
+                var tmpWorldMatrix = child.WorldMatrix;
+
+                this.Children.Remove(child);
+
+                child.WorldMatrix = tmpWorldMatrix;
+            }
+            else
+            {
+                this.Children.Remove(child);
+            }
+        }
+
+        /// <summary>
+        /// Finds the child.
+        /// </summary>
+        /// <param name="childName">Name of the child.</param>
+        /// <returns></returns>
+        public MyEntity FindChild(string childName)
+        {
+            return this.Children.FirstOrDefault(entity => string.Compare(childName, entity.Name, true) == 0);
+        }
+
+        /// <summary>
+        /// Finds the child.
+        /// </summary>
+        /// <param name="childIndex">Index of the child.</param>
+        /// <returns></returns>
+        public MyEntity FindChild(int childIndex)
+        {
+            var list = this.Children as IList<MyEntity>;
+
+            return list != null ? list[childIndex] : this.Children.ElementAt(childIndex);
+        }
+
+        /// <summary>
+        /// Enumerate the children.
+        /// Do not use this method in performance critical code. Makes garbadge !
+        /// </summary>
+        /// <param name="enumerationFlags">The enumeration flags.</param>
+        /// <returns></returns>
+        public IEnumerable<MyEntity> EnumChildren(EnumerationFlags enumerationFlags = EnumerationFlags.None)
+        {
+            for (int i = 0; i < this.children.Count; i++)
+            {
+                var child = this.children[i];
+
+                yield return child;
+
+                if (enumerationFlags.IsFlagSet(EnumerationFlags.Hierarchically))
+                {
+                    foreach (var subChild in child.EnumChildren(enumerationFlags))
+                    {
+                        yield return subChild;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Entity events
+
+
+        /// <summary>
+        /// Called on some contact start with this entity.
+        /// </summary>
+        /// <param name="contactInfo">The contact info.</param>
+        protected virtual void OnContactStart(MyContactEventInfo contactInfo)
+        {
+            // TODO: Move to some derived entity (dont do this for all!)
+            if (this.Physics.PlayCollisionCueEnabled)
+            {
+                MyAudio.PlayCollisionCue(contactInfo, MyMaterialsConstants.MyMaterialCollisionType.Start);
+            }
+
+            if (MyMwcFinalBuildConstants.DrawCollisionSpotsInHud)
+            {
+                MyHud.DebugClearAndAddText(contactInfo.m_ContactPoint, new StringBuilder("COLLISION POINT"));
+            }
+        }
+
+        /// <summary>
+        /// Called on some contact end with this entity.
+        /// </summary>
+        /// <param name="contactInfo">The contact info.</param>
+        protected virtual void OnContactEnd(MyContactEventInfo contactInfo)
+        {
+            // TODO: Move to some derived entity (dont do this for all!)
+            if (this.Physics.PlayCollisionCueEnabled)
+            {
+                MyAudio.PlayCollisionCue(contactInfo, MyMaterialsConstants.MyMaterialCollisionType.End);
+            }
+        }
+
+        /// <summary>
+        /// Called when [contact touches] with this entity.
+        /// </summary>
+        /// <param name="contactInfo">The contact info.</param>
+        protected virtual void OnContactTouch(MyContactEventInfo contactInfo)
+        {
+            // TODO: Move to some derived entity (dont do this for all!)
+            if (this.Physics.PlayCollisionCueEnabled)
+            {
+                MyAudio.PlayCollisionCue(contactInfo, MyMaterialsConstants.MyMaterialCollisionType.Touch);
+            }
+        }
+
+        /// <summary>
+        /// Called when [contact] with entity.
+        /// </summary>
+        /// <param name="constraint">The constraint.</param>
+        /// <returns></returns>
+        protected virtual bool OnContact(ref Physics.MyRBSolverConstraint constraint)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Called when all remoting members are [deserialized] and should set not remoting members to correct state.
+        /// </summary>
+        [OnDeserialized]
+        protected virtual void OnDeserialized()
+        {
+        }
+
+        /// <summary>
+        /// Called when [deserialized]
+        /// // TODO: Change to remoting memebers!
+        /// </summary>
+        protected void OnDeserialized(MyModelsEnum? lod0, MyModelsEnum? lod1, Vector3? scale)
+        {
+            this.m_modelLod0 = lod0 != null ? MyModels.GetModelOnlyData(lod0.Value) : null;
+            this.m_modelLod1 = lod1 != null ? MyModels.GetModelOnlyData(lod1.Value) : null;
+            //this.Scale = scale;
+
+            //TODO is this really clear? this means, that all entities, that does not have model, will have radius 1!!
+            this.LocalVolumeOffset = (m_modelLod0 != null) ? m_modelLod0.BoundingSphere.Center : Vector3.Zero;
+            this.LocalVolume = new BoundingSphere(Vector3.Zero, (m_modelLod0 != null) ? m_modelLod0.BoundingSphere.Radius : 1);
+        }
+
+        /// <summary>
+        /// Called when [activated] which for entity means that was added to scene.
+        /// </summary>
+        /// <param name="source">The source of activation.</param>
+        protected override void OnActivated(object source)
+        {
+            base.OnActivated(source);
+
+            if (this.Physics != null && this.Physics.Enabled == false)
+            {
+                this.Physics.Enabled = true;
+            }
+
+            if ((this.Name != null) && (Parent == null))
+            {
+                MyHud.AddText(this, new StringBuilder(this.Name));
+        }
+        }
+
+        /// <summary>
+        /// Called when [deactivated] which for entity means that was removed from scene.
+        /// </summary>
+        /// <param name="source">The source of deactivation.</param>
+        protected override void OnDeactivated(object source)
+        {
+            if (this.Physics != null && this.Physics.Enabled)
+            {
+                this.Physics.Enabled = false;
+            }
+
+            MyHud.RemoveText(this);
+
+            base.OnDeactivated(source);
+        }
+
+        #endregion
+
+        #region Notification Methods
+
+        /// <summary>
+        /// Notifies sub dependent resources about entity change.
+        /// </summary>
+        /// <param name="source">Source of change-or-null if unknown.</param>
+        private void NotifyEntityChange(object source)
+        {
+            IMyNotifyEntityChanged notifier;
+
+            {
+                notifier = this.Physics;
+
+                if (notifier != null && notifier != source)
+                {
+                    notifier.OnWorldPositionChanged(source);
+                }
+            }
+            
+            {
+                notifier = this;
+
+                if (notifier != source)
+                {
+                    notifier.OnWorldPositionChanged(source);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Notifies the entity volume change.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        private void NotifyEntityVolumeChange(object source)
+        {
+            IMyNotifyEntityChanged notifier = this;
+
+            if (notifier != source)
+            {
+                notifier.OnVolumeChanged(source);
+            }
+        }
+
+        /// <summary>
+        /// Rise the OnContactStart event.
+        /// </summary>
+        /// <param name="contactInfo">The contact info.</param>
+        internal void NotifyContactStart(MyContactEventInfo contactInfo)
+        {
+            OnContactStart(contactInfo);
+        }
+
+        /// <summary>
+        /// Rise the OnContactsEnd event.
+        /// </summary>
+        /// <param name="contactInfo">The contact info.</param>
+        internal void NotifyContactEnd(MyContactEventInfo contactInfo)
+        {
+            OnContactEnd(contactInfo);
+        }
+
+        /// <summary>
+        /// Rise the OnContactTouche event.
+        /// </summary>
+        /// <param name="contactInfo">The contact info.</param>
+        internal void NotifyContactTouch(MyContactEventInfo contactInfo)
+        {
+            OnContactTouch(contactInfo);
+        }
+
+        /// <summary>
+        /// Rise the OnContact event.
+        /// </summary>
+        /// <param name="constraint">The constraint.</param>
+        /// <returns></returns>
+        internal bool NotifyContact(ref MyRBSolverConstraint constraint)
+        {
+            return OnContact(ref constraint);
+        }
+
+        /// <summary>
+        /// Notifies entity that the chidren collection has changed.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.</param>
+        private void NotifyChidrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (var changedItem in e.NewItems.Cast<MyEntity>())
+                    {
+                        Debug.Assert(changedItem != null, "Null child added!");
+
+                        if (changedItem != null)
+                        {
+                        changedItem.Parent = this;
+                        changedItem.UpdateWorldMatrix(ref this.worldMatrix);
+                    }
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    {
+                        // TODO: Simplify
+                        if (e.OldItems == this.Children)
+                        {
+                            for (int i = 0; i < this.children.Count; i++)
+                            {
+                                this.children[i].Parent = null;
+                                this.children[i].UpdateWorldMatrix();
+                            }
+                        }
+                        else
+                        {
+                            foreach (var changedItem in e.OldItems)
+                            {
+                                var changedEntity = (MyEntity)changedItem;
+
+                                changedEntity.Parent = null;
+                                changedEntity.UpdateWorldMatrix();
+                            }
+                        }
+
+                        break;
+                    }
+            }
+
+            Remoting.Post(this.children);
+        }
+
+        /// <summary>
+        /// Notifies that entity was added to scene (activated)
+        /// </summary>
+        /// <param name="source"></param>
+        internal void NotifyAddedToScene(object source)
+        {
+            NotifyActivated(source);
+        }
+
+        /// <summary>
+        /// Notifies that entity was removed from scene (deactivated)
+        /// </summary>
+        /// <param name="source"></param>
+        internal void NotifyRemovedFromScene(object source)
+        {
+            NotifyDeactivated(source);
+        }
+
+        #endregion
+
+        #region Implementation of IMyNotifyEntityChanged
+
+        // Because for now entity = script resource entity also implements this interface for inheritors.
+
+        /// <summary>
+        /// Called when [world position changed].
+        /// </summary>
+        /// <param name="source">The source object that caused this event.</param>
+        public virtual void OnWorldPositionChanged(object source)
+        {
+            Debug.Assert(source != this, "Recursion detected!");
+        }
+
+        /// <summary>
+        /// Called when [volume changed].
+        /// </summary>
+        /// <param name="source">The source.</param>
+        public virtual void OnVolumeChanged(object source)
+        {
+            Debug.Assert(source != this, "Recursion detected!");
+        }
+
+        #endregion
+
+        #region Implementation of INotifyMemberChanged
+
+        /// <summary>
+        /// Called when [member changed].
+        /// </summary>
+        /// <param name="memberInfo">The member info.</param>
+        public virtual void OnMemberChanged(MemberInfo memberInfo)
+        {
+            if (memberInfo == WorldMatrixMember)
+            {
+                UpdateWorldMatrix();
+            }
+        }
+
+        #endregion
+
+        #region Bordel
+
+        // TODO: Get rid of this
+        private MyMwcObjectBuilder_Base m_objectBuilder; // Object builder is the template this phys object was created from and is saved as
+
+        // TODO: Move to graphics object.
+        protected MyModel m_modelLod0;                       //  LOD0 main model, used for rendering and also physics / col-det
+        protected MyModel m_modelLod1;                       //  LOD1 version of this model, used only for rendering (not physics and col-det)
+
+        public MyModel ModelLod0
+        {
+            get { return m_modelLod0; }
+        }
+
+
+        public MyModel ModelLod1
+        {
+            get { return m_modelLod1; }
+        }
+
+
+        //  If true, we always check if this phys object is contained in frustum. If false we don't check and draw it directly (which is faster for small-low-face objects)
+        protected bool m_frustumCheckBeforeDrawEnabled = true;
+        protected Vector3? m_diffuseColor;  //diffuse color multiplier
+        protected Vector3 m_highlightColor; //used for objects that are selected in editor(shader adds this color to pixel shader output)
+        protected Vector4 m_mouseOverColorWire = new Vector4(0.5f, 1f, 0.5f, 0.5f);
+        protected Vector4 m_mouseOverColor = new Vector4(0.9f, 0.8f, 0.5f, 0.3f);
+        protected Vector3 m_selectionHighlightColor;
+        protected Vector3 m_collisionHighlightColor;
+        public Vector3? GetDiffuseColor() { return m_diffuseColor; }
+        public Vector3 GetHighlightColor() { return m_highlightColor; }
+        private void SetDiffuseColor(ref Vector3 vctColor) { m_diffuseColor = vctColor; }
+        private void SetHighlightColor(Vector3 vctColor) 
+        {
+            if (MyMwcFinalBuildConstants.ENABLE_OBJECT_HIGHLIGHT)
+            {
+                m_highlightColor = vctColor;
+            }
+        }
+
+        protected void Init(StringBuilder hudLabelText, MyMwcObjectBuilder_Base objectBuilder)
+        {
+            this.m_objectBuilder = objectBuilder != null ? MyMwcUtils.DeepCopy(objectBuilder) : null;
+            this.Name = hudLabelText != null ? hudLabelText.ToString() : null;
+            
+            if (this.Name != null)
+            {
+                MyHud.AddText(this, new StringBuilder(this.Name));
+            }
+
+            if (MyFakes.TEST_MISSION_1_ENABLED == false)
+            {
+                DebugGenerateEntityName();
+            }
+        }
+
+        //  This is real initialization of this class!!! Instead of constructor.
+        protected void Init(StringBuilder hudLabelText, MyMwcObjectBuilder_Base objectBuilder, MyEntity parentObject)
+        {
+            Init(hudLabelText, objectBuilder);
+
+            if (parentObject != null)
+            {
+                parentObject.Children.Add(this);
+            }
+        }
+
+        //  This is real initialization of this class!!! Instead of constructor.
+        public virtual void Init(StringBuilder hudLabelText, MyModelsEnum? modelLod0Enum, MyModelsEnum? modelLod1Enum,
+                                 MyEntity parentObject, Vector3? scale, MyMwcObjectBuilder_Base objectBuilder)
+        {
+            Init(hudLabelText, objectBuilder);
+            
+            if (modelLod0Enum != null)
+            {
+                m_modelLod0 = MyModels.GetModelOnlyData(modelLod0Enum.Value);
+            }
+            if (modelLod1Enum != null)
+                m_modelLod1 = MyModels.GetModelOnlyData(modelLod1Enum.Value);
+
+            //TODO is this really clear? this means, that all entities, that does not have model, will have radius 1!!
+            this.LocalVolumeOffset = (m_modelLod0 != null) ? m_modelLod0.BoundingSphere.Center : Vector3.Zero;
+            this.LocalVolume = new BoundingSphere(Vector3.Zero, (m_modelLod0 != null) ? m_modelLod0.BoundingSphere.Radius : 1);
+
+            if (parentObject != null)
+            {
+                parentObject.Children.Add(this);
+            }
+
+            this.Scale = scale;
+        }
+
+        /// <summary>
+        /// Every object must have this method, but not every phys object must necessarily have something to cleanup
+        /// <remarks>
+        /// TODO: Implement pool auto clear / dispose.
+        /// TODO: Close is stupid unless we never forger clear all something will always linger in memory.
+        /// </remarks>
+        /// </summary>
+        public virtual void Close()
+        {
+            //BUG: I can't null another members because somehow new Init(...) on this object wont make him valid again.
+            //     ModelLod0 will be null and it crashes in pre render phys obj sorting comparer.
+            
+            for (int i = 0; i < this.children.Count; i++)
+            {
+                this.children[i].Close();
+            }
+
+            this.Children.Clear();
+
+            MyEntities.Remove(this, false);
+        }
+
+        // TODO: This shoul cover Volume
+        public virtual Vector3 GetSize()
+        {
+            if (m_modelLod0 != null)
+            {
+                return m_modelLod0.BoundingBoxSize;
+            }
+
+            BoundingBox boundingBox = BoundingBox.CreateFromSphere(worldVolume);
+            return boundingBox.Max - boundingBox.Min;
+        }
+
+        public virtual MyMwcObjectBuilder_Base GetObjectBuilder()
+        {
+            if (m_objectBuilder is MyMwcObjectBuilder_Object3dBase)
+            {
+                var builder = m_objectBuilder as MyMwcObjectBuilder_Object3dBase;
+                builder.PositionAndOrientation.Position = this.GetPosition();
+                builder.PositionAndOrientation.Up = this.WorldMatrix.Up;
+                builder.PositionAndOrientation.Forward = this.WorldMatrix.Forward;
+
+                return m_objectBuilder;
+            }
+            return m_objectBuilder;
+        }
+
+        #region Body Methods
+
+        protected void InitSpherePhysics(MyMaterialType materialType, MyModel model, float mass, float angularDamping, ushort collisionLayer, RigidBodyFlag rbFlag)
+        {
+            if (model == null)
+            {
+                return;
+            }
+
+            MyPhysicsObjects physobj = MyPhysics.physicsSystem.GetPhysicsObjects();
+            MyRBSphereElementDesc sphereDesc = physobj.GetRBSphereElementDesc();
+            sphereDesc.SetToDefault();
+            sphereDesc.m_RBMaterial = MyMaterialsConstants.GetMaterialProperties(materialType).PhysicsMaterial;
+            sphereDesc.m_Radius = model.BoundingSphere.Radius;
+            sphereDesc.m_Matrix.Translation = model.BoundingSphere.Center;
+            sphereDesc.m_CollisionLayer = collisionLayer;
+
+            MyRBSphereElement sphereEl = (MyRBSphereElement)physobj.CreateRBElement(sphereDesc);
+            System.Diagnostics.Debug.Assert(sphereEl != null);
+            if (sphereEl != null)
+            {
+                this.Physics = new MinerWars.AppCode.Game.Managers.PhysicsManager.Physics.MyGameRigidBody(this, mass, rbFlag)
+                {
+                    MaterialType = materialType,
+                    AngularDamping = angularDamping
+                };
+
+                this.Physics.AddElement(sphereEl, true);
+            }
+        }
+
+        protected void InitBoxPhysics(MyMaterialType materialType, MyModel model, float mass, float angularDamping, ushort collisionLayer, RigidBodyFlag rbFlag)
+        {
+            MyPhysicsObjects physobj = MyPhysics.physicsSystem.GetPhysicsObjects();
+
+            MyRBBoxElementDesc boxDesc = physobj.GetRBBoxElementDesc();
+            boxDesc.SetToDefault();
+            boxDesc.m_RBMaterial = MyMaterialsConstants.GetMaterialProperties(materialType).PhysicsMaterial;
+            boxDesc.m_Size = model.BoundingBoxSize;
+            boxDesc.m_Matrix.Translation = model.BoundingBox.GetCenter();
+            boxDesc.m_CollisionLayer = collisionLayer;
+
+            MyRBBoxElement boxEl = (MyRBBoxElement)physobj.CreateRBElement(boxDesc);
+            System.Diagnostics.Debug.Assert(boxEl != null);
+            if (boxEl != null)
+            {
+                this.Physics = new MinerWars.AppCode.Game.Managers.PhysicsManager.Physics.MyGameRigidBody(this, mass, rbFlag)
+                {
+                    MaterialType = materialType,
+                    AngularDamping = angularDamping
+                };
+
+                this.Physics.AddElement(boxEl, true);
+            }
+        }
+
+        protected void InitShperePhysicsUncollidable(MyMaterialType materialType, BoundingSphere boundingSphere, float mass, float angularDamping, RigidBodyFlag rbFlag)
+        {
+            MyPhysicsObjects physobj = MyPhysics.physicsSystem.GetPhysicsObjects();
+            MyRBSphereElementDesc sphereDesc = physobj.GetRBSphereElementDesc();
+            sphereDesc.SetToDefault();
+            sphereDesc.m_RBMaterial = MyMaterialsConstants.GetMaterialProperties(materialType).PhysicsMaterial;
+            sphereDesc.m_Radius = boundingSphere.Radius;
+            sphereDesc.m_Matrix.Translation = boundingSphere.Center;
+            sphereDesc.m_CollisionLayer = MyConstants.COLLISION_LAYER_UNCOLLIDABLE;
+
+            MyRBSphereElement sphereEl = (MyRBSphereElement)physobj.CreateRBElement(sphereDesc);
+            System.Diagnostics.Debug.Assert(sphereEl != null);
+            if (sphereEl != null)
+        {
+                this.Physics = new MinerWars.AppCode.Game.Managers.PhysicsManager.Physics.MyGameRigidBody(this, mass, rbFlag)
+                {
+                    MaterialType = materialType,
+                    AngularDamping = angularDamping
+                };
+
+                this.Physics.AddElement(sphereEl, true);
+        }
+
+            MinerWars.AppCode.Physics.MyPhysics.physicsSystem.GetRigidBodyModule().EnableCollisionInLayers(MyConstants.COLLISION_LAYER_UNCOLLIDABLE, MyConstants.COLLISION_LAYER_ALL, false);
+            MinerWars.AppCode.Physics.MyPhysics.physicsSystem.GetRigidBodyModule().EnableCollisionInLayers(MyConstants.COLLISION_LAYER_UNCOLLIDABLE, MyConstants.COLLISION_LAYER_UNCOLLIDABLE, false);
+            MinerWars.AppCode.Physics.MyPhysics.physicsSystem.GetRigidBodyModule().EnableCollisionInLayers(MyConstants.COLLISION_LAYER_UNCOLLIDABLE, MyConstants.COLLISION_LAYER_MISSILE, false);
+            MinerWars.AppCode.Physics.MyPhysics.physicsSystem.GetRigidBodyModule().EnableCollisionInLayers(MyConstants.COLLISION_LAYER_UNCOLLIDABLE, MyConstants.COLLISION_LAYER_VOXEL_DEBRIS, false);
+            MinerWars.AppCode.Physics.MyPhysics.physicsSystem.GetRigidBodyModule().EnableCollisionInLayers(MyConstants.COLLISION_LAYER_UNCOLLIDABLE, MyConstants.COLLISION_LAYER_MODEL_DEBRIS, false);
+        }
+
+        [Obsolete]
+        public virtual bool UpdateAfterIntegration()
+        {
+            return true;
+        }
+
+        [Obsolete]
+        public virtual void UpdateBeforeIntegration()
+        {
+        }
+
+        #endregion
+
+        /// <summary>
+        /// SetSelectedColor
+        /// </summary>
+        /// <param name="vctColor"></param>
+        public virtual void HighlightEntity(ref Vector3 vctColor)
+        {
+            m_selectionHighlightColor = vctColor;
+            this.SetHighlightColor(m_selectionHighlightColor+m_collisionHighlightColor);
+
+            if (IsSelectableParentOnly() == false)
+            {
+                for (int i = 0; i < this.children.Count; i++)
+                {
+                    this.children[i].HighlightEntity(ref vctColor);
+                }
+            }
+        }
+
+        public virtual void DrawMouseOver(ref Vector3 highlightColor)
+        {
+            //@ mozny hack pro optimalizaci viditelnosti don't use IsVisible, nedoresena koncepce viditelnosti render/engine/game
+            /*BoundingSphere bSphere = m_highlitedEntity.WorldVolumeHr;
+            if (!MyCamera.IsInFrustum(ref bSphere))
+                return;*/
+
+            //@ generate particles for wireframe
+            BoundingBox localAABB = this.GetWorldBoundingBox();  //TODO Need to renamed to LocalHrAABB   //local hierarchical AABB
+            Matrix mat = Matrix.Identity;
+            MySimpleObjectDraw.DrawWireFramedBox(ref mat, ref localAABB, ref m_mouseOverColorWire, 0.01f, 1);
+
+            this.HighlightEntity(ref highlightColor);
+        }
+
+        /// <summary>
+        /// Clearhighlightning
+        /// </summary>
+        public virtual void ClearHighlightning()
+        {
+            m_selectionHighlightColor = Vector3.Zero;
+            this.SetHighlightColor(m_selectionHighlightColor + m_collisionHighlightColor);
+
+            if (IsSelectableParentOnly() == false)
+            {
+                for (int i = 0; i < this.children.Count; i++)
+                {
+                    this.children[i].ClearHighlightning();
+                }
+            }
+        }
+
+        /// <summary>
+        /// SetCollisionHighlighting
+        /// </summary>
+        public virtual void SetCollisionHighlighting(ref Vector3 vctColor)
+        {
+
+            m_collisionHighlightColor = vctColor;
+            this.SetHighlightColor(m_selectionHighlightColor + m_collisionHighlightColor);
+
+        }
+        
+        /// <summary>
+        /// IsSelectable
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsSelectabale()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// When selecting children component(this), ask weather it can be selected separately
+        /// without selecting and highlighting its parent
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsSelectableAsChild()
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// When selected parent component(this), ask weather its children components will be
+        /// selected and highlighted too
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsSelectableParentOnly()
+        {
+            return false;
+        }
+
+        #endregion
+    }
+}

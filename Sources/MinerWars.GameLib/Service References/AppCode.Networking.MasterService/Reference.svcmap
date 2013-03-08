@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="99a7839c-7a3e-4ff2-8692-71c174948037" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:24501/" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="e6ad1467-42c8-458f-987a-5722ca40133d" SourceId="1" SourceUrl="net.tcp://localhost:24501/" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="afcde400-de1b-4d92-b0bb-c5c289d8c532" SourceId="1" SourceUrl="net.tcp://localhost:24501/" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="0f4f831e-2e91-46c6-bda5-a250b2e7d305" SourceId="1" SourceUrl="net.tcp://localhost:24501/" />
+    <MetadataFile FileName="MinerWars.CommonLIB.AppCode.Networking.Services.xsd" MetadataType="Schema" ID="63b4ab2a-a9fb-40ce-b4e8-8b71721ae075" SourceId="1" SourceUrl="net.tcp://localhost:24501/" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="70795bd1-1c61-4154-bfd2-038dea61a6c7" SourceId="1" SourceUrl="net.tcp://localhost:24501/" />
+    <MetadataFile FileName="MinerWars.MasterServerLIB.MasterService.xsd" MetadataType="Schema" ID="d2294b4d-19db-4eae-9dfe-c409739c2926" SourceId="1" SourceUrl="net.tcp://localhost:24501/" />
+    <MetadataFile FileName="MinerWars.CommonLIB.AppCode.Networking.xsd" MetadataType="Schema" ID="4b17f8ff-971b-447c-8425-2ceff36b9ad7" SourceId="1" SourceUrl="net.tcp://localhost:24501/" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

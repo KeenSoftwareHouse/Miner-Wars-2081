@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking.Services" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking.Services" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="MyVersionFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RequiredVersion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyVersionFault" nillable="true" type="tns:MyVersionFault" />
+  <xs:complexType name="MyAlreadyLoggedInFault">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="MyAlreadyLoggedInFault" nillable="true" type="tns:MyAlreadyLoggedInFault" />
+  <xs:complexType name="MyCustomFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorCode" type="tns:MyCustomFaultCode" />
+      <xs:element minOccurs="0" name="FullText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StackTrace" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyCustomFault" nillable="true" type="tns:MyCustomFault" />
+  <xs:simpleType name="MyCustomFaultCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="SectorNameExists" />
+      <xs:enumeration value="UserNotFound" />
+      <xs:enumeration value="SectorNotFound" />
+      <xs:enumeration value="CheckpointTemplateNotExists" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyCustomFaultCode" nillable="true" type="tns:MyCustomFaultCode" />
+  <xs:complexType name="MyCheckpointNotExistsFault">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyCheckpointNotExistsFault" nillable="true" type="tns:MyCheckpointNotExistsFault" />
+</xs:schema>

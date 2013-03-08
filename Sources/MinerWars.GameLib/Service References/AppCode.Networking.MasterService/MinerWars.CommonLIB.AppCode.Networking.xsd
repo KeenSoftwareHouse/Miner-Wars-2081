@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Networking" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="MyMwcRegisterResponseResultEnum">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+        </ActualType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK" />
+      <xs:enumeration value="USERNAME_FORMAT_INVALID" />
+      <xs:enumeration value="USERNAME_ALREADY_USED" />
+      <xs:enumeration value="PASSWORD_FORMAT_INVALID" />
+      <xs:enumeration value="EMAIL_FORMAT_INVALID" />
+      <xs:enumeration value="WRONG_CLIENT_VERSION" />
+      <xs:enumeration value="UNKNOWN_ERROR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MyMwcRegisterResponseResultEnum" nillable="true" type="tns:MyMwcRegisterResponseResultEnum" />
+</xs:schema>

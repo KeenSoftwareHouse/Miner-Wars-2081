@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Utils" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MinerWars.CommonLIB.AppCode.Utils" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="MyMwcVector3Int">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="X" type="xs:int" />
+      <xs:element minOccurs="0" name="Y" type="xs:int" />
+      <xs:element minOccurs="0" name="Z" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MyMwcVector3Int" nillable="true" type="tns:MyMwcVector3Int" />
+</xs:schema>

@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2C96F0AB-7962-4B73-A075-B0E0B09F6195}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MinerWars.CommonLIB</RootNamespace>
+    <AssemblyName>MinerWarsCommonLIB</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;not_ENABLE_NETWORK_VERBOSE_LOGGING;PACKED_VERTEX_FORMAT</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;not_ENABLE_NETWORK_VERBOSE_LOGGING;PACKED_VERTEX_FORMAT</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppCode\Generics\MyDynamicObjectsPool.cs" />
+    <Compile Include="AppCode\Generics\MyObjectsPool.cs" />
+    <Compile Include="AppCode\Generics\MyObjectsPoolSimple.cs" />
+    <Compile Include="AppCode\Generics\MyWeightDictionary.cs" />
+    <Compile Include="AppCode\GImpact\BulletCollision\BoxCollision.cs" />
+    <Compile Include="AppCode\GImpact\BulletCollision\ClipPolygon.cs" />
+    <Compile Include="AppCode\GImpact\BulletCollision\GeometeryOperations.cs" />
+    <Compile Include="AppCode\GImpact\BulletCollision\GImpactBvh.cs" />
+    <Compile Include="AppCode\GImpact\BulletCollision\GImpactQuantization.cs" />
+    <Compile Include="AppCode\GImpact\BulletCollision\GImpactQuantizedBvh.cs" />
+    <Compile Include="AppCode\GImpact\BulletCollision\TriangleShapeEx.cs" />
+    <Compile Include="AppCode\GImpact\BulletGlobalsFake.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\AabbUtil2.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\ConvexHull.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\ConvexHullComputer.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\IndexedBasisMatrix.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\IndexedMatrix.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\IndexedVector3.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\MathUtil.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\ObjectArray.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\TransformUtil.cs" />
+    <Compile Include="AppCode\GImpact\LinearMath\UShortVector3.cs" />
+    <Compile Include="AppCode\Import\MyImporterConstants.cs" />
+    <Compile Include="AppCode\Import\MyMaterialDescriptor.cs" />
+    <Compile Include="AppCode\Import\MyMeshPartSolver.cs" />
+    <Compile Include="AppCode\Import\MyModelExporter.cs" />
+    <Compile Include="AppCode\Import\VF_Packer.cs" />
+    <Compile Include="AppCode\MyMessageBox.cs" />
+    <Compile Include="AppCode\MyMwcEnums.cs" />
+    <Compile Include="AppCode\MyMwcFinalBuildConstants.cs" />
+    <Compile Include="AppCode\MyMwcSingleCrypto.cs" />
+    <Compile Include="AppCode\MyTraceClient.cs" />
+    <Compile Include="AppCode\Networking\IMyEvent.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\INetEncryption.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\NetAESEncryption.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\NetBlockEncryptionBase.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\NetDESEncryption.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\NetRC2Encryption.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\NetTripleDESEncryption.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\NetXorEncryption.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\Encryption\NetXteaEncryption.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBigInteger.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBitVector.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBitWriter.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBuffer.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBuffer.Peek.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBuffer.Read.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBuffer.Read.Reflection.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBuffer.Write.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetBuffer.Write.Reflection.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetClient.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetConnection.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetConnection.Handshake.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetConnection.Latency.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetConnection.MTU.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetConnectionStatistics.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetConnectionStatus.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetConstants.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetDeliveryMethod.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetException.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetFragmentationHelper.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetFragmentationInfo.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetIncomingMessage.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetIncomingMessageType.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetMessageType.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetNatIntroduction.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetOutgoingMessage.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.Discovery.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.Fragmentation.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.Internal.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.LatencySimulation.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.Logging.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.MessagePools.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeer.Send.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeerConfiguration.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeerStatistics.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetPeerStatus.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetQueue.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetRandom.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetReceiverChannelBase.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetReliableOrderedReceiver.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetReliableSenderChannel.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetReliableSequencedReceiver.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetReliableUnorderedReceiver.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetSenderChannelBase.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetSendResult.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetServer.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetSRP.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetStoredReliableMessage.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetTime.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetTuple.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetUnreliableSenderChannel.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetUnreliableSequencedReceiver.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetUnreliableUnorderedReceiver.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetUPnP.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\NetUtility.cs" />
+    <Compile Include="AppCode\Networking\Lidgren\SenderChannelBase.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventGlobalFlag.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventEvent.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventLoginSteam.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventMusicTransition.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSavePlayer.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSetEntityFaction.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventFriendlyFire.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventUpdateRotationFast.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventDirectIntroductionResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventCountdown.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSetFactionRelation.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSetActorFaction.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventHeadshake.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventPlaySound.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventPlayDialogue.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventUpdatePositionFast.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventAddVoxelHand.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventDummyFlags.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventAddExplosion.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventMissionUpdateVars.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventFlags.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventAfterburner.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventCutOut.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventHealthUpdate.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventEntityReset.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventLockResult.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventLock.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventInventoryUpdate.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventMissionProgress.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventNewEntity.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventNotification.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventPilotDie.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventShipConfigUpdate.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventChooseFactionResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventChooseFaction.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventGetPlayerList.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventGetPlayerListResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventEnterGameResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventChat.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventAmmoUpdate.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventEnterGame.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventPlayerStateChanged.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventRequestIntroduction.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSectorData.cs" />
+    <Compile Include="AppCode\Networking\IReadWriteMessage.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventAmmoExplosion.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventDie.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventDoDamage.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventProjectileHit.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSetFaction.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventShoot.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventLoginResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventGetGames.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventGetGamesResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventJoinGameResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventCreateGameResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventJoinGame.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventLogin.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventNewPlayer.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventRespawn.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSpawnBot.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventSpeacialWeapons.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventStatsUpdate.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventUpdateGame.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventUpdatePosition.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventCreateGame.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventValidateUser.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyEventValidateUserResponse.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyGameInfo.cs" />
+    <Compile Include="AppCode\Networking\MyLidgrenExtensions.cs" />
+    <Compile Include="AppCode\Networking\MyMessageQueueItem.cs" />
+    <Compile Include="AppCode\Networking\MyMessageReader.cs" />
+    <Compile Include="AppCode\Networking\MyMessageWriter.cs" />
+    <Compile Include="AppCode\Networking\MyLidgrenPeer.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyPlayerInfo.cs" />
+    <Compile Include="AppCode\Networking\Multiplayer\MyResultCode.cs" />
+    <Compile Include="AppCode\Networking\MyMessageHelper.cs" />
+    <Compile Include="AppCode\Networking\MyMwcSectorGroups.cs" />
+    <Compile Include="AppCode\Networking\MyMwcClientServer_Structs.cs" />
+    <Compile Include="AppCode\Networking\MyMwcMessageIn.cs" />
+    <Compile Include="AppCode\Networking\MyMwcMessageOut.cs" />
+    <Compile Include="AppCode\Networking\MyMwcCheaterAlert.cs" />
+    <Compile Include="AppCode\Networking\MyRelayedConnection.cs" />
+    <Compile Include="AppCode\Networking\Services\MyAlreadyLoggedInFault.cs" />
+    <Compile Include="AppCode\Networking\Services\MyCertificateValidator.cs" />
+    <Compile Include="AppCode\Networking\Services\MyCheckpointNotExistsFault.cs" />
+    <Compile Include="AppCode\Networking\Services\MyCheckpointRenameFault.cs" />
+    <Compile Include="AppCode\Networking\Services\MyCustomBinding.cs" />
+    <Compile Include="AppCode\Networking\Services\MyCustomFault.cs" />
+    <Compile Include="AppCode\Networking\Services\MyServiceConstants.cs" />
+    <Compile Include="AppCode\Networking\Services\MyVersionFault.cs" />
+    <Compile Include="AppCode\ObjectBuilders\InfluenceSpheres\MyMwcObjectBuilder_InfluenceSphere.cs" />
+    <Compile Include="AppCode\ObjectBuilders\IMyEntityIdRemapContext.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_Checkpoint.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_FactionRelationChange.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_GlobalData.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_ObjectGroup.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_Player.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_PlayerStatistics.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_RemotePlayer.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_Sector.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_SectorObjectGroups.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_Session.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_ShipConfig.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_SmallShipTemplate.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_SmallShipTemplates.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_SnapPointLink.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MySolarSystemAreaEnum.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_Meteor.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_MysteriousCube.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_CargoBox.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_Drone.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_DummyPoint.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_EntityDetector.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_FoundantionFactory.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_LargeDebrisField.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_LargeShip.cs" />
+    <Compile Include="AppCode\ObjectBuilders\MyMwcObjectBuilder_Base.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_Object3dBase.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_Ship.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_SmallDebris.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_SmallShip_Bot.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_SmallShip_Player.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_StaticAsteroid.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_PrefabContainer.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_WayPoint.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\LargeShipTools\MyMwcObjectBuilder_LargeShip_Ammo.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\LargeShipTools\MyMwcObjectBuilder_LargeShip_ToolBase.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_Blueprint.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_Event.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_FalseId.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_Inventory.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_InventoryItem.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_ObjectToBuild.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectbuilder_Ore.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_Prefab.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_PrefabBase.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_SmallShip_Tool.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_SubObjectBase.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_SmallShip.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabAlarm.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabCamera.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabGenerator.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabBankNode.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabFoundationFactory.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabHangar.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabKinematicPart.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabKinematicRotatingPart.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabLargeShip.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabKinematic.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabLargeWeapon.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabParticles.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabScanner.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabSecurityControlHUB.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabSound.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_PrefabLight.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\Prefabs\MyMwcObjectBuilder_EntityUseProperties.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\SmallShipTools\MyMwcObjectBuilder_SmallShip_Ammo.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\SmallShipTools\MyMwcObjectBuilder_SmallShip_Armor.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\SmallShipTools\MyMwcObjectBuilder_SmallShip_AssignmentOfAmmo.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\MyMwcObjectBuilder_SmallShip_Weapon.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\SmallShipTools\MyMwcObjectBuilder_SmallShip_Engine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\SmallShipTools\MyMwcObjectBuilder_SmallShip_HackingTool.cs" />
+    <Compile Include="AppCode\ObjectBuilders\SubObjects\SmallShipTools\MyMwcObjectBuilder_SmallShip_Radar.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelHand_Cylinder.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelHand_Box.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelHand_Cuboid.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Object3D\MyMwcObjectBuilder_SpawnPoint.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelHand_Shape.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelHand_Sphere.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelMap.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelMap_MergeContent.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelMap_MergeMaterial.cs" />
+    <Compile Include="AppCode\ObjectBuilders\Voxels\MyMwcObjectBuilder_VoxelMap_Neighbour.cs" />
+    <Compile Include="AppCode\Utils\My5BitEncoding.cs" />
+    <Compile Include="AppCode\Utils\MyCommonDebugUtils.cs" />
+    <Compile Include="AppCode\Utils\MyFileSystemUtils.cs" />
+    <Compile Include="AppCode\Utils\MyMemoryLogs.cs" />
+    <Compile Include="AppCode\Utils\MyMinerWarsLauncherConfig.cs" />
+    <Compile Include="AppCode\Utils\MyMwcBuildNumbers.cs" />
+    <Compile Include="AppCode\Utils\MyMwcConstants.cs" />
+    <Compile Include="AppCode\Utils\MyMwcEncryptionSymmetricRijndael.cs" />
+    <Compile Include="AppCode\Utils\MyMwcEnumDuplicitiesTester.cs" />
+    <Compile Include="AppCode\Utils\MyMwcEnums.cs" />
+    <Compile Include="AppCode\Utils\MyMwcFakes.cs" />
+    <Compile Include="AppCode\Utils\MyMwcLog.cs" />
+    <Compile Include="AppCode\Utils\MyMwcRandomExtensions.cs" />
+    <Compile Include="AppCode\Utils\MyMwcSecrets.cs" />
+    <Compile Include="AppCode\Utils\MyMwcStructs.cs" />
+    <Compile Include="AppCode\Utils\MyMwcUtils.cs" />
+    <Compile Include="AppCode\Utils\MyStringUtils.cs" />
+    <Compile Include="AppCode\Utils\MyValueFormatter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AppCode\Managers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{26FE022E-42AB-40BE-BA9D-97CBE34E7D99}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MinerWarsMath\MinerWarsMath.csproj">
+      <Project>{40CE67D5-C89F-4A56-AE52-85DB1BEA07FE}</Project>
+      <Name>MinerWarsMath</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
