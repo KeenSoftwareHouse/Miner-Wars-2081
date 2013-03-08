@@ -17,18 +17,19 @@ Usually C:\Program Files\Steam\steamapps\common\MinerWars\ or C:\Program Files (
 Make your MOD
 =============
 1) Copy "steam_appid.txt" to Steam folder ("c:\Program Files (x86)\Steam\steamapps\common\MinerWars\")
-2) Download and install free Visual C# 2010 Express: http://www.microsoft.com/visualstudio/eng#downloads+d-2010-express
-3) Download zip with Miner Wars 2081 source code from github and unpack [TODO: Add URL]
-4) Make sure Steam is running and you own MinerWars 2081
-5) Double-click MinerWars2081.sln
-6) Set your MinerWars.exe location
+2) Make sure you have installed .NET Framework 4 and latest updates
+3) Download and install free Visual C# 2010 Express: http://www.microsoft.com/visualstudio/eng#downloads+d-2010-express
+4) Download zip with Miner Wars 2081 source code from github and unpack [TODO: Add URL]
+5) Make sure Steam is running and you own MinerWars 2081
+6) Double-click MinerWars2081.sln
+7) Set your MinerWars.exe location
    a) Right-click MinerWars.GameLib (in solution explorer)
    b) Select properties
    c) Select Debug tab
    d) Set "Start external program:" to MinerWars.exe ([Steam folder]\steamapps\common\MinerWars\MinerWars.exe)
-7) Do some code changes (e.g. change ammo damage contant)
-8) Click Debug in Visual studio menu, click "Start debugging"
-9) When you're done with your MOD and want to distribute it -> test it first without Visual Studio (see Distribute your MOD and Use your MOD sections)
+8) Do some code changes (e.g. change ammo damage contant)
+9) Click Debug in Visual studio menu, click "Start debugging"
+10)When you're done with your MOD and want to distribute it -> test it first without Visual Studio (see Distribute your MOD and Use your MOD sections)
 
 Distribute your MOD
 ===================
