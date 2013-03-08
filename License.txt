@@ -1,3 +1,66 @@
+=======================================================
+Miner Wars 2081 Source Code Release - March 8, 2013
+=======================================================
+
+VRAGE, Miner Wars™, Miner Wars 2081™, Miner Wars MMO™, Miner Wars Arena™ are trademarks of Keen Software House a. s. 
+Copyright © 2008-2013 Keen Software House a. s. 
+
+This source code and art assets must not to be mistaken for a free software, an open source in a free-software 
+activist understanding, copy-left or public domain software. All source code and art assets remains copyrighted 
+and licensed by Keen Software House a. s. and you are allowed to use them (modify, tweak, make a derivative work, 
+distribute, etc.) only under following conditions.
+
+You are not allowed to distribute original art assets (textures, models, fonts, etc. stored in Content folder of 
+Miner Wars 2081 folder). The only exception is sounds and music, which can be distributed if your mod requires it 
+(this is because our XACT audio project requires all sound and music files when building and without our original 
+files you won’t be able to make audio modifications).
+
+The source code, modifications or derivative works can be distributed only if they are intended to be used as a 
+mod for Miner Wars 2081, and only if valid customers would be able to use them. You are not allowed to bypass 
+this restriction and create a standalone application or use our code in your projects.
+
+In other words, everyone who wants to develop and/or use mods based on this source code is required to own 
+valid Steam version of Miner Wars 2081. You are not allowed to use this source code in an application other 
+than Miner Wars 2081.
+
+This source release does not contain any game data (except audio). The game data is still covered by the original
+license and must be obeyed as usual. 
+Miner Wars 2081 is available from the Steam store at http://store.steampowered.com/app/223430/
+
+You are allowed to share the source files with other developers (crediting us when logical/reasonable), 
+downloading and compiling the game locally, modifying and tweaking the game locally, and even publicly forking, 
+modifying, and tweaking the game source on GitHub.
+The origin of this software must not be misrepresented; you must not claim that you wrote the original software. 
+
+Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software. 
+This notice may not be removed or altered from any source distribution. Commercial usage is allowed only after you
+obtain an agreement from us (Keen Software House a.s.). Send us an email: info@keenswh.com
+
+That's it! No more rules. If the above wasn't clear, here's a summary: use this source code only for developing 
+mods for Miner Wars 2081. Mod is a DLL that's launched by valid and purchased Miner Wars 2081 (distributed by Steam).
+
+We reserve the right to change this license at any time with or without notice, with immediate and/or retroactive 
+effect. We believe that what we ask is reasonable, so please don't try to bypass it. Miner Wars 2081 still pays our 
+monthly bills and without this income we wouldn't be able to finish our next project. We're trying to be open and 
+honest, and we hope people treat us the same way back. Basically, don't be ridiculous and we won't. 
+
+This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held 
+liable for any damages arising from the use of this software.
+
+Don’t be afraid to experiment with the source code. If you break something, you can always revert by downloading it 
+again. 
+
+If there's anything legal you're wondering about that isn't answered from this page, don't do it and ask us about it. 
+If there's anything you don't understand or you consider confusing, please email us your suggestions: info@keenswh.com
+
+Thank you and have fun!
+
+Keen Software House
+www.keenswh.com 
+www.minerwars.com
+
+===
+
 FXAA - Copyright (c) 2010 NVIDIA Corporation. All rights reserved.
 Lidgren networking library - Copyright (c) 2010 Michael Lidgren
 StringBuilderExt - Copyright (c) Gavin Pugh 2010 - Released under the zlib license
