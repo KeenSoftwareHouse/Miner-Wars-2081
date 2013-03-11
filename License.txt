@@ -5,8 +5,8 @@ Miner Wars 2081 Source Code Release - March 8, 2013
 VRAGE, Miner Wars™, Miner Wars 2081™, Miner Wars MMO™, Miner Wars Arena™ are trademarks of Keen Software House a. s. 
 Copyright © 2008-2013 Keen Software House a. s. 
 
-This source code and art assets must not to be mistaken for a free software, an open source in a free-software 
-activist understanding, copy-left or public domain software. All source code and art assets remains copyrighted 
+This source code and art assets must not to be mistaken for free software, an open source in a free-software 
+activist understanding, copy-left or public domain software. All source code and art assets remain copyrighted 
 and licensed by Keen Software House a. s. and you are allowed to use them (modify, tweak, make a derivative work, 
 distribute, etc.) only under following conditions.
 
