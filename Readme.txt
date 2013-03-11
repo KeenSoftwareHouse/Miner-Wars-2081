@@ -16,21 +16,15 @@ Usually C:\Program Files\Steam\steamapps\common\MinerWars\ or C:\Program Files (
 
 Make your MOD
 =============
-1) Download zip with Miner Wars 2081 source code from github and unpack:
+1) Make sure you have installed latest updates (including service packs)
+2) Download and install free Visual C# 2010 Express: http://www.microsoft.com/visualstudio/eng#downloads+d-2010-express
+3) Install DirectX Runtime: http://www.microsoft.com/en-us/download/details.aspx?id=35
+4) Download zip with Miner Wars 2081 source code from github and unpack:
    https://github.com/KeenSoftwareHouse/Miner-Wars-2081/archive/master.zip
-2) Copy "steam_appid.txt" to Steam folder ("c:\Program Files (x86)\Steam\steamapps\common\MinerWars\")
-3) Make sure you have installed .NET Framework 4 and latest updates
-4) Download and install free Visual C# 2010 Express: http://www.microsoft.com/visualstudio/eng#downloads+d-2010-express
 5) Make sure Steam is running and you own MinerWars 2081
 6) Double-click MinerWars2081.sln
-7) Set your MinerWars.exe location
-   a) Right-click MinerWars.GameLib (in solution explorer)
-   b) Select properties
-   c) Select Debug tab
-   d) Set "Start external program:" to MinerWars.exe ([Steam folder]\steamapps\common\MinerWars\MinerWars.exe)
-8) Do some code changes (e.g. change ammo damage contant)
-9) Click Debug in Visual studio menu, click "Start debugging"
-10)When you're done with your MOD and want to distribute it -> test it first without Visual Studio (see Distribute your MOD and Use your MOD sections)
+7) Click Debug in Visual studio menu, click "Start debugging"
+8) When you're done with your MOD and want to distribute it -> test it first without Visual Studio (see Distribute your MOD and Use your MOD sections)
 
 Distribute your MOD
 ===================
@@ -71,3 +65,4 @@ Tips when developing your own mod
 - You can't add new steam achievements!
 - When you write something which makes development of other mods easy, you can submit the code and we add it to official MOD branch (on GitHub), so other developers can use it too
   (e.g. support for new audio files, better texture loading for mods, some plugin API and so on)
+- Don't modify GameServices (or be very carefull), it may crash the game when you change anything (e.g. number of arguments in constructor)
