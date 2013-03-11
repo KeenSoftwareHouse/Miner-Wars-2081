@@ -112,17 +112,7 @@ namespace MinerWars.AppCode.App
             {
                 if (m_gameDir == null)
                 {
-                    string directoryName = string.Empty;
-                    Assembly entryAssembly = Assembly.GetEntryAssembly();
-                    if (entryAssembly == null)
-                    {
-                        entryAssembly = Assembly.GetCallingAssembly();
-                    }
-                    if (entryAssembly != null)
-                    {
-                        directoryName = System.IO.Path.GetDirectoryName(entryAssembly.Location);
-                    }
-                    m_gameDir = directoryName;
+                    m_gameDir = Services.AppDir;
                 }
                 return m_gameDir;
             }

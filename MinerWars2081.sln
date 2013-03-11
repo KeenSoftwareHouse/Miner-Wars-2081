@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelTasks", "Sources\Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWars.GameServices", "Sources\MinerWars.GameServices\MinerWars.GameServices.csproj", "{7B22B556-B0CD-4EA0-A638-1F33975C7764}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWarsExpressLauncher", "Sources\MinerWarsExpressLauncher\MinerWarsExpressLauncher.csproj", "{0565D1C3-0F16-41AE-8561-44FF4E0494B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -55,6 +57,10 @@ Global
 		{7B22B556-B0CD-4EA0-A638-1F33975C7764}.Debug|x86.Build.0 = Debug|x86
 		{7B22B556-B0CD-4EA0-A638-1F33975C7764}.Release|x86.ActiveCfg = Release|x86
 		{7B22B556-B0CD-4EA0-A638-1F33975C7764}.Release|x86.Build.0 = Release|x86
+		{0565D1C3-0F16-41AE-8561-44FF4E0494B4}.Debug|x86.ActiveCfg = Debug|x86
+		{0565D1C3-0F16-41AE-8561-44FF4E0494B4}.Debug|x86.Build.0 = Debug|x86
+		{0565D1C3-0F16-41AE-8561-44FF4E0494B4}.Release|x86.ActiveCfg = Release|x86
+		{0565D1C3-0F16-41AE-8561-44FF4E0494B4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
