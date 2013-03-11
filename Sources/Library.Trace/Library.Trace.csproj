@@ -38,7 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="TraceTool">
-      <HintPath>..\..\..\MinerWars\3rd\TraceTool\TraceTool.dll</HintPath>
+      <HintPath>..\..\3rd\TraceTool\TraceTool.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
