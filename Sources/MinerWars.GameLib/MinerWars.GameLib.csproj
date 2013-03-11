@@ -1347,10 +1347,12 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets. -->
   <Target Name="BeforeBuild">
+    <!--
     <Exec Command="echo %time% Running templates..." />
     <Exec Command="RunTemplate.bat $(ProjectDir)AppCode\Game\Localization\MyTextsWrapperGenerated" />
     <Exec Command="RunTemplate.bat $(ProjectDir)AppCode\Game\Localization\MyDialoguesWrapperGenerated" />
     <Exec Command="RunTemplate.bat $(ProjectDir)AppCode\Game\Utils\MyEnumToStringsGenerated" />
     <Exec Command="echo %time% Templates completed" />
+    -->
   </Target>
 </Project>
