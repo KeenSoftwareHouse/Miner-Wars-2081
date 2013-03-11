@@ -16,10 +16,11 @@ Usually C:\Program Files\Steam\steamapps\common\MinerWars\ or C:\Program Files (
 
 Make your MOD
 =============
-1) Copy "steam_appid.txt" to Steam folder ("c:\Program Files (x86)\Steam\steamapps\common\MinerWars\")
-2) Make sure you have installed .NET Framework 4 and latest updates
-3) Download and install free Visual C# 2010 Express: http://www.microsoft.com/visualstudio/eng#downloads+d-2010-express
-4) Download zip with Miner Wars 2081 source code from github and unpack [TODO: Add URL]
+1) Download zip with Miner Wars 2081 source code from github and unpack:
+   https://github.com/KeenSoftwareHouse/Miner-Wars-2081/archive/master.zip
+2) Copy "steam_appid.txt" to Steam folder ("c:\Program Files (x86)\Steam\steamapps\common\MinerWars\")
+3) Make sure you have installed .NET Framework 4 and latest updates
+4) Download and install free Visual C# 2010 Express: http://www.microsoft.com/visualstudio/eng#downloads+d-2010-express
 5) Make sure Steam is running and you own MinerWars 2081
 6) Double-click MinerWars2081.sln
 7) Set your MinerWars.exe location
