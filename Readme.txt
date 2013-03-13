@@ -5,11 +5,12 @@ Miner Wars 2081 MOD KIT
 You need to own Steam version of Miner Wars 2081 to create or play MODS!
 MinerWars.exe and Original Content (textures, models, audio) is not part of MOD KIT (3rd party resources can be provided)
 
+Source code repository: https://github.com/KeenSoftwareHouse/Miner-Wars-2081
 Official modding website: http://www.MinerWars.com/SourceCode.aspx
 Official modding forum: http://www.minerwars.com/ForumCategory.aspx?id=13
 Source code: https://github.com/KeenSoftwareHouse/Miner-Wars-2081
 Source code ZIP, direct download: https://github.com/KeenSoftwareHouse/Miner-Wars-2081/archive/master.zip
-30-seconds video tutorial: [TODO: Add Url]
+2 minute video tutorial: http://youtu.be/4z3JbBxhMYI
 
 When we refer to MinerWars folder, we have MinerWars folder in Steam client on our mind. 
 Usually C:\Program Files\Steam\steamapps\common\MinerWars\ or C:\Program Files (x86)\Steam\steamapps\common\MinerWars\
