@@ -4,7 +4,7 @@ MinerWars 2081 MOD KIT - Content Tools
 
 Audio
 =====
-1) Download complete Audio pack from [TODO: Add URL]
+1) Download complete Audio pack, http://sourceforge.net/projects/minerwars2081/files/
 2) Install DirectX SDK, http://www.microsoft.com/en-us/download/details.aspx?id=6812
 3) Open Audio.xap in "Microsoft Cross-Platform Audio Creation Tool 3 (XACT3)"
 4) Edit sounds
