@@ -111,7 +111,7 @@ namespace MinerWars.AppCode.Game.GUI
             currentLabelPosition.Y += 0.03f;
 
             // Secrets found
-            Controls.Add(new MyGuiControlLabel(this, currentLabelPosition - padding, null, new StringBuilder("Secret rooms found:"), MyGuiConstants.LABEL_TEXT_COLOR, MyGuiConstants.LABEL_TEXT_SCALE, MyGuiDrawAlignEnum.HORISONTAL_RIGHT_AND_VERTICAL_CENTER));
+            Controls.Add(new MyGuiControlLabel(this, currentLabelPosition - padding, null, MyTextsWrapperEnum.SecretRoomsFound, MyGuiConstants.LABEL_TEXT_COLOR, MyGuiConstants.LABEL_TEXT_SCALE, MyGuiDrawAlignEnum.HORISONTAL_RIGHT_AND_VERTICAL_CENTER));
             Controls.Add(new MyGuiControlLabel(this, currentLabelPosition + padding, null, WriteInfo(MySteamStats.GetStatInt(MySteamStatNames.FoundSecrets)), MyGuiConstants.LABEL_TEXT_COLOR, MyGuiConstants.LABEL_TEXT_SCALE, MyGuiDrawAlignEnum.HORISONTAL_LEFT_AND_VERTICAL_CENTER));
         }
 

@@ -59,9 +59,11 @@ namespace MinerWars.AppCode.Game.GUI.Core
             //  End our standard sprite batch
             MyGuiManager.EndSpriteBatch();
             //  Draw the rectangle(basically the opened area) to stencil buffer to be used for clipping partial item
-            if (m_controlsPadding.Y>0)
-            MyGuiManager.DrawStencilMaskRectangle(new MyRectangle2D(GetPositionAbsolute(), m_size.Value), MyGuiDrawAlignEnum.HORISONTAL_CENTER_AND_VERTICAL_CENTER);
-            else MyGuiManager.DrawStencilMaskRectangle(new MyRectangle2D(GetPositionAbsolute(), m_size.Value - 2*m_controlsPadding), MyGuiDrawAlignEnum.HORISONTAL_CENTER_AND_VERTICAL_CENTER);  
+            if (m_controlsPadding.Y > 0)
+                MyGuiManager.DrawStencilMaskRectangle(new MyRectangle2D(GetPositionAbsolute(), m_size.Value), MyGuiDrawAlignEnum.HORISONTAL_CENTER_AND_VERTICAL_CENTER);
+            else 
+                MyGuiManager.DrawStencilMaskRectangle(new MyRectangle2D(GetPositionAbsolute(), m_size.Value - 2*m_controlsPadding), MyGuiDrawAlignEnum.HORISONTAL_CENTER_AND_VERTICAL_CENTER);  
+            
             //  Set up the stencil operation and parameters
             MyGuiManager.BeginSpriteBatch_StencilMask();
             

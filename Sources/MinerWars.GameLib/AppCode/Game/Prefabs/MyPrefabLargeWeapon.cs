@@ -46,6 +46,7 @@ namespace MinerWars.AppCode.Game.Entities.SubObjects
     using MinerWars.AppCode.Game.Gameplay;
 using MinerWars.AppCode.Game.Audio.Dialogues;
     using MinerWars.AppCode.Physics.Collisions;
+    using MinerWars.AppCode.Game.Localization;
 
     class MyPrefabLargeWeapon : MyPrefabBase, IMyUseableEntity, IMyHasGuiControl
     {
@@ -383,6 +384,28 @@ using MinerWars.AppCode.Game.Audio.Dialogues;
         public MyGuiControlEntityUse GetGuiControl(IMyGuiControlsParent parent)
         {
             return new MyGuiControlPrefabLargeWeaponUse(parent, this);
+        }
+
+        public override string GetCorrectDisplayName()
+        {
+            string displayName = base.GetCorrectDisplayName();
+
+            if (displayName == "Front Turret")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.FrontTurret).ToString();
+            }
+
+            if (displayName == "Back Turret")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.BackTurret).ToString();
+            }
+
+            if (displayName == "Bottom Turret")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.BottomTurret).ToString();
+            }
+
+            return displayName;
         }
 
         public MyEntity GetEntity()

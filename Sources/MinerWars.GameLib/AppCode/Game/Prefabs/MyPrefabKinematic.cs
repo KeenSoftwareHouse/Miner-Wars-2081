@@ -137,6 +137,23 @@ namespace MinerWars.AppCode.Game.Entities.SubObjects
             }
         }
 
+        public override string GetCorrectDisplayName()
+        {
+            string displayName = base.GetCorrectDisplayName();
+
+            if (displayName == "Left Door")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.LeftDoor).ToString();
+            }
+
+            if (displayName == "Right Door")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.RightDoor).ToString();
+            }
+
+            return displayName;
+        }
+
         private void AddLockedHud() 
         {
             DisplayOnHud = true;

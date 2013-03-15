@@ -143,11 +143,11 @@ namespace MinerWars.AppCode.Game.GUI.Helpers
                 string entityName;
                 if (m_detectedEntity is MyPrefabHangar)
                 {
-                    entityName = ((m_detectedEntity) as MyPrefabHangar).GetOwner().DisplayName;
+                    entityName = ((m_detectedEntity) as MyPrefabHangar).GetOwner().GetCorrectDisplayName();
                 }
                 else
                 {
-                    entityName = m_detectedEntity.DisplayName;
+                    entityName = m_detectedEntity.GetCorrectDisplayName();
                 }
 
                 switch (m_detectedAction)

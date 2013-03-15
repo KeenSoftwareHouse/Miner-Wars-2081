@@ -17,6 +17,8 @@ using MinerWars.AppCode.Game.World.Global;
 using MinerWars.AppCode.Game.Entities.Prefabs;
 using MinerWars.CommonLIB.AppCode.Utils;
 using System.Diagnostics;
+using MinerWars.Resources;
+using MinerWars.AppCode.Game.Localization;
 
 namespace MinerWars.AppCode.Game.Prefabs
 {
@@ -159,9 +161,29 @@ namespace MinerWars.AppCode.Game.Prefabs
             return chattersForFaction[MyMwcUtils.GetRandomInt(0, chattersForFaction.Count - 1)];
         }
 
+
+        public override string GetCorrectDisplayName()
+        {
+            string displayName = DisplayName;
+
+            if (DisplayName == "Camera HUB")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CameraHUB).ToString();
+            }
+
+            if (DisplayName == "Weapon Control")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.WeaponControl).ToString();
+            }
+
+                  
+            return displayName;
+        }
+
         protected override void SetHudMarker()
         {
-            MyHud.ChangeText(this, new StringBuilder(DisplayName), MyGuitargetMode.Neutral, 0, MyHudIndicatorFlagsEnum.SHOW_TEXT | MyHudIndicatorFlagsEnum.SHOW_BORDER_INDICATORS | MyHudIndicatorFlagsEnum.SHOW_HEALTH_BARS | MyHudIndicatorFlagsEnum.SHOW_DISTANCE | MyHudIndicatorFlagsEnum.ALPHA_CORRECTION_BY_DISTANCE | MyHudIndicatorFlagsEnum.SHOW_MISSION_MARKER);            
+
+            MyHud.ChangeText(this, new StringBuilder(GetCorrectDisplayName()), MyGuitargetMode.Neutral, 0, MyHudIndicatorFlagsEnum.SHOW_TEXT | MyHudIndicatorFlagsEnum.SHOW_BORDER_INDICATORS | MyHudIndicatorFlagsEnum.SHOW_HEALTH_BARS | MyHudIndicatorFlagsEnum.SHOW_DISTANCE | MyHudIndicatorFlagsEnum.ALPHA_CORRECTION_BY_DISTANCE | MyHudIndicatorFlagsEnum.SHOW_MISSION_MARKER);            
         }
 
         protected override MyMwcObjectBuilder_Base GetObjectBuilderInternal(bool getExactCopy)

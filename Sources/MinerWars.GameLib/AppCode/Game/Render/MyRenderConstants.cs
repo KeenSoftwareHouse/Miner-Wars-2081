@@ -348,7 +348,7 @@ namespace MinerWars.AppCode.Game.Render
 
                 //Geometry quality
                 UseNormals = true,
-                NeedReloadContent = false,
+                NeedReloadContent = true,
                 UseChannels = true,
 
                 // Spot shadow max distance multiplier 
@@ -426,7 +426,7 @@ namespace MinerWars.AppCode.Game.Render
 
                 //Geometry quality
                 UseNormals = true,
-                NeedReloadContent = false,
+                NeedReloadContent = true,
                 UseChannels = true,
 
                 // Spot shadow max distance multiplier 

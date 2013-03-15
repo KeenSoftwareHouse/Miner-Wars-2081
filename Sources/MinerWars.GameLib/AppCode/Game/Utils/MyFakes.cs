@@ -144,7 +144,8 @@ namespace MinerWars.AppCode.Game.Utils
 
         public static bool ENABLE_EXTRACT_PREFABS = true;
 
-        public static bool SIMPLE_DEBUG_SCREEN = MyMwcFinalBuildConstants.GetValueForBuildType(true, true, false);
+        //public static bool SIMPLE_DEBUG_SCREEN = MyMwcFinalBuildConstants.GetValueForBuildType(true, true, false);
+        public static bool SIMPLE_DEBUG_SCREEN = false; //enable everywhere, there is no obfuscation now
 
         public static bool DISABLE_BOT_MANEUVERING = false;
 

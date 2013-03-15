@@ -197,7 +197,7 @@ namespace MinerWars.AppCode.Game.Utils
 
         public static bool IsTextureMipMapped(MyTexture2D texture)
         {
-            return texture.LevelCount > 1;
+            return texture.Width == 4 || texture.Height == 4 || texture.LevelCount > 1;
         }
 
         //  IMPORTANT: Don't use Debug.Assert() that has two arguments (condition and message). Use only one that has condition.

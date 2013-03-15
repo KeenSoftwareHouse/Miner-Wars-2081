@@ -1441,10 +1441,14 @@ namespace MinerWars.AppCode.Game.Entities
         protected override void SetHudMarker()
         {
             StringBuilder hudLabel = new StringBuilder();
-            if (DisplayName != MyTextsWrapper.GetFormatString(MyTextsWrapperEnum.Ship))
+
+            if (DisplayName != "Ship" && DisplayName != MyTextsWrapper.Get(MyTextsWrapperEnum.Ship).ToString())
             {
-                hudLabel.Append(DisplayName);
+                string displayName = GetCorrectDisplayName();
+
+                hudLabel.Append(displayName);
             }
+
             MyHud.ChangeText(this, hudLabel, null, MySmallShipConstants.MAX_HUD_DISTANCE, MyHudIndicatorFlagsEnum.SHOW_ALL);
         }
 
@@ -2948,13 +2952,8 @@ namespace MinerWars.AppCode.Game.Entities
             //}
 
 
-            //hack for cargo box
-            MyCargoBox cargoBox = entity as MyCargoBox;
-            if (cargoBox != null)
-            {
-                MyHudMaxDistanceMultiplerTypes? maxDistanceMultiplerType = null;
-                entityName = cargoBox.GetCorrectDisplayName(ref maxDistanceMultiplerType);
-            }
+            //get localized entity name
+            entityName = entity.GetCorrectDisplayName();
 
             if (String.IsNullOrWhiteSpace(entityName))
             {
@@ -5746,6 +5745,16 @@ namespace MinerWars.AppCode.Game.Entities
             diff = (int)MathHelper.Clamp(diff, 0, m_stepDurationMS);
 
             return (float)diff / m_stepDurationMS;
+        }
+
+        public override string GetCorrectDisplayName()
+        {
+            if (DisplayName == "Ship")
+            {
+                return MyTextsWrapper.Get(MyTextsWrapperEnum.Ship).ToString();
+            }
+
+            return base.GetCorrectDisplayName();
         }
     }
 

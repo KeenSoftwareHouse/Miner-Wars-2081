@@ -128,13 +128,46 @@ namespace MinerWars.AppCode.Networking
 
         public static List<MyMwcSectorIdentifier> GetOfficialMultiplayerSectorIdentifiers()
         {
+            string[] officialMaps = new string[]
+            {
+                "SANDBOX_-100_0_20_.mws",
+                "SANDBOX_-15_0_-42_.mws",
+                "SANDBOX_-30_0_-61_.mws",
+                "SANDBOX_-38_0_71_.mws",
+                "SANDBOX_-43_0_86_.mws",
+                "SANDBOX_-46_0_48_.mws",
+                "SANDBOX_-4_0_23_.mws",	
+                "SANDBOX_-66_0_-44_.mws",
+                "SANDBOX_-78_0_35_.mws",
+                "SANDBOX_-79_0_70_.mws",
+                "SANDBOX_-8_0_-5_.mws",	
+                "SANDBOX_-93_0_46_.mws",
+                "SANDBOX_17_0_67_.mws",	
+                "SANDBOX_18_0_96_.mws",	
+                "SANDBOX_19_0_-92_.mws",
+                "SANDBOX_1_0_-58_.mws",	
+                "SANDBOX_3_0_9_.mws",	
+                "SANDBOX_47_0_-24_.mws",
+                "SANDBOX_53_0_84_.mws",	
+                "SANDBOX_61_0_-65_.mws",
+                "SANDBOX_64_0_-20_.mws",
+                "SANDBOX_76_0_29_.mws",	
+                "SANDBOX_83_0_46_.mws",	
+                "SANDBOX_88_0_-58_.mws",
+                "SANDBOX_93_0_14_.mws",	
+                "SANDBOX_93_0_73_.mws",	
+            };
+
             List<MyMwcSectorIdentifier> sectors = new List<MyMwcSectorIdentifier>();
 
             var dir = new DirectoryInfo(ContentSectorPath);
             foreach (var file in dir.GetFiles("SANDBOX*.mws"))
             {
-                var sector = LoadData<MyMwcObjectBuilder_Sector>(file.FullName);
-                sectors.Add(new MyMwcSectorIdentifier(MyMwcSectorTypeEnum.SANDBOX, null, sector.Position, sector.Name));
+                if (officialMaps.Contains(file.Name))
+                {
+                    var sector = LoadData<MyMwcObjectBuilder_Sector>(file.FullName);
+                    sectors.Add(new MyMwcSectorIdentifier(MyMwcSectorTypeEnum.SANDBOX, null, sector.Position, sector.Name));
+                }
             }
 
             return sectors;
@@ -213,44 +246,52 @@ namespace MinerWars.AppCode.Networking
         public static T LoadData<T>(string path)
             where T : MyMwcObjectBuilder_Base
         {
-            var hashAlgorithm = new Crc32();
-            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-            using (CryptoStream cryptoStream = new CryptoStream(stream, hashAlgorithm, CryptoStreamMode.Read))
-            using (BinaryReader reader = new BinaryReader(cryptoStream))
+            try
             {
-                var version = reader.ReadInt32();
-                //TODO: Enable when we have correct backward compatibility https://mantis.keenswh.com/view.php?id=7584
-                if (version < MyMwcObjectBuilder_Base.FIRST_COMPATIBILITY_VERSION)
+                var hashAlgorithm = new Crc32();
+                using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (CryptoStream cryptoStream = new CryptoStream(stream, hashAlgorithm, CryptoStreamMode.Read))
+                using (BinaryReader reader = new BinaryReader(cryptoStream))
                 {
-                    MyMwcLog.WriteLine("Loading data from " + path + " failed because of incompatible version, save version: " + version);
-                    return null;
-                }
-
-                byte[] bytes = reader.ReadBytes((int)(stream.Length - stream.Position - hashAlgorithm.HashSize / 8));
-
-                cryptoStream.FlushFinalBlock();
-
-                byte[] computedHash = hashAlgorithm.Hash;
-                byte[] storedHash = new byte[hashAlgorithm.HashSize / 8];
-                stream.Read(storedHash, 0, storedHash.Length);
-                if (computedHash.Length != storedHash.Length)
-                    return null;
-
-                for (int i = 0; i < storedHash.Length; i++)
-                {
-                    if (computedHash[i] != storedHash[i])
+                    var version = reader.ReadInt32();
+                    //TODO: Enable when we have correct backward compatibility https://mantis.keenswh.com/view.php?id=7584
+                    if (version < MyMwcObjectBuilder_Base.FIRST_COMPATIBILITY_VERSION)
                     {
-                        MyMwcLog.WriteLine("Loading data from " + path + " failed because of incorrect hash");
+                        MyMwcLog.WriteLine("Loading data from " + path + " failed because of incompatible version, save version: " + version);
                         return null;
                     }
-                }
 
-                var result = MyMwcObjectBuilder_Base.FromBytes<T>(bytes, version);
-                if (result == null)
-                {
-                    MyMwcLog.WriteLine("Loading data from " + path + " failed because of invalid object builder");
+                    byte[] bytes = reader.ReadBytes((int)(stream.Length - stream.Position - hashAlgorithm.HashSize / 8));
+
+                    cryptoStream.FlushFinalBlock();
+
+                    byte[] computedHash = hashAlgorithm.Hash;
+                    byte[] storedHash = new byte[hashAlgorithm.HashSize / 8];
+                    stream.Read(storedHash, 0, storedHash.Length);
+                    if (computedHash.Length != storedHash.Length)
+                        return null;
+
+                    for (int i = 0; i < storedHash.Length; i++)
+                    {
+                        if (computedHash[i] != storedHash[i])
+                        {
+                            MyMwcLog.WriteLine("Loading data from " + path + " failed because of incorrect hash");
+                            return null;
+                        }
+                    }
+
+                    var result = MyMwcObjectBuilder_Base.FromBytes<T>(bytes, version);
+                    if (result == null)
+                    {
+                        MyMwcLog.WriteLine("Loading data from " + path + " failed because of invalid object builder");
+                    }
+                    return result;
                 }
-                return result;
+            }
+            catch (Exception e)
+            {
+                MyMwcLog.WriteLine("Exception occured when loading data from local cache");
+                MyMwcLog.WriteLine(e);
             }
 
             return null;

@@ -439,6 +439,13 @@ namespace MinerWars.AppCode.Game.Utils
 
             ColorWriteChannels = ColorWriteEnable.Red | ColorWriteEnable.Green | ColorWriteEnable.Blue,       
         };
+
+        public static readonly RasterizerState HoloRasterizerState = new RasterizerState()
+        {
+            DepthBias = 0,
+            SlopeScaleDepthBias = -5,
+        };
+
           
     }
 }

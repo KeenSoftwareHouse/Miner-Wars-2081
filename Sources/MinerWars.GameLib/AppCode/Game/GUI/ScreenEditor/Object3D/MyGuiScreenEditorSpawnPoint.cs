@@ -140,7 +140,7 @@ namespace MinerWars.AppCode.Game.GUI.ScreenEditor.Object3D
 
             int k = 0;
             int selected = 0;
-            m_waypointPathCombobox.AddItem(k++, null, new StringBuilder("None"));
+            m_waypointPathCombobox.AddItem(k++, null, MyTextsWrapper.Get(MyTextsWrapperEnum.None));
             foreach (var path in MyWayPointGraph.StoredPaths)
             {
                 if (HasEntity() && String.Compare(path.Name, m_spawnPoint.GetWaypointPath()) == 0)
@@ -651,9 +651,9 @@ namespace MinerWars.AppCode.Game.GUI.ScreenEditor.Object3D
         
         void OnComponentChange(MyGuiControlSlider sender)
         {
-            m_radiusLabel.UpdateText(string.Format("{0:#,###0} meters", m_radiusSlider.GetValue()));
-            m_firstSpawnLabel.UpdateText(string.Format("{0:#,###0} seconds", m_firstSpawnTimeSlider.GetValue() / 1000));
-            m_respawnLabel.UpdateText(string.Format("{0:#,###0} seconds", m_respawnTimeSlider.GetValue() / 1000));   
+            m_radiusLabel.UpdateText(string.Format("{0:#,###0} " + MyTextsWrapper.Get(MyTextsWrapperEnum.MetersLong).ToString(), m_radiusSlider.GetValue()));
+            m_firstSpawnLabel.UpdateText(string.Format("{0:#,###0} " + MyTextsWrapper.Get(MyTextsWrapperEnum.SecondsLong).ToString(), m_firstSpawnTimeSlider.GetValue() / 1000));
+            m_respawnLabel.UpdateText(string.Format("{0:#,###0} " + MyTextsWrapper.Get(MyTextsWrapperEnum.SecondsLong).ToString(), m_respawnTimeSlider.GetValue() / 1000));   
         }
 
         public override void OnOkClick(MyGuiControlButton sender)

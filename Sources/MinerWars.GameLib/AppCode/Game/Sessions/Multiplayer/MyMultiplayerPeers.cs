@@ -74,6 +74,7 @@ namespace MinerWars.AppCode.Game.Sessions.Multiplayer
 
         NetPeerConfiguration m_netConfig;
         MyLidgrenPeer m_peer;
+        IPAddress m_localIp;
 
         List<Action> m_bufferedMessages = new List<Action>();
         List<NetConnection> m_playerConnections = new List<NetConnection>(32);
@@ -86,6 +87,9 @@ namespace MinerWars.AppCode.Game.Sessions.Multiplayer
 
         public MyMultiplayerPeers()
         {
+            IPAddress mask;
+            m_localIp = NetUtility.GetMyAddress(out mask);
+
             m_netConfig = new NetPeerConfiguration(MyMwcNetworkingConstants.NETWORKING_MULTIPLAYER_ID);
             m_netConfig.Port = MyMwcNetworkingConstants.NETWORKING_PORT_MULTIPLAYER_PEER;
             m_netConfig.AcceptIncomingConnections = true;
@@ -184,8 +188,7 @@ namespace MinerWars.AppCode.Game.Sessions.Multiplayer
                 loginMsg.DisplayName = MySteam.UserName;
                 loginMsg.SteamTicket = MySteam.SessionTicket;
                 loginMsg.SteamUserId = MySteam.UserId;
-                IPAddress addr;
-                loginMsg.InternalEndpoint = new IPEndPoint(NetUtility.GetMyAddress(out addr), ((IPEndPoint)m_peer.Socket.LocalEndPoint).Port);
+                loginMsg.InternalEndpoint = new IPEndPoint(m_localIp, ((IPEndPoint)m_peer.Socket.LocalEndPoint).Port);
                 m_serverConnection = m_peer.Connect(host, MyMwcNetworkingConstants.NETWORKING_PORT_MASTER_SERVER, ref loginMsg);
             }
             else
@@ -194,8 +197,7 @@ namespace MinerWars.AppCode.Game.Sessions.Multiplayer
                 loginMsg.AppVersion = MyMwcFinalBuildConstants.SERVER_PROTOCOL_VERSION;
                 loginMsg.Username = MyClientServer.LoggedPlayer.UserName.ToString();
                 loginMsg.PasswordHash = MyClientServer.LoggedPlayer.PasswordHash.ToString();
-                IPAddress addr;
-                loginMsg.InternalEndpoint = new IPEndPoint(NetUtility.GetMyAddress(out addr), ((IPEndPoint)m_peer.Socket.LocalEndPoint).Port);
+                loginMsg.InternalEndpoint = new IPEndPoint(m_localIp, ((IPEndPoint)m_peer.Socket.LocalEndPoint).Port);
                 m_serverConnection = m_peer.Connect(host, MyMwcNetworkingConstants.NETWORKING_PORT_MASTER_SERVER, ref loginMsg);
             }
         }

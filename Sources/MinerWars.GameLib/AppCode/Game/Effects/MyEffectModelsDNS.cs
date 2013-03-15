@@ -339,6 +339,7 @@ namespace MinerWars.AppCode.Game.Effects
                         return;
                         break;
                     case MyEffectModelsDNSTechniqueEnum.Low:
+                    case MyEffectModelsDNSTechniqueEnum.LowMasked:
                         m_D3DEffect.Technique = m_forwardTechnique;
                         return;
                         break;

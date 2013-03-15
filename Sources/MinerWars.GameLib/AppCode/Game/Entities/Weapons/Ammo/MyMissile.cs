@@ -942,6 +942,14 @@ MyDebugDraw.DrawLine3D(pos, pos + matrix.Forward * 1000, Color.Blue, Color.Blue)
                 return;
             }
 
+            if (collidedEntity is MySmallShip
+                && OwnerEntity == MySession.PlayerShip 
+                && MySession.PlayerFriends.Contains(collidedEntity as MySmallShip))
+            {
+                //missiles wont hit out friends
+                return;
+            }
+
             base.OnContactStart(contactInfo);
 
             m_collidedEntity = collidedEntity;

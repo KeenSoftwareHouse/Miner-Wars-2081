@@ -4864,6 +4864,8 @@ namespace MinerWars.AppCode.Game.GUI
                 MyGuiManager.DrawString(MyGuiManager.GetFontMinerWarsGreen(), MyTextsWrapper.Get(MyTextsWrapperEnum.CampaignIsCompleted), new Vector2(0.5f, 0.5f), 3f, MyGuiDrawAlignEnum.HORISONTAL_CENTER_AND_VERTICAL_CENTER);
             }
 
+            // Clear stencil to avoid overflow of following GUI controls
+            MyMinerGame.Static.GraphicsDevice.Clear(ClearFlags.Stencil, new ColorBGRA(0), 1, 0);
 
             MinerWars.AppCode.Game.Render.MyRender.GetRenderProfiler().EndProfilingBlock();
 

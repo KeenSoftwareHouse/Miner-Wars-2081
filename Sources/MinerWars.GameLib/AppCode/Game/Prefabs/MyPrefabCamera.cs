@@ -55,6 +55,12 @@ namespace MinerWars.AppCode.Game.Prefabs
             return objectBuilder;
         }
 
+        public override string GetCorrectDisplayName()
+        {
+
+            return base.GetCorrectDisplayName();
+        }
+
         public bool CanBeHacked(MySmallShip hackedBy)
         {
             return false;

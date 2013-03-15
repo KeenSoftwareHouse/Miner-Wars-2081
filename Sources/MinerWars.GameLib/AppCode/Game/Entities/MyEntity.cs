@@ -1059,10 +1059,16 @@ namespace MinerWars.AppCode.Game.Entities
                 m_displayName = value;
                 if (MyHud.ContainsEntity(this))
                 {
-                    MyHud.RenameHudEntity(this, new StringBuilder(m_displayName));
+                    MyHud.RenameHudEntity(this, new StringBuilder(GetCorrectDisplayName()));
                 }
             }
         }
+
+        public virtual string GetCorrectDisplayName()
+        {
+            return DisplayName;
+        }
+
 
         #endregion
 

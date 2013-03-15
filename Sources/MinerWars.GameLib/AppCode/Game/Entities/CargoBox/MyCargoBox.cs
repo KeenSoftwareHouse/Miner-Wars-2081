@@ -158,39 +158,29 @@ namespace MinerWars.AppCode.Game.Entities.CargoBox
 
         public string GetCorrectDisplayName(ref MyHudMaxDistanceMultiplerTypes? maxDistanceMultiplerType)
         {
-            string displayName = DisplayName;
+            string displayName = GetCorrectDisplayName();
 
             switch (m_cargoBoxType)
             {
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type7:
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type3:
                     maxDistanceMultiplerType = MyHudMaxDistanceMultiplerTypes.CargoBoxMedkit;
-                    if (DisplayName == "Medikit")
-                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxMedikit).ToString();
                     break;
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type8:
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type6:
                     maxDistanceMultiplerType = MyHudMaxDistanceMultiplerTypes.CargoBoxAmmo;
-                    if (DisplayName == "Ammo")
-                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxAmmo).ToString();
                     break;
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.TypeProp_A:
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type9:
                     maxDistanceMultiplerType = MyHudMaxDistanceMultiplerTypes.CargoBoxOxygen;
-                    if (DisplayName == "Oxygen")
-                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxOxygen).ToString();
                     break;
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type5:
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type11:
                     maxDistanceMultiplerType = MyHudMaxDistanceMultiplerTypes.CargoBoxFuel;
-                    if (DisplayName == "Fuel")
-                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxFuel).ToString();
                     break;
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type2:
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type12:
                     maxDistanceMultiplerType = MyHudMaxDistanceMultiplerTypes.CargoBoxRepair;
-                    if (DisplayName == "Repair")
-                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxRepair).ToString();
                     break;
                 default:
                     maxDistanceMultiplerType = null;
@@ -200,6 +190,48 @@ namespace MinerWars.AppCode.Game.Entities.CargoBox
             return displayName;
         }
 
+        public override string GetCorrectDisplayName()
+        {
+            string displayName = DisplayName;
+
+            switch (m_cargoBoxType)
+            {
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type7:
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type3:
+                    if (DisplayName == "Medikit")
+                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxMedikit).ToString();
+                    break;
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type8:
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type6:
+                    if (DisplayName == "Ammo")
+                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxAmmo).ToString();
+                    break;
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.TypeProp_A:
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type9:
+                    if (DisplayName == "Oxygen")
+                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxOxygen).ToString();
+                    break;
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type5:
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type11:
+                    if (DisplayName == "Fuel")
+                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxFuel).ToString();
+                    break;
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type2:
+                case MyMwcObjectBuilder_CargoBox_TypesEnum.Type12:
+                    if (DisplayName == "Repair")
+                        displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.CargoBoxRepair).ToString();
+                    break;
+                default:
+                    
+                    break;
+            }
+
+            if (DisplayName == "Health")
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.Health).ToString();
+
+
+            return displayName;
+        }
 
         protected override void SetHudMarker()
         {

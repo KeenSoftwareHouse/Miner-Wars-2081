@@ -45,6 +45,16 @@ namespace MinerWars.AppCode.Game.Prefabs
             }            
         }
 
+        public override string GetCorrectDisplayName()
+        {
+            string displayName = DisplayName;
+
+            if (DisplayName == "BankNode")
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.BankNode).ToString();
+
+            return displayName;
+        }
+
         protected override void SetHudMarker()
         {
             MyHud.ChangeText(this, new StringBuilder(DisplayName), MyGuitargetMode.Neutral, 0, MyHudIndicatorFlagsEnum.SHOW_TEXT | MyHudIndicatorFlagsEnum.SHOW_BORDER_INDICATORS | MyHudIndicatorFlagsEnum.SHOW_HEALTH_BARS | MyHudIndicatorFlagsEnum.SHOW_DISTANCE | MyHudIndicatorFlagsEnum.ALPHA_CORRECTION_BY_DISTANCE | MyHudIndicatorFlagsEnum.SHOW_MISSION_MARKER);            

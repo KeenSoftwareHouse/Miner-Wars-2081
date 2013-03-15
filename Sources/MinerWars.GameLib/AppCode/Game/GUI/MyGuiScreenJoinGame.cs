@@ -584,13 +584,13 @@ namespace MinerWars.AppCode.Game.GUI
             switch (gameInfo.GameType)
             {
                 case MyGameTypes.Story:
-                    return new StringBuilder("Story " + "(" + MyTextsWrapper.Get(MyGameplayConstants.GetGameplayDifficultyProfile(gameInfo.Difficulty).DifficultyName) + ")");
+                    return new StringBuilder(MyTextsWrapper.Get(MyTextsWrapperEnum.Story) + " (" + MyTextsWrapper.Get(MyGameplayConstants.GetGameplayDifficultyProfile(gameInfo.Difficulty).DifficultyName) + ")");
                     break;
                 case MyGameTypes.Deathmatch:
-                    return new StringBuilder("Deathmatch");
+                    return MyTextsWrapper.Get(MyTextsWrapperEnum.Deathmatch);
                     break;
                 default:
-                    return new StringBuilder("Unknown");
+                    return MyTextsWrapper.Get(MyTextsWrapperEnum.UNKNOWN);
                     break;
             }
         }

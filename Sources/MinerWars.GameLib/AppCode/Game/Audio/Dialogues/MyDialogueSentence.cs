@@ -61,10 +61,12 @@ namespace MinerWars.AppCode.Game.Audio.Dialogues
             Listener = listener;
             Cue = cue;
             Text = text;
+            PauseBefore_ms = pauseBefore_ms;
+
             SentenceTime_ms = MathHelper.Clamp(MyDialoguesWrapper.Get(Text).Length * 66, MIN_SENTENCE_TIME, MAX_SENTENCE_TIME) + PauseBefore_ms;
             MyCommonDebugUtils.AssertDebug(noise >= 0 && noise <= 1, "Bad dialogue sentence noise value!");
             Noise = noise;
-            PauseBefore_ms = pauseBefore_ms;
+            
             if (MyActorConstants.IsNoiseActor(speaker))
             {
                 Noise = 1f;

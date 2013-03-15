@@ -15108,6 +15108,46 @@ namespace MinerWars.AppCode.Game.Localization
 		///: no objectives available.
 		///</summary>
 		GPSNoObjectives,
+		///<summary>
+		///Camera HUB
+		///</summary>
+		CameraHUB,
+		///<summary>
+		///Weapon Control
+		///</summary>
+		WeaponControl,
+		///<summary>
+		///Secret rooms found:
+		///</summary>
+		SecretRoomsFound,
+		///<summary>
+		///Back Turret
+		///</summary>
+		BackTurret,
+		///<summary>
+		///Bottom Turret
+		///</summary>
+		BottomTurret,
+		///<summary>
+		///Front Turret
+		///</summary>
+		FrontTurret,
+		///<summary>
+		///Left Door
+		///</summary>
+		LeftDoor,
+		///<summary>
+		///Right Door
+		///</summary>
+		RightDoor,
+		///<summary>
+		///meters
+		///</summary>
+		MetersLong,
+		///<summary>
+		///seconds
+		///</summary>
+		SecondsLong,
 	}
 
 	static partial class MyTextsWrapper
@@ -18889,6 +18929,16 @@ namespace MinerWars.AppCode.Game.Localization
 			m_sb[(int)MyTextsWrapperEnum.WHITE_WOLVES] = new StringBuilder(MyTexts.WHITE_WOLVES);
 			m_sb[(int)MyTextsWrapperEnum.DeadPilot] = new StringBuilder(MyTexts.DeadPilot);
 			m_sb[(int)MyTextsWrapperEnum.GPSNoObjectives] = new StringBuilder(MyTexts.GPSNoObjectives);
+			m_sb[(int)MyTextsWrapperEnum.CameraHUB] = new StringBuilder(MyTexts.CameraHUB);
+			m_sb[(int)MyTextsWrapperEnum.WeaponControl] = new StringBuilder(MyTexts.WeaponControl);
+			m_sb[(int)MyTextsWrapperEnum.SecretRoomsFound] = new StringBuilder(MyTexts.SecretRoomsFound);
+			m_sb[(int)MyTextsWrapperEnum.BackTurret] = new StringBuilder(MyTexts.BackTurret);
+			m_sb[(int)MyTextsWrapperEnum.BottomTurret] = new StringBuilder(MyTexts.BottomTurret);
+			m_sb[(int)MyTextsWrapperEnum.FrontTurret] = new StringBuilder(MyTexts.FrontTurret);
+			m_sb[(int)MyTextsWrapperEnum.LeftDoor] = new StringBuilder(MyTexts.LeftDoor);
+			m_sb[(int)MyTextsWrapperEnum.RightDoor] = new StringBuilder(MyTexts.RightDoor);
+			m_sb[(int)MyTextsWrapperEnum.MetersLong] = new StringBuilder(MyTexts.MetersLong);
+			m_sb[(int)MyTextsWrapperEnum.SecondsLong] = new StringBuilder(MyTexts.SecondsLong);
 		}
 	}
 }

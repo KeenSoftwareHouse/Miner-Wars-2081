@@ -451,8 +451,15 @@ namespace MinerWars.AppCode.Game.GUI
                     {
                         if (!m_oldPressedKeys.Contains(key))
                         {
+                            if (key == Keys.Control) continue; //there is always LeftControl or RightControl pressed with this
+                            if (key == Keys.Shift) continue; //there is always LeftShift or RightShift pressed with this
+
                             MyAudio.AddCue2D(MySoundCuesEnum.GuiMouseClick);
-                            if (!MyGuiInput.IsKeyValid((Keys)key)) { ShowControlIsNotValidMessageBox(); break; }
+
+                            if (!MyGuiInput.IsKeyValid((Keys)key))
+                            {
+                                ShowControlIsNotValidMessageBox(); break;
+                            }
 
                             MyControl ctrl = input.GetControl((Keys)key, m_control.GetGameControlTypeEnum());
                             if (ctrl != null)
@@ -587,7 +594,10 @@ namespace MinerWars.AppCode.Game.GUI
                             break;
                     }
                     m_buttonsDictionary[m_control].SetText(new StringBuilder(m_control.GetControlButtonName(m_deviceType)));
-                    m_buttonsDictionary[control].SetText(new StringBuilder(control.GetControlButtonName(m_deviceType)));
+                    if (m_buttonsDictionary.ContainsKey(control))
+                    {
+                        m_buttonsDictionary[control].SetText(new StringBuilder(control.GetControlButtonName(m_deviceType)));
+                    }
                     CloseScreen();
                 }
                 else

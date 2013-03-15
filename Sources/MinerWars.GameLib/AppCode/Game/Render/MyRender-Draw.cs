@@ -922,9 +922,11 @@ namespace MinerWars.AppCode.Game.Render
                             //m_device.DepthStencilState = DepthStencilState.DepthRead;
                             
                             MyStateObjects.DepthStencil_TestFarObject_DepthReadOnly.Apply();
+                            MyStateObjects.HoloRasterizerState.Apply();
                             /*dnsShader.SetDepthTextureNear(GetRenderTarget(MyRenderTargets.Lod0Depth));
                             dnsShader.SetDepthTextureFar(GetRenderTarget(MyRenderTargets.Lod1Depth));
                              */
+
                         }
                         else
                         {

@@ -147,8 +147,22 @@ namespace MinerWars.AppCode.Game.Voxels
             MyMwcLog.WriteLine("MyVoxelMaterials.UnloadContent - START");
             MyMwcLog.IncreaseIndent();
 
+            if (m_materials != null)
+            {
+                foreach (MyVoxelMaterial mat in m_materials)
+                {
+                    mat.UnloadContent();
+                }
+            }
+
             MyMwcLog.DecreaseIndent();
             MyMwcLog.WriteLine("MyVoxelMaterials.UnloadContent - END");
+        }
+
+        public static void ReloadContent()
+        {
+            UnloadContent();
+            LoadContent();
         }
 
         static void Add(MyMwcVoxelMaterialsEnum materialEnum, string assetName, bool isIndestructible, bool useTwoTextures, float specularShininess, float specularPower, bool hasBuilderVersion)

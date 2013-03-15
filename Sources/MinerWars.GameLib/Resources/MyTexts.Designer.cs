@@ -2564,6 +2564,15 @@ namespace MinerWars.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back Turret.
+        /// </summary>
+        internal static string BackTurret {
+            get {
+                return ResourceManager.GetString("BackTurret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bad sector identifier.
         /// </summary>
         internal static string BadSectorIdentifierInput {
@@ -3642,6 +3651,15 @@ namespace MinerWars.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bottom Turret.
+        /// </summary>
+        internal static string BottomTurret {
+            get {
+                return ResourceManager.GetString("BottomTurret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [Can build:{0}] [Built: {1}] [In queue: {2}] [State:{3}%].
         /// </summary>
         internal static string BuildingInformationWhenBuilding {
@@ -3818,6 +3836,15 @@ namespace MinerWars.Resources {
         internal static string Camera {
             get {
                 return ResourceManager.GetString("Camera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Camera HUB.
+        /// </summary>
+        internal static string CameraHUB {
+            get {
+                return ResourceManager.GetString("CameraHUB", resourceCulture);
             }
         }
         
@@ -11781,6 +11808,15 @@ namespace MinerWars.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Front Turret.
+        /// </summary>
+        internal static string FrontTurret {
+            get {
+                return ResourceManager.GetString("FrontTurret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FUEL TANK | Uses same fuel type as ship’s engine. 
         ///Extends its storage by 100%.
         /// </summary>
@@ -16286,6 +16322,15 @@ namespace MinerWars.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Left Door.
+        /// </summary>
+        internal static string LeftDoor {
+            get {
+                return ResourceManager.GetString("LeftDoor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LMB.
         /// </summary>
         internal static string LeftMouseButton {
@@ -17330,6 +17375,15 @@ namespace MinerWars.Resources {
         internal static string MessageYouMustSetTemplateIfYouWantRefillInventory {
             get {
                 return ResourceManager.GetString("MessageYouMustSetTemplateIfYouWantRefillInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to meters.
+        /// </summary>
+        internal static string MetersLong {
+            get {
+                return ResourceManager.GetString("MetersLong", resourceCulture);
             }
         }
         
@@ -27975,6 +28029,15 @@ namespace MinerWars.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Right Door.
+        /// </summary>
+        internal static string RightDoor {
+            get {
+                return ResourceManager.GetString("RightDoor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RMB.
         /// </summary>
         internal static string RightMouseButton {
@@ -29396,11 +29459,29 @@ namespace MinerWars.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to seconds.
+        /// </summary>
+        internal static string SecondsLong {
+            get {
+                return ResourceManager.GetString("SecondsLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Secret.
         /// </summary>
         internal static string Secret {
             get {
                 return ResourceManager.GetString("Secret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret rooms found:.
+        /// </summary>
+        internal static string SecretRoomsFound {
+            get {
+                return ResourceManager.GetString("SecretRoomsFound", resourceCulture);
             }
         }
         
@@ -34102,6 +34183,15 @@ namespace MinerWars.Resources {
         internal static string WeaponCIWS {
             get {
                 return ResourceManager.GetString("WeaponCIWS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weapon Control.
+        /// </summary>
+        internal static string WeaponControl {
+            get {
+                return ResourceManager.GetString("WeaponControl", resourceCulture);
             }
         }
         

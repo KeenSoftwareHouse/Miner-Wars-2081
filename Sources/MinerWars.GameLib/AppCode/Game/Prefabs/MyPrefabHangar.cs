@@ -52,6 +52,19 @@ namespace MinerWars.AppCode.Game.Entities.Prefabs
             }
         }
 
+        public override string GetCorrectDisplayName()
+        {
+            string displayName = DisplayName;
+
+            if (DisplayName == "Mixed Merchant")
+            {
+                displayName = MyTextsWrapper.Get(MyTextsWrapperEnum.MerchantMixed).ToString();
+            }
+
+
+            return displayName;
+        }
+
         protected override void SetHudMarker()
         {
             MyHudIndicatorFlagsEnum hudFlags = MyHudIndicatorFlagsEnum.SHOW_TEXT | MyHudIndicatorFlagsEnum.SHOW_BORDER_INDICATORS | MyHudIndicatorFlagsEnum.SHOW_HEALTH_BARS | MyHudIndicatorFlagsEnum.SHOW_DISTANCE | MyHudIndicatorFlagsEnum.SHOW_MISSION_MARKER;
@@ -65,7 +78,9 @@ namespace MinerWars.AppCode.Game.Entities.Prefabs
             {
                 hudFlags |= MyHudIndicatorFlagsEnum.SHOW_ONLY_IF_DETECTED_BY_RADAR | MyHudIndicatorFlagsEnum.ALPHA_CORRECTION_BY_DISTANCE;
             }
-            MyHud.ChangeText(this, new StringBuilder(DisplayName), guiTargetMode, 0, hudFlags); 
+
+
+            MyHud.ChangeText(this, new StringBuilder(GetCorrectDisplayName()), guiTargetMode, 0, hudFlags); 
         }
 
         protected override StringBuilder GetDisplayNameSb(string displayName)

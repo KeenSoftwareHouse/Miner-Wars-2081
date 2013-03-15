@@ -81,8 +81,8 @@ namespace MinerWars.AppCode.Game.Render
             MyMwcVector2Int delta = new MyMwcVector2Int((int)(MyCamera.Viewport.Height * 0.015f), (int)(MyCamera.Viewport.Height * 0.015f));
             MyMwcVector2Int size = new MyMwcVector2Int((int)(MyCamera.Viewport.Height * normalizedSizeX), (int)(MyCamera.Viewport.Height * normalizedSizeY));
 
-            //MyGuiManager.DrawSpriteFast(MyRender.GetRenderTarget(MyRenderTargets.Diffuse), delta.X, delta.Y, size.X, size.Y, Color.White);
-            //MyGuiManager.DrawSpriteFast(MyRender.GetRenderTarget(MyRenderTargets.Depth), delta.X + size.X + delta.X, delta.Y, size.X, size.Y, Color.White);
+            MyGuiManager.DrawSpriteFast(MyRender.GetRenderTarget(MyRenderTargets.Diffuse), delta.X, delta.Y, size.X, size.Y, Color.White);
+            MyGuiManager.DrawSpriteFast(MyRender.GetRenderTarget(MyRenderTargets.Normals), delta.X + size.X + delta.X, delta.Y, size.X, size.Y, Color.White);
         }
 
         internal static void DrawDebugHDRRenderTargets()

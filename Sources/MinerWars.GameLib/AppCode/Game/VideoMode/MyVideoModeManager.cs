@@ -245,7 +245,7 @@ namespace MinerWars.AppCode.Game.VideoMode
                             //MyMinerGame.Static.ReloadContent();
                             MyRender.LoadContent();
                             MyModels.ReloadContent();
-                            MinerWars.AppCode.Game.Voxels.MyVoxelMaterials.LoadContent();
+                            MinerWars.AppCode.Game.Voxels.MyVoxelMaterials.ReloadContent();
                             MyTextureManager.ReloadTextures();
                         }
                     }

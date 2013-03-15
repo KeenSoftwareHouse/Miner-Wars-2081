@@ -114,7 +114,7 @@ namespace MinerWars.AppCode.Game.Audio
         bool CheckState(CueState state)
         {
             Debug.Assert(IsValid, "Before checking state, test IsValid!");
-            return IsValid && m_cue.State == state;
+            return IsValid && ((int)(m_cue.State & state) == (int)state);
         }
     }
 }

@@ -99,22 +99,28 @@ namespace MinerWars.AppCode.Game.SolarSystem
             Color = new Color(0 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1f),
         };
 
-                     
+                      //Not worth of limiting, it is used in multiplayer maps where is everything..
         public readonly static Dictionary<MyMwcVoxelMaterialsEnum, float> SlaversBase2AsteroidMaterials = new Dictionary<MyMwcVoxelMaterialsEnum, float>()
-        {        
+        {     /*   
             {  MyMwcVoxelMaterialsEnum.Stone_05, 1},
             {  MyMwcVoxelMaterialsEnum.Stone_06, 1},
             {  MyMwcVoxelMaterialsEnum.Stone_10, 1},
-
+            {  MyMwcVoxelMaterialsEnum.Stone_01, 1},   //because of Junkyard mines in multiplayer
+           */
         };
 
         public readonly static Dictionary<MyMwcVoxelMaterialsEnum, float> SlaversBase2SecondaryMaterials = new Dictionary<MyMwcVoxelMaterialsEnum, float>()
-        {
+        {     /*
             {  MyMwcVoxelMaterialsEnum.Helium3_01, 1},
             {  MyMwcVoxelMaterialsEnum.Ice_01, 1}, //because of Ice cave in multiplayer
             {  MyMwcVoxelMaterialsEnum.Uranite_01, 1}, //because of Plutonium mines in multiplayer
+            {  MyMwcVoxelMaterialsEnum.Indestructible_01, 1},   //because of Junkyard mines in multiplayer
+            {  MyMwcVoxelMaterialsEnum.Cobalt_01, 1},   //because of Junkyard mines in multiplayer
+            {  MyMwcVoxelMaterialsEnum.Lava_01, 1},   //because of Junkyard mines in multiplayer
+            {  MyMwcVoxelMaterialsEnum.Treasure_01, 1},   //because of Junkyard mines in multiplayer
+               */ 
         };             
-
+                      
 
 
         /// <summary>

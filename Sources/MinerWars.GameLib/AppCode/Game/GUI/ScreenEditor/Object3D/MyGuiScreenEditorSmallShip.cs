@@ -239,7 +239,7 @@ namespace MinerWars.AppCode.Game.GUI.ScreenEditor.Object3D
 
         private void OnSeeDistanceChanged(MyGuiControlSlider sender)
         {
-            m_seeDistanceLabel.UpdateText(string.Format(" {0:#,###0} meters", m_seeDistanceSlider.GetValue()));
+            m_seeDistanceLabel.UpdateText(string.Format(" {0:#,###0} " + MyTextsWrapper.Get(MyTextsWrapperEnum.MetersLong).ToString(), m_seeDistanceSlider.GetValue()));
         }
 
         private void OnOkClick()

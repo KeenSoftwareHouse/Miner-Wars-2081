@@ -351,6 +351,9 @@ namespace MinerWars.AppCode.Game.Entities.Weapons
         protected override void OnContactStart(MyContactEventInfo contactInfo)
         {
             base.OnContactStart(contactInfo);
+
+            var collidedEntity = contactInfo.GetOtherEntity(this);
+
             /*
             if (IsExploded || contactInfo.GetOtherEntity(this) != m_collidedEntity || m_wasPenetration)
             {
@@ -364,7 +367,15 @@ namespace MinerWars.AppCode.Game.Entities.Weapons
                 return;
             } */
 
-            m_collidedEntity = contactInfo.GetOtherEntity(this);
+            if (collidedEntity is MySmallShip
+              && OwnerEntity == MySession.PlayerShip
+              && MySession.PlayerFriends.Contains(collidedEntity as MySmallShip))
+            {
+                //missiles wont hit out friends
+                return;
+            }
+
+            m_collidedEntity = collidedEntity;
             m_collidedEntity.OnClose += m_collidedEntityClosedHandler;
             m_collisionPoint = contactInfo.m_ContactPoint;
 

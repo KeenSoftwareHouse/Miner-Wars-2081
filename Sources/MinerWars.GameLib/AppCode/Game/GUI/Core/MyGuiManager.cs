@@ -3210,9 +3210,6 @@ m_spriteBatch.Draw(texture, SharpDXHelper.ToSharpDX(dest), SharpDXHelper.ToSharp
         //  IMPORTANT: Be careful about sprite batch, Begin and End
         public static void DrawStencilMaskRectangle(MyRectangle2D rectangle, MyGuiDrawAlignEnum drawAlignEnum)
         {
-            // Clear stencil to avoid overflow
-            //MyMinerGame.Static.GraphicsDevice.Clear(ClearOptions.Stencil, Color.White, 0.0f, 0);
-
             //  Call begin with new stencil-mask parameters
             m_spriteBatch.Begin(SpriteSortMode.Deferred, MyStateObjects.StencilMask_Draw_BlendState, SamplerState.LinearWrap,
                 MyStateObjects.StencilMask_Draw_DepthStencilState, RasterizerState.CullNone);

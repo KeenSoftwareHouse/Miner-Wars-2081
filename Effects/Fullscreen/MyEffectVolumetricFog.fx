@@ -44,6 +44,7 @@ float4x4 ViewProjectionMatrix;
 float4x4 CameraMatrix;
 float3 CameraPos;
 
+float2 Scale = float2(1.0f, 1.0f);
 
 struct VertexShaderInput
 {
@@ -63,7 +64,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
 	VertexShaderOutput output;
 	output.Position = input.Position;
-	output.TexCoord = input.TexCoordAndCornerIndex.xy + HalfPixel;
+	output.TexCoord = (input.TexCoordAndCornerIndex.xy + HalfPixel) * Scale;
 	output.FrustumCorner = FrustumCorners[input.TexCoordAndCornerIndex.z];
 	return output;
 }

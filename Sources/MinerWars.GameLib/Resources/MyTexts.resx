@@ -5536,43 +5536,33 @@ Sphere with large cut-out</value>
   </data>
   <data name="Stone_01" xml:space="preserve">
     <value>Stone 1</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_02" xml:space="preserve">
     <value>Stone 2</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_03" xml:space="preserve">
     <value>Stone 3</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_04" xml:space="preserve">
     <value>Stone 4</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_05" xml:space="preserve">
     <value>Stone 5</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_06" xml:space="preserve">
     <value>Stone 6</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_07" xml:space="preserve">
     <value>Stone 7</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_08" xml:space="preserve">
     <value>Stone 8</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_10" xml:space="preserve">
     <value>Stone 10</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="Stone_13_Wall_01" xml:space="preserve">
     <value>Stone 13</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="StorySectorPositionYMustBeZero" xml:space="preserve">
     <value>Story sector can be saved only when its Y coordinate is 0.</value>
@@ -12434,7 +12424,6 @@ industrial use.</value>
   </data>
   <data name="Stone_Red" xml:space="preserve">
     <value>Stone red</value>
-    <comment>DONT TRANSLATE</comment>
   </data>
   <data name="AttachVoxelHand" xml:space="preserve">
     <value>Attach voxel hand</value>
@@ -12717,5 +12706,35 @@ When this problem persist, please send your logfile to support@minerwars.com</va
   </data>
   <data name="GPSNoObjectives" xml:space="preserve">
     <value>: no objectives available.</value>
+  </data>
+  <data name="CameraHUB" xml:space="preserve">
+    <value>Camera HUB</value>
+  </data>
+  <data name="WeaponControl" xml:space="preserve">
+    <value>Weapon Control</value>
+  </data>
+  <data name="SecretRoomsFound" xml:space="preserve">
+    <value>Secret rooms found:</value>
+  </data>
+  <data name="BackTurret" xml:space="preserve">
+    <value>Back Turret</value>
+  </data>
+  <data name="BottomTurret" xml:space="preserve">
+    <value>Bottom Turret</value>
+  </data>
+  <data name="FrontTurret" xml:space="preserve">
+    <value>Front Turret</value>
+  </data>
+  <data name="LeftDoor" xml:space="preserve">
+    <value>Left Door</value>
+  </data>
+  <data name="RightDoor" xml:space="preserve">
+    <value>Right Door</value>
+  </data>
+  <data name="MetersLong" xml:space="preserve">
+    <value>meters</value>
+  </data>
+  <data name="SecondsLong" xml:space="preserve">
+    <value>seconds</value>
   </data>
 </root>

@@ -110,7 +110,7 @@ namespace MinerWars.AppCode.Game.GUI.Prefabs
         {
             if (!string.IsNullOrEmpty(entity.DisplayName))
             {
-                return new StringBuilder(entity.DisplayName);
+                return new StringBuilder(entity.GetCorrectDisplayName());
             }
             else
             {
