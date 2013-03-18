@@ -15,8 +15,8 @@ Audio
 Textures
 ========
 MinerWars 2081 uses mainly 2 textures:
-a) "de" - diffuse, emmissive. Texture contains diffuse color in RGB channel and emissivity in Aplha channel
-b) "ns" - normal, specular. Texture contains normal in RGB channel and specular in Aphla channel
+a) "de" - diffuse, emmissive. Texture contains diffuse color in RGB channel and emissivity in Alpha channel
+b) "ns" - normal, specular. Texture contains normal in RGB channel and specular in Alpha channel
 
 All textures should be DXT5 compressed DDS files, but game also handles loading png's.
 If you don't know what this means, you can just use classic texture (saved as PNG) as "de" texture, it will work.
