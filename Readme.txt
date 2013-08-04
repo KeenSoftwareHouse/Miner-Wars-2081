@@ -20,7 +20,7 @@ Make your MOD
 1) Make sure you have installed latest updates (including service packs)
 2) Download and install free Visual C# 2010 Express: http://www.microsoft.com/visualstudio/eng#downloads+d-2010-express
 3) Install DirectX Runtime: http://www.microsoft.com/en-us/download/details.aspx?id=35
-4) Download zip with Miner Wars 2081 source code from github and unpack:
+4) Download zip with Miner Wars 2081 source code from GitHub and unpack:
    https://github.com/KeenSoftwareHouse/Miner-Wars-2081/archive/master.zip
 5) Make sure Steam is running and you own MinerWars 2081
 6) Double-click MinerWars2081.sln
@@ -56,7 +56,7 @@ Tips when developing your own mod
   b) File "steam_appid.txt" exists in MinerWars Steam folder (See step 1 in Make your MOD) and contains: 223430
 - When MinerWars is started, it checks for permissions, when it detects admin permissions, it restarts as "Basic User".
   This check is disabled when running mod from Visual Studio.
-  Make sure you don't write to C:\ or other protected locations, becase it won't work when you distribute your MOD.
+  Make sure you don't write to C:\ or other protected locations, because it won't work when you distribute your MOD.
 - Content (textures, models, audio) can be modified too, check Readme_Content.txt
 - To quickly find classes and members, use file search tool, "DPack" (Visual studio addin) is great! Also CTRL+comma works quite good.
 - You should not replace original files in Content folder, instead place your files to Mods/YourMod folder and change source codes to use files in this directory.
@@ -66,4 +66,4 @@ Tips when developing your own mod
 - You can't add new steam achievements!
 - When you write something which makes development of other mods easy, you can submit the code and we add it to official MOD branch (on GitHub), so other developers can use it too
   (e.g. support for new audio files, better texture loading for mods, some plugin API and so on)
-- Don't modify GameServices (or be very carefull), it may crash the game when you change anything (e.g. number of arguments in constructor)
+- Don't modify GameServices (or be very careful), it may crash the game when you change anything (e.g. number of arguments in constructor)
