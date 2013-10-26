@@ -23,19 +23,19 @@ namespace SharpDX.Toolkit.Graphics
                         DepthBufferEnable = true,
                         DepthBufferWriteEnable = true,
                         DepthBufferFunction = Compare.LessEqual,
-                        StencilEnable = false,
+                        StencilEnable = true,
                         ReferenceStencil = 0,
                         CounterClockwiseStencilFunction = Compare.Always,
                         CounterClockwiseStencilDepthBufferFail = StencilOperation.Keep,
                         CounterClockwiseStencilFail = StencilOperation.Keep,
                         CounterClockwiseStencilPass = StencilOperation.Keep,
-                        StencilFunction = Compare.Always,
+                        StencilFunction = Compare.Equal,
                         StencilDepthBufferFail = StencilOperation.Keep,
                         StencilFail = StencilOperation.Keep,
-                        StencilPass = StencilOperation.Keep,
+                        StencilPass = StencilOperation.Replace,
                         TwoSidedStencilMode = false,
                         StencilMask = int.MaxValue,
-                        StencilWriteMask = int.MaxValue
+                        StencilWriteMask = 0
                     };
                 }
 
@@ -68,7 +68,7 @@ namespace SharpDX.Toolkit.Graphics
                         StencilPass = StencilOperation.Keep,
                         TwoSidedStencilMode = false,
                         StencilMask = int.MaxValue,
-                        StencilWriteMask = int.MaxValue
+                        StencilWriteMask = 0
                     };
                 }
 
@@ -100,7 +100,7 @@ namespace SharpDX.Toolkit.Graphics
                         StencilPass = StencilOperation.Keep,
                         TwoSidedStencilMode = false,
                         StencilMask = int.MaxValue,
-                        StencilWriteMask = int.MaxValue
+                        StencilWriteMask = 0
                     };
                 }
 
@@ -158,7 +158,7 @@ namespace SharpDX.Toolkit.Graphics
             StencilPass = StencilOperation.Keep;
             TwoSidedStencilMode = false;
             StencilMask = int.MaxValue;
-            StencilWriteMask = int.MaxValue;
+            StencilWriteMask = 0;
         }
 
         // Summary:

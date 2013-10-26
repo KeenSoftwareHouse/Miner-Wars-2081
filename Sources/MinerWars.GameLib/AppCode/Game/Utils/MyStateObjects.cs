@@ -129,13 +129,15 @@ namespace MinerWars.AppCode.Game.Utils
             //  Depth buffer is not required when working with stencil only
             DepthBufferEnable = true,
             DepthBufferWriteEnable = true,
+            DepthBufferFunction = Compare.Always,
 
             //  Every succesfully rendered pixel (not discarded or clipped) will also write 1 into stencil buffer
             ReferenceStencil = 1,
             StencilEnable = true,
             StencilFunction = Compare.Always,
             StencilPass = StencilOperation.Replace,
-            StencilFail = StencilOperation.Replace
+            StencilFail = StencilOperation.Replace,
+            StencilWriteMask = 1
         };
 
         // Depth stencil for rendering far objects - all objects except cockpit and weapons (reads stencil and renders objects or not for this pixel)
