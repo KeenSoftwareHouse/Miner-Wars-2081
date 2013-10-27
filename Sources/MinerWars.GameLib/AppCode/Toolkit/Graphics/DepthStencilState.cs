@@ -32,7 +32,7 @@ namespace SharpDX.Toolkit.Graphics
                         StencilFunction = Compare.Equal,
                         StencilDepthBufferFail = StencilOperation.Keep,
                         StencilFail = StencilOperation.Keep,
-                        StencilPass = StencilOperation.Replace,
+                        StencilPass = StencilOperation.Keep,
                         TwoSidedStencilMode = false,
                         StencilMask = int.MaxValue,
                         StencilWriteMask = int.MaxValue
