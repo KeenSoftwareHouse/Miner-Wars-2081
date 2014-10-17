@@ -53,6 +53,7 @@ namespace MinerWars.AppCode.Game.Effects
         readonly EffectHandle m_projectionMatrix;
         readonly EffectHandle m_textureDiffuse;
         readonly EffectHandle m_textureNormal;
+        readonly EffectHandle m_textureHeight;
         readonly EffectHandle m_emissivity;
         readonly EffectHandle m_emissivityOffset;
         readonly EffectHandle m_emissivityUVAnim;
@@ -66,6 +67,7 @@ namespace MinerWars.AppCode.Game.Effects
         readonly EffectHandle m_depthTextureFar;
         readonly EffectHandle m_halfPixel;
         readonly EffectHandle m_scale;
+        readonly EffectHandle m_cameraVector;
 
         //readonly EffectHandle m_maskTexture;
         //readonly EffectHandle[] m_channelTexture;
@@ -77,6 +79,7 @@ namespace MinerWars.AppCode.Game.Effects
         bool m_diffuseTextureSet = false;
         bool m_normalTextureSet = false;
         bool m_specularTextureSet = false;
+        bool m_textureHeightSet = false;
 
         //Techniques 
         EffectHandle m_lowTechnique;
@@ -126,7 +129,7 @@ namespace MinerWars.AppCode.Game.Effects
         int m_screenSizeXLocal;
         int m_screenSizeYLocal;
         Vector2 m_scaleLocal;
-
+        Vector2 m_cameraVectorLocal;
 
         public MyEffectModelsDNS()
             : base("Effects2\\Models\\MyEffectModelsDNS")
@@ -137,6 +140,7 @@ namespace MinerWars.AppCode.Game.Effects
 
             m_textureDiffuse = m_D3DEffect.GetParameter(null, "TextureDiffuse");
             m_textureNormal = m_D3DEffect.GetParameter(null, "TextureNormal");
+            m_textureNormal = m_D3DEffect.GetParameter(null, "TextureHeight");
             m_diffuseColor = m_D3DEffect.GetParameter(null, "DiffuseColor");
             m_emissivity = m_D3DEffect.GetParameter(null, "Emissivity");
             m_emissivityOffset = m_D3DEffect.GetParameter(null, "EmissivityOffset");
@@ -150,6 +154,8 @@ namespace MinerWars.AppCode.Game.Effects
             m_depthTextureFar = m_D3DEffect.GetParameter(null, "DepthTextureFar");
             m_halfPixel = m_D3DEffect.GetParameter(null, "HalfPixel");
             m_scale = m_D3DEffect.GetParameter(null, "Scale");
+
+            m_cameraVector = m_D3DEffect.GetParameter(null, "CameraVector");
 
             m_lowTechnique = m_D3DEffect.GetTechnique("Technique_RenderQualityLow");
             //m_lowInstancedTechnique = m_xnaEffect.GetTechnique("Technique_RenderQualityLowInstanced");
@@ -186,6 +192,7 @@ namespace MinerWars.AppCode.Game.Effects
             m_forwardTechnique = m_D3DEffect.GetTechnique("Technique_RenderQualityLow_Forward");
             m_lowBlendedForwardTechnique = m_D3DEffect.GetTechnique("Technique_RenderQualityLowBlended_Forward");
 
+            SetCameraVector(new Vector2(MyCamera.Position.X,MyCamera.Position.Y));
             DynamicLights = new MyEffectDynamicLightingBase(m_D3DEffect);
             Reflector = new MyEffectReflectorBase(m_D3DEffect);
         }
@@ -215,6 +222,11 @@ namespace MinerWars.AppCode.Game.Effects
         {
             m_D3DEffect.SetTexture(m_textureNormal, texture2D);
             m_normalTextureSet = texture2D != null;
+        }
+        public override void SetTextureHeight(Texture texture2D)
+        {
+            m_D3DEffect.SetTexture(m_textureHeight, texture2D);
+            m_textureHeightSet = texture2D != null;
         }
 
         public override bool IsTextureDiffuseSet()
@@ -326,6 +338,14 @@ namespace MinerWars.AppCode.Game.Effects
             }
         }
 
+        public void SetCameraVector(Vector2 cameraVector)
+        {
+            if (m_cameraVectorLocal != cameraVector)
+            {
+                m_D3DEffect.SetValue(m_cameraVector, cameraVector);
+                m_cameraVectorLocal = cameraVector;
+            }
+        }
 
         public void SetTechnique(MyEffectModelsDNSTechniqueEnum technique)
         {

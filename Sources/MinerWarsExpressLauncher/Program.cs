@@ -12,8 +12,9 @@ namespace MinerWarsExpressLauncher
     static class Program
     {
         static readonly string ExeName = "MinerWars.exe";
-        static readonly string DefaultPath = @"C:\Program Files (x86)\Steam\steamapps\common\MinerWars\MinerWars.exe";
-
+        //static readonly string DefaultPath = @"C:\Program Files (x86)\Steam\steamapps\common\MinerWars\MinerWars.exe";
+        static readonly string DefaultPath = @"D:\Games\SteamLibrary\SteamApps\common\MinerWars\MinerWars.exe";
+  
         static string FromRegistryPath
         {
             get

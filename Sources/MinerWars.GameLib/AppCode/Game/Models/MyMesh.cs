@@ -21,6 +21,7 @@ namespace MinerWars.AppCode.Game.Models
         private const string C_POSTFIX_DIFFUSE = "_d";
         internal const string C_POSTFIX_DIFFUSE_EMISSIVE = "_de";
         private const string C_POSTFIX_DONT_HAVE_NORMAL = "_dn";
+        internal const string C_POSTFIX_HEIGHT_MAP = "_hm";
         internal const string C_POSTFIX_NORMAL_SPECULAR = "_ns";
         private const string DEFAULT_DIRECTORY = "\\v01\\";
 

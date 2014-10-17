@@ -87,7 +87,7 @@ namespace MinerWars.AppCode.Game.Entities
         private List<MyVoxelHandShape> m_voxelHandShapes;
         private List<BoundingSphere> m_explosions;
 
-        MyMeshMaterial m_fakeVoxelMaterial = new MyMeshMaterial("VoxelMaterial", null, null, null);
+        MyMeshMaterial m_fakeVoxelMaterial = new MyMeshMaterial("VoxelMaterial", null, null, null, null);
 
         public FastResourceLock ContentLock = new FastResourceLock();
         public FastResourceLock OreDepositsLock = new FastResourceLock();

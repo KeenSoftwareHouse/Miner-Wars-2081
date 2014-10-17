@@ -747,8 +747,7 @@ namespace MinerWars.AppCode.Game.Render
             public int IBChangesStats;
         }
 
-
-        private static MyMeshMaterial m_emptyMaterial = new MyMeshMaterial("", "", null, null);
+        private static MyMeshMaterial m_emptyMaterial = new MyMeshMaterial("", "", null, null, null);
 
         private static void DrawRenderElements(List<MyRenderElement> renderElements, bool applyStencil, out int ibChangesStats)
         {
@@ -1197,6 +1196,7 @@ namespace MinerWars.AppCode.Game.Render
                         {
                             shader.SetTextureDiffuse(material.DiffuseTexture);
                             shader.SetTextureNormal(material.NormalTexture);
+                            shader.SetTextureHeight(material.HeightTexture);
 
                             //Do we need this? Graphicians dont use this
                             //shader.SetDiffuseColor(material.DiffuseColor);
@@ -1221,6 +1221,8 @@ namespace MinerWars.AppCode.Game.Render
                         {
                             shader.SetTextureDiffuse(null);
                             shader.SetTextureNormal(null);
+
+                            shader.SetTextureHeight(null);
 
                             shader.SetSpecularPower(1);
                             shader.SetSpecularIntensity(1);

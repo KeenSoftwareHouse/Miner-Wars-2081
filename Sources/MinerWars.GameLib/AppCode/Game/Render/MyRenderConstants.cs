@@ -79,7 +79,9 @@ namespace MinerWars.AppCode.Game.Render
         public bool NeedReloadContent;
 
         // Use additional channel textures on models (dirt, rust, etc...)
-        public bool UseChannels; 
+        public bool UseChannels;
+
+        public bool UseHeightForVerticals;
 
         // Spot shadow max distance multiplier 
         public float SpotShadowsMaxDistanceMultiplier;
