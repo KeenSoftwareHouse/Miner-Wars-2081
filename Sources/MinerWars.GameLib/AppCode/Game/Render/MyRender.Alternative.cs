@@ -210,7 +210,6 @@ namespace MinerWars.AppCode.Game.Render
                         {
                             shader.SetTextureDiffuse(material.DiffuseTexture);
                             shader.SetTextureNormal(material.NormalTexture);
-                            shader.SetTextureHeight(material.HeightTexture);
 
                             //Do we need this? Graphicians dont use this
                             //shader.SetDiffuseColor(material.DiffuseColor);
@@ -235,7 +234,6 @@ namespace MinerWars.AppCode.Game.Render
                         {
                             shader.SetTextureDiffuse(null);
                             shader.SetTextureNormal(null);
-                            shader.SetTextureHeight(null);
 
                             shader.SetSpecularPower(1);
                             shader.SetSpecularIntensity(1);

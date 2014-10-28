@@ -31,7 +31,6 @@ namespace MinerWars.AppCode.Game.Effects
         readonly EffectHandle m_textureDiffuseForAxisY;
         readonly EffectHandle m_textureNormalMapForAxisXZ;
         readonly EffectHandle m_textureNormalMapForAxisY;
-           private EffectHandle m_textureHeightForAxisXZ;
 
         readonly EffectHandle m_textureDiffuseForAxisXZ2;
         readonly EffectHandle m_textureDiffuseForAxisY2;
@@ -72,6 +71,7 @@ namespace MinerWars.AppCode.Game.Effects
         /// Set to true when multiple materials has been set
         /// </summary>
         protected bool m_multimaterial;
+
         public MyEffectDynamicLightingBase DynamicLights { get; private set; }
         public MyEffectReflectorBase Reflector { get; private set; }
 
@@ -84,7 +84,6 @@ namespace MinerWars.AppCode.Game.Effects
             m_textureDiffuseForAxisY = m_D3DEffect.GetParameter(null, "TextureDiffuseForAxisY");
             m_textureNormalMapForAxisXZ = m_D3DEffect.GetParameter(null, "TextureNormalMapForAxisXZ");
             m_textureNormalMapForAxisY = m_D3DEffect.GetParameter(null, "TextureNormalMapForAxisY");
-            m_textureHeightForAxisXZ = m_D3DEffect.GetParameter(null, "TextureHeightForAxisXZ");
 
             m_textureDiffuseForAxisXZ2 = m_D3DEffect.GetParameter(null, "TextureDiffuseForAxisXZ2");
             m_textureDiffuseForAxisY2 = m_D3DEffect.GetParameter(null, "TextureDiffuseForAxisY2");

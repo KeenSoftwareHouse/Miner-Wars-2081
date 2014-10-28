@@ -26,7 +26,6 @@ float		SpecularPower = 1;
 
 float2 HalfPixel;
 float2 Scale;
-flaot2 CameraVector;
 
 Texture TextureDiffuse;
 sampler TextureDiffuseSampler = sampler_state 
@@ -41,15 +40,6 @@ Texture TextureNormal;
 sampler TextureNormalSampler = sampler_state 
 { 
 	texture = <TextureNormal> ; 
-	mipfilter = LINEAR; 
-	AddressU = WRAP; 
-	AddressV = WRAP;
-};
-
-Texture TextureHeight;
-sampler TextureHeightSampler = sampler_state 
-{ 
-	texture = <TextureHeight> ; 
 	mipfilter = LINEAR; 
 	AddressU = WRAP; 
 	AddressV = WRAP;
@@ -367,13 +357,6 @@ MyGbufferPixelShaderOutput PixelShaderFunctionLow_DNS_Instanced(VertexShaderOutp
 
 MyGbufferPixelShaderOutput PixelShaderFunction_DNS_Base(VertexShaderOutput_DNS input, float3 diffuse, float3 si_sp_e, float3 highlight)
 {
-	// Parallax maping here - need figure out where get eye eq. camera.....
-	
-	float height = tex2D(TextureHeightSampler, input.BaseOutput.TexCoordAndViewDistance.xy).r;
-    float2 scaleBias = 0.04f - 0.03f; // scale and bias
-    height = height * scaleBias.x + scaleBias.y; //still dont get why hes suming this vectors, im pretty sure he should substract them
-    input.BaseOutput.TexCoordAndViewDistance.xy = input.BaseOutput.TexCoordAndViewDistance.xy + (height * Camera.xy);
-
 	float4 diffuseTexture = tex2D(TextureDiffuseSampler, input.BaseOutput.TexCoordAndViewDistance.xy);
 
 	input.TangentToWorld[0] = normalize(input.TangentToWorld[0]);

@@ -24,7 +24,6 @@ namespace MinerWars.AppCode.Game.Models
         public int HashCode;
         private MyTexture2D m_diffuseTex;
         private MyTexture2D m_normalTex;
-        private MyTexture2D m_heightTex;
 
         private float m_specularIntensity = 1f;
         private float m_specularPower = 1f;
@@ -42,13 +41,6 @@ namespace MinerWars.AppCode.Game.Models
         private bool m_loadedContent;
 
         Vector2 m_diffuseUVAnim;
-        private string p;
-        private string assetName;
-        private MyTexture2D myTexture2D1;
-        private MyTexture2D myTexture2D2;
-        private MyTexture2D myTexture2D3;
-        private string m_heightName;
-     
         public Vector2 DiffuseUVAnim
         {
             get { return m_diffuseUVAnim; }
@@ -136,12 +128,6 @@ namespace MinerWars.AppCode.Game.Models
             get { return m_diffuseTex; }
             set { m_diffuseTex = value; ComputeHashCode(); }
         }
-        
-        public MyTexture2D HeightTexture
-        {
-            get { return m_heightTex; }
-            set { m_heightTex = value; ComputeHashCode(); }
-        }
         public MyTexture2D NormalTexture
         {
             get { return m_normalTex; }
@@ -172,25 +158,24 @@ namespace MinerWars.AppCode.Game.Models
         {
             get { return m_materialName; }
         }
-    
-        public MyMeshMaterial(string name, string materialName, MyTexture2D diff, MyTexture2D norm, MyTexture2D height)
-          {
+
+        public MyMeshMaterial(string name, string materialName, MyTexture2D diff, MyTexture2D norm)
+        {
             if (name!= null)
             {
                 m_diffuseName = name + MyMesh.C_POSTFIX_DIFFUSE_EMISSIVE;
                 m_normalName = name + MyMesh.C_POSTFIX_NORMAL_SPECULAR;
-                m_heightName = name + MyMesh.C_POSTFIX_HEIGHT_MAP;
             }
             m_materialName = materialName;
             m_drawTechnique = MyMeshDrawTechnique.MESH;
             HashCode = 0;
             m_diffuseTex = diff;
             m_normalTex = norm;
-            m_heightTex = height;
             m_hasNormalTexture = m_normalTex != null;
 
             ComputeHashCode();
         }
+
         /// <summary>
         /// MyMeshMaterial
         /// </summary>
@@ -209,13 +194,13 @@ namespace MinerWars.AppCode.Game.Models
             m_normalName = normalName;
             m_specularIntensity = specularColor.X; //because of strange 3DSMAX/FBX conversion, specular level from 3ds max converts to .X component of specular color
             m_specularPower = glossiness;
-            m_specularPower = glossiness; 
             m_diffuseColor = diffuseColor;
             m_hasNormalTexture = hasNormalTexture;
 
             //we are not using specular color directly, we just use it to store extra data (animation of holos)
             m_specularColor = specularColor;
         }
+
         /// <summary>
         /// Preload textures into manager
         /// </summary>
@@ -274,11 +259,6 @@ namespace MinerWars.AppCode.Game.Models
             {
                 result = (result * 397) ^ m_normalTex.GetHashCode();
                 modCode += (1 << 2);
-            }
-
-            if (m_heightTex != null)
-            {
-                result = m_heightTex.GetHashCode();
             }
 
             if (m_specularIntensity != 0)

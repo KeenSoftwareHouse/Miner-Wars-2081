@@ -17,7 +17,6 @@ namespace MinerWars.AppCode.Game.Voxels
         public MyTexture2D TextureDiffuseForAxisY;
         public MyTexture2D TextureNormalMapForAxisXZ;
         public MyTexture2D TextureNormalMapForAxisY;
-        public MyTexture2D TextureHeightMapForAxisXZ;
     }
 
     class MyVoxelMaterial
@@ -78,11 +77,6 @@ namespace MinerWars.AppCode.Game.Voxels
                     m_textures.TextureNormalMapForAxisXZ = MyTextureManager.GetTexture<MyTexture2D>("Textures\\Voxels\\" + m_assetName + "_ForAxisXZ_ns" + (m_hasBuilderVersion ? "_mw" : ""), null, LoadingMode.Lazy);
                 }
 
-                if (Render.MyRenderConstants.RenderQualityProfile.UseHeightForVerticals)
-                { 
-                    //Height map XZ - its possible use height without normals?
-                    m_textures.TextureHeightMapForAxisXZ = MyTextureManager.GetTexture<MyTexture2D>("Textures\\Voxels\\" + m_assetName + "_ForAxisXZ_hm" + (m_hasBuilderVersion ? "_mw" : ""), null, LoadingMode.Lazy);
-                }
                 //  Diffuse Y
                 if (UseTwoTextures)
                 {
