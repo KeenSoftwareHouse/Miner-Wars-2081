@@ -1332,13 +1332,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\MyDialogues.cs.resx" />
     <EmbeddedResource Include="Resources\MyDialogues.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MyDialogues.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MyTexts.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MyTexts.resx">

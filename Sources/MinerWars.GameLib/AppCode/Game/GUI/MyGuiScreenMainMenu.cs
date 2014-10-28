@@ -669,12 +669,12 @@ namespace MinerWars.AppCode.Game.GUI
 
         public void OnEditorClick(MyGuiControlButton sender)
         {
-            if (MyClientServer.LoggedPlayer == null || MyClientServer.LoggedPlayer.GetCanAccessEditorForStory() || MyClientServer.LoggedPlayer.GetCanAccessEditorForMMO())
-            {
-                AddLoginScreen(new MyGuiScreenSelectEditor(this));
-            }
-            else if (!MySteam.IsActive && !MyClientServer.IsMwAccount) // Demo user...generate sector 0, 0, 0. User cant save.
-            {
+            //if (MyClientServer.LoggedPlayer == null || MyClientServer.LoggedPlayer.GetCanAccessEditorForStory() || MyClientServer.LoggedPlayer.GetCanAccessEditorForMMO())
+            //{
+            //    AddLoginScreen(new MyGuiScreenSelectEditor(this));
+            //}
+            //else if (!MySteam.IsActive && !MyClientServer.IsMwAccount) // Demo user...generate sector 0, 0, 0. User cant save.
+            //{
                 MyGuiManager.CloseAllScreensNowExcept(MyGuiScreenGamePlay.Static);
 
                 MySession.Static = new MySandboxSession();
@@ -694,13 +694,13 @@ namespace MinerWars.AppCode.Game.GUI
                 loadScreen.AddEnterSectorResponse(checkpoint, null);
 
                 MyGuiManager.AddScreen(loadScreen);
-            }
-            else
-            {
-                MyMwcSectorTypeEnum sectorType = MyMwcClientServer.GetSectorTypeFromSessionType(MyMwcStartSessionRequestTypeEnum.EDITOR_SANDBOX);
-                AddLoginScreen(
-                    new MyGuiScreenLoadSectorIdentifiersProgress(sectorType, false, new MyGuiScreenEnterSectorMap(this, MyMwcStartSessionRequestTypeEnum.EDITOR_SANDBOX, MyTextsWrapperEnum.StartEditorInProgressPleaseWait, MyConfig.LastSandboxSector)));
-            }
+            //}
+            //else
+            //{
+            //    MyMwcSectorTypeEnum sectorType = MyMwcClientServer.GetSectorTypeFromSessionType(MyMwcStartSessionRequestTypeEnum.EDITOR_SANDBOX);
+            //    AddLoginScreen(
+            //        new MyGuiScreenLoadSectorIdentifiersProgress(sectorType, false, new MyGuiScreenEnterSectorMap(this, MyMwcStartSessionRequestTypeEnum.EDITOR_SANDBOX, MyTextsWrapperEnum.StartEditorInProgressPleaseWait, MyConfig.LastSandboxSector)));
+            //}
         }
 
         public void OnRestartClick(MyGuiControlButton sender)
