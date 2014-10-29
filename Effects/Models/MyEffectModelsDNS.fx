@@ -27,6 +27,10 @@ float		SpecularPower = 1;
 float2 HalfPixel;
 float2 Scale;
 
+//I need camera position because of parallax mapping
+float3 CameraPosition;
+
+
 Texture TextureDiffuse;
 sampler TextureDiffuseSampler = sampler_state 
 { 
@@ -369,7 +373,13 @@ MyGbufferPixelShaderOutput PixelShaderFunction_DNS_Base(VertexShaderOutput_DNS i
 
 	//float specularIntensity = encodedNormal.x; //swizzled x and w
 	float specularIntensity = encodedNormal.w; //non-swizzled x and w
-	
+	//
+	//// Parallax maping here - need figure out where get eye eq. camera.....
+	//float height = tex2D(TextureNormalSampler, input.BaseOutput.TexCoordAndViewDistance.xy).r;
+	//float2 scaleBias = 0.04f - 0.03f; // scale and bias
+	//height = height * scaleBias.x + scaleBias.y; //still dont get why hes suming this vectors, im pretty sure he should substract them
+	//input.BaseOutput.TexCoordAndViewDistance.xy = input.BaseOutput.TexCoordAndViewDistance.xy + (height * Camera.xy);
+
 	return CalculateOutput(input.BaseOutput, normal, specularIntensity, diffuse, si_sp_e, highlight);
 }
 

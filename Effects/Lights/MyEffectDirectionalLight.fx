@@ -190,6 +190,26 @@ float4 CalculateLighting(VertexShaderOutput input, out CalculatedValues values, 
 	normal.xyz = normalize(normal.xyz);
 	values.Normal = normal.xyz;
 
+	//camera-to-surface vector
+	float3 directionToCamera = normalize(CameraPosition - worldPosition.xyz);
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	// PARALLAX MAPPING //
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	float3 halfVector = normalize(directionToCamera);
+
+	float height = normal.r;
+	float height = tex2D(TextureNormalSampler, input.BaseOutput.TexCoordAndViewDistance.xy).r;
+	float2 scaleBias = 800f - 0.03f; // scale and bias
+	height = height * scaleBias.x + scaleBias.y;
+
+	input.TexCoord = input.TexCoord + (height * halfVector.xy); // Camera.xy
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	// END PARALLAX MAPPING //
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	values.Diffuse = tex2D(DiffuseRTSampler, input.TexCoord);
 
 	float specularIntensity = values.Diffuse.a * SPECULAR_INTENSITY_RATIO;
@@ -207,10 +227,8 @@ float4 CalculateLighting(VertexShaderOutput input, out CalculatedValues values, 
 	float3 reflectionVector = -(reflect(LightDirection, normal.xyz));
 	float3 reflectionVectorBack = -(reflect(-LightDirection, normal.xyz));
 
-	//camera-to-surface vector
-	float3 directionToCamera = normalize(CameraPosition - worldPosition.xyz);
-
-
+	
+	
 	float3 shadows = 0;
 
 	if (dot(diffuseLight, 1) + specularIntensity > 0)
