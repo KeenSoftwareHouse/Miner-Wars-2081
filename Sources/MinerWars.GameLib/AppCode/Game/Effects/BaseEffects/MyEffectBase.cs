@@ -43,8 +43,11 @@ namespace MinerWars.AppCode.Game.Effects
         {
             string curdir = System.IO.Directory.GetCurrentDirectory();
             System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(MyMinerGame.Static.RootDirectoryEffects + "\\" + asset));
+       
+            string sourcePath = @"D:\Github\Miner-Wars-2081\";
+            string assetSource = sourcePath + asset.Replace("Effects2", "Effects");
 
-            string sourceFX = Path.GetFileName(asset + ".fx");
+            string sourceFX = Path.GetFileName(assetSource + ".fx");
             string compiledFX = Path.GetFileName(asset + ".fxo");
 
             bool needRecompile = true;
@@ -77,8 +80,8 @@ namespace MinerWars.AppCode.Game.Effects
 //                flags |= ShaderFlags.Debug;
 //#endif
                 //m_D3DEffect = Effect.FromFile(MyMinerGameDX.Static.GraphicsDevice, sourceFX, flags);
-                //ShaderBytecode shaderByteCode = ShaderBytecode.CompileFromFile(sourceFX, "fx_2_0", flags);
-                ShaderBytecode shaderByteCode = ShaderBytecode.CompileFromFile(@"D:\Github\Miner-Wars-2081\" + asset.Replace("Effects2", "Effects") + ".fx", "fx_2_0", flags);
+                ShaderBytecode shaderByteCode = ShaderBytecode.CompileFromFile(sourceFX, "fx_2_0", flags);
+
                 shaderByteCode.Save(compiledFX);
                 shaderByteCode.Dispose();
             }

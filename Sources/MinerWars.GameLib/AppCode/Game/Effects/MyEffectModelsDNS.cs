@@ -126,6 +126,8 @@ namespace MinerWars.AppCode.Game.Effects
         int m_screenSizeXLocal;
         int m_screenSizeYLocal;
         Vector2 m_scaleLocal;
+        private EffectHandle m_textureHeight;
+        private EffectHandle m_cameraPosition;
 
 
         public MyEffectModelsDNS()
@@ -137,6 +139,9 @@ namespace MinerWars.AppCode.Game.Effects
 
             m_textureDiffuse = m_D3DEffect.GetParameter(null, "TextureDiffuse");
             m_textureNormal = m_D3DEffect.GetParameter(null, "TextureNormal");
+
+            m_textureNormal = m_D3DEffect.GetParameter(null, "TextureHeight");
+
             m_diffuseColor = m_D3DEffect.GetParameter(null, "DiffuseColor");
             m_emissivity = m_D3DEffect.GetParameter(null, "Emissivity");
             m_emissivityOffset = m_D3DEffect.GetParameter(null, "EmissivityOffset");
@@ -145,6 +150,8 @@ namespace MinerWars.AppCode.Game.Effects
             m_specularIntensity = m_D3DEffect.GetParameter(null, "SpecularIntensity");
             m_specularPower = m_D3DEffect.GetParameter(null, "SpecularPower");
             m_highlightColor = m_D3DEffect.GetParameter(null, "Highlight");
+            
+            m_cameraPosition = m_D3DEffect.GetParameter(null, "CameraPosition");
 
             m_depthTextureNear = m_D3DEffect.GetParameter(null, "DepthTextureNear");
             m_depthTextureFar = m_D3DEffect.GetParameter(null, "DepthTextureFar");
@@ -200,6 +207,11 @@ namespace MinerWars.AppCode.Game.Effects
             m_D3DEffect.SetValue(m_viewMatrix, viewMatrix);
         }
 
+          public void SetCameraPosition(Vector3 cameraPosition)
+        {
+            m_D3DEffect.SetValue(m_cameraPosition, cameraPosition);
+        }
+
         public override void SetProjectionMatrix(ref Matrix projectionMatrix)
         {
             m_D3DEffect.SetValue(m_projectionMatrix, projectionMatrix);
@@ -215,6 +227,10 @@ namespace MinerWars.AppCode.Game.Effects
         {
             m_D3DEffect.SetTexture(m_textureNormal, texture2D);
             m_normalTextureSet = texture2D != null;
+        }
+        internal void SetTextureHeight(Texture texture2D)
+        {
+            m_D3DEffect.SetTexture(m_textureHeight, texture2D);
         }
 
         public override bool IsTextureDiffuseSet()
@@ -485,6 +501,6 @@ namespace MinerWars.AppCode.Game.Effects
             Reflector.Dispose();
             base.Dispose();
         }
-    }
+  }
 
 }

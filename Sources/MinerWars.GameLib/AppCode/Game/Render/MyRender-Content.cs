@@ -50,7 +50,7 @@ namespace MinerWars.AppCode.Game.Render
 
             m_randomTexture = CreateRandomTexture();
 
-            MyShadowRendererBase.LoadContent();
+            //MyShadowRendererBase.LoadContent();
 
             MyOcclusionQueries.LoadContent(m_device);
 

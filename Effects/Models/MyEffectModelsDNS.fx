@@ -27,9 +27,19 @@ float		SpecularPower = 1;
 float2 HalfPixel;
 float2 Scale;
 
+float3 CameraPosition;
+
 //I need camera position because of parallax mapping
 float3 CameraPosition;
 
+Texture TextureHeight;
+sampler TextureHeightSampler = sampler_state
+{
+	texture = <TextureHeight>;
+	mipfilter = LINEAR;
+	AddressU = WRAP;
+	AddressV = WRAP;
+};
 
 Texture TextureDiffuse;
 sampler TextureDiffuseSampler = sampler_state 
@@ -361,6 +371,28 @@ MyGbufferPixelShaderOutput PixelShaderFunctionLow_DNS_Instanced(VertexShaderOutp
 
 MyGbufferPixelShaderOutput PixelShaderFunction_DNS_Base(VertexShaderOutput_DNS input, float3 diffuse, float3 si_sp_e, float3 highlight)
 {
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	// PARALLAX MAPPING //
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//float2 texCoord = GetScreenSpaceTextureCoord(input.BaseOutput.ScreenPosition, HalfPixel) * Scale;
+
+	//camera-to-surface vector
+	float3 directionToCamera = normalize(CameraPosition - WorldPosition.xyz);
+
+	float3 halfVector = normalize(directionToCamera);
+
+	float height = normal.r;
+	float height = tex2D(TextureHeightSampler, input.BaseOutput.TexCoord.xy).r; //TexCoordAndViewDistance
+	float2 scaleBias = 800f - 0.03f; // scale and bias
+	height = height * scaleBias.x + scaleBias.y;
+
+	input.TexCoord = input.TexCoord + (height * HalfPixel); // Camera.xy
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+	// END PARALLAX MAPPING //
+	/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	float4 diffuseTexture = tex2D(TextureDiffuseSampler, input.BaseOutput.TexCoordAndViewDistance.xy);
 
 	input.TangentToWorld[0] = normalize(input.TangentToWorld[0]);
@@ -373,7 +405,7 @@ MyGbufferPixelShaderOutput PixelShaderFunction_DNS_Base(VertexShaderOutput_DNS i
 
 	//float specularIntensity = encodedNormal.x; //swizzled x and w
 	float specularIntensity = encodedNormal.w; //non-swizzled x and w
-	//
+
 	//// Parallax maping here - need figure out where get eye eq. camera.....
 	//float height = tex2D(TextureNormalSampler, input.BaseOutput.TexCoordAndViewDistance.xy).r;
 	//float2 scaleBias = 0.04f - 0.03f; // scale and bias
