@@ -1197,8 +1197,13 @@ namespace MinerWars.AppCode.Game.Render
                         {
                             shader.SetTextureDiffuse(material.DiffuseTexture);
                             shader.SetTextureNormal(material.NormalTexture);
-                            shader.SetTextureHeight(material.HeightTexture);
 
+                            //im setting height texture only when i use it - no null settings
+                            if (material.HeightTexture != null)
+                            { 
+                                shader.SetTextureHeight(material.HeightTexture);
+                                shader.UseParallaxMapping();
+                            }
                             //Do we need this? Graphicians dont use this
                             //shader.SetDiffuseColor(material.DiffuseColor);
 

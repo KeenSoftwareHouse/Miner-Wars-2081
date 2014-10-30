@@ -115,7 +115,11 @@ namespace MinerWars.AppCode.Game.Models
                                                                       matDesc.m_Glossiness,
                                                                       hasNormalTexture, ref matDesc.m_DiffuseColor,
                                                                       ref matDesc.m_SpecularColor);
-                        //Materials[j].UseHeightMap();
+                        if (textureName.Contains("cargo_box_de"))
+                        {
+                            ///string newNameNormal = textureName.Replace(DEFAULT_DIRECTORY, newFolder) + C_POSTFIX_NORMAL_SPECULAR;
+                            Materials[j].UseHeightMap(); 
+                        }
                     }
                 }
 
