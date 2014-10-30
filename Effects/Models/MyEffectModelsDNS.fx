@@ -27,10 +27,8 @@ float		SpecularPower = 1;
 float2 HalfPixel;
 float2 Scale;
 
-float3 CameraPosition;
-
 //I need camera position because of parallax mapping
-float3 CameraPosition;
+//float3 CameraPosition;
 
 Texture TextureHeight;
 sampler TextureHeightSampler = sampler_state
@@ -375,7 +373,8 @@ MyGbufferPixelShaderOutput PixelShaderFunction_DNS_Base(VertexShaderOutput_DNS i
 	// PARALLAX MAPPING //
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	//float2 texCoord = GetScreenSpaceTextureCoord(input.BaseOutput.ScreenPosition, HalfPixel) * Scale;
+	//
+	////float2 texCoord = GetScreenSpaceTextureCoord(input.BaseOutput.ScreenPosition, HalfPixel) * Scale;
 
 	//camera-to-surface vector
 	float3 directionToCamera = normalize(CameraPosition - WorldPosition.xyz);
@@ -387,7 +386,8 @@ MyGbufferPixelShaderOutput PixelShaderFunction_DNS_Base(VertexShaderOutput_DNS i
 	float2 scaleBias = 800f - 0.03f; // scale and bias
 	height = height * scaleBias.x + scaleBias.y;
 
-	input.TexCoord = input.TexCoord + (height * HalfPixel); // Camera.xy
+	input.TexCoord = input.TexCoord + (height * halfVector); // Camera.xy
+
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	// END PARALLAX MAPPING //

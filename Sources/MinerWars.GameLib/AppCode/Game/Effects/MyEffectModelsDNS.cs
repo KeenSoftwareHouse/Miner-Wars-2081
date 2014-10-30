@@ -230,7 +230,7 @@ namespace MinerWars.AppCode.Game.Effects
         }
         internal void SetTextureHeight(Texture texture2D)
         {
-            m_D3DEffect.SetTexture(m_textureHeight, texture2D);
+            m_D3DEffect.SetTexture(m_textureNormal, texture2D);
         }
 
         public override bool IsTextureDiffuseSet()

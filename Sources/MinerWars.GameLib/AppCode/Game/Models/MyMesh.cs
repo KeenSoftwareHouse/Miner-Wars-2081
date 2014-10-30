@@ -115,7 +115,7 @@ namespace MinerWars.AppCode.Game.Models
                                                                       matDesc.m_Glossiness,
                                                                       hasNormalTexture, ref matDesc.m_DiffuseColor,
                                                                       ref matDesc.m_SpecularColor);
-                        Materials[j].UseHeightMap();
+                        //Materials[j].UseHeightMap();
                     }
                 }
 
