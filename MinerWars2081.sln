@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWars.GameLib", "Sources\MinerWars.GameLib\MinerWars.GameLib.csproj", "{F2AA32D9-F560-4DEF-BBF2-3DCCF4B17320}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinerWarsCommonLIB", "Sources\CommonLIB\MinerWarsCommonLIB.csproj", "{2C96F0AB-7962-4B73-A075-B0E0B09F6195}"
