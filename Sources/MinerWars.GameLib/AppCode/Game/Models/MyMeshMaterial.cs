@@ -24,7 +24,6 @@ namespace MinerWars.AppCode.Game.Models
         public int HashCode;
         private MyTexture2D m_diffuseTex;
         private MyTexture2D m_normalTex;
-        private MyTexture2D m_heightTex;
 
         private float m_specularIntensity = 1f;
         private float m_specularPower = 1f;
@@ -35,8 +34,6 @@ namespace MinerWars.AppCode.Game.Models
         private readonly string m_diffuseName;
         private readonly string m_normalName;
         private readonly bool m_hasNormalTexture;
-        private bool m_hasHeightTexture;
-     
         private MyMeshDrawTechnique m_drawTechnique;
         private Vector2 m_emissiveUVAnim;
         private bool m_emissivityEnabled = true;
@@ -44,8 +41,6 @@ namespace MinerWars.AppCode.Game.Models
         private bool m_loadedContent;
 
         Vector2 m_diffuseUVAnim;
-        private string name;
-        private string m_heightName;
         public Vector2 DiffuseUVAnim
         {
             get { return m_diffuseUVAnim; }
@@ -138,13 +133,6 @@ namespace MinerWars.AppCode.Game.Models
             get { return m_normalTex; }
             set { m_normalTex = value; ComputeHashCode(); }
         }
-
-        public MyTexture2D HeightTexture
-        {
-            get { return m_heightTex; }
-            set { m_heightTex = value; } //ComputeHashCode();
-        }
-
         public float SpecularIntensity
         {
             get { return m_specularIntensity; }
@@ -171,17 +159,10 @@ namespace MinerWars.AppCode.Game.Models
             get { return m_materialName; }
         }
 
-        public void UseHeightMap()
-        {
-            m_hasHeightTexture = true;
-            m_heightName = this.name + MyMesh.C_POSTFIX_HEIGHT_MAP;
-        }
-
         public MyMeshMaterial(string name, string materialName, MyTexture2D diff, MyTexture2D norm)
         {
             if (name!= null)
             {
-                this.name = name;
                 m_diffuseName = name + MyMesh.C_POSTFIX_DIFFUSE_EMISSIVE;
                 m_normalName = name + MyMesh.C_POSTFIX_NORMAL_SPECULAR;
             }
@@ -230,11 +211,6 @@ namespace MinerWars.AppCode.Game.Models
                 return;
             }
 
-            if (m_hasHeightTexture)
-            {
-               HeightTexture = MyTextureManager.GetTexture<MyTexture2D>(m_heightName, CheckTexture, loadingMode);
-            }
-
             if (m_hasNormalTexture)
             {
                 DiffuseTexture = MyTextureManager.GetTexture<MyTexture2D>(m_diffuseName, CheckTexture, loadingMode);
@@ -242,7 +218,6 @@ namespace MinerWars.AppCode.Game.Models
                 if (MyRenderConstants.RenderQualityProfile.UseNormals)
                     NormalTexture = MyTextureManager.GetTexture<MyTexture2D>(m_normalName, CheckTexture, loadingMode);
             }
-
             else
             {
                 DiffuseTexture = MyTextureManager.GetTexture<MyTexture2D>(m_diffuseName, CheckTexture, loadingMode);

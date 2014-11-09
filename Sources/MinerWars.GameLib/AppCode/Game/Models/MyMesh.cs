@@ -20,7 +20,6 @@ namespace MinerWars.AppCode.Game.Models
         private const string C_CONTENT_ID = "Content\\";
         private const string C_POSTFIX_DIFFUSE = "_d";
         internal const string C_POSTFIX_DIFFUSE_EMISSIVE = "_de";
-        internal const string C_POSTFIX_HEIGHT_MAP = "_hm";
         private const string C_POSTFIX_DONT_HAVE_NORMAL = "_dn";
         internal const string C_POSTFIX_NORMAL_SPECULAR = "_ns";
         private const string DEFAULT_DIRECTORY = "\\v01\\";
@@ -114,12 +113,8 @@ namespace MinerWars.AppCode.Game.Models
                                                                     newNameDiffuse, newNameNormal,
                                                                       matDesc.m_Glossiness,
                                                                       hasNormalTexture, ref matDesc.m_DiffuseColor,
+
                                                                       ref matDesc.m_SpecularColor);
-                        if (textureName.Contains("cargo_box_de"))
-                        {
-                            ///string newNameNormal = textureName.Replace(DEFAULT_DIRECTORY, newFolder) + C_POSTFIX_NORMAL_SPECULAR;
-                            Materials[j].UseHeightMap(); 
-                        }
                     }
                 }
 

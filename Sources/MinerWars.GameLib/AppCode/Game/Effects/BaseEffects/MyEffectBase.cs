@@ -41,9 +41,8 @@ namespace MinerWars.AppCode.Game.Effects
 
         protected MyEffectBase(string asset)
         {
-            string curdir = System.IO.Directory.GetCurrentDirectory();
 
-         
+            string curdir = System.IO.Directory.GetCurrentDirectory();
 
             bool needRecompile = false;
             
@@ -92,9 +91,11 @@ namespace MinerWars.AppCode.Game.Effects
 //                flags |= ShaderFlags.Debug;
 //#endif
                 //m_D3DEffect = Effect.FromFile(MyMinerGameDX.Static.GraphicsDevice, sourceFX, flags);
+
                 ShaderBytecode shaderByteCode = ShaderBytecode.CompileFromFile(sourceFX, "fx_2_0", flags);
 
                 System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(MyMinerGame.Static.RootDirectoryEffects + "\\" + asset));
+
                 shaderByteCode.Save(compiledFX);
                 shaderByteCode.Dispose();
             }

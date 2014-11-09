@@ -125,12 +125,8 @@ namespace MinerWars.AppCode.Game.Effects
         Vector3 m_highlightColorLocal;
         int m_screenSizeXLocal;
         int m_screenSizeYLocal;
-        Vector2 m_scaleLocal;
-        private EffectHandle m_cameraPosition;
-        private EffectHandle m_textureHeight;
-        private bool useParallaxMapping = false;
-        private EffectHandle m_useParallaxMappingHandle;
 
+        Vector2 m_scaleLocal;
 
         public MyEffectModelsDNS()
             : base("Effects2\\Models\\MyEffectModelsDNS")
@@ -139,11 +135,10 @@ namespace MinerWars.AppCode.Game.Effects
             m_worldMatrix = m_D3DEffect.GetParameter(null, "WorldMatrix");
             m_projectionMatrix = m_D3DEffect.GetParameter(null, "ProjectionMatrix");
 
-            m_useParallaxMappingHandle = m_D3DEffect.GetParameter(null, "UseParallaxMapping");
-
             m_textureDiffuse = m_D3DEffect.GetParameter(null, "TextureDiffuse");
+
             m_textureNormal = m_D3DEffect.GetParameter(null, "TextureNormal");
-            m_textureHeight = m_D3DEffect.GetParameter(null, "TextureHeight");
+
             m_diffuseColor = m_D3DEffect.GetParameter(null, "DiffuseColor");
             m_emissivity = m_D3DEffect.GetParameter(null, "Emissivity");
             m_emissivityOffset = m_D3DEffect.GetParameter(null, "EmissivityOffset");
@@ -151,10 +146,8 @@ namespace MinerWars.AppCode.Game.Effects
             m_diffuseUVAnim = m_D3DEffect.GetParameter(null, "DiffuseUVAnim");
             m_specularIntensity = m_D3DEffect.GetParameter(null, "SpecularIntensity");
             m_specularPower = m_D3DEffect.GetParameter(null, "SpecularPower");
+
             m_highlightColor = m_D3DEffect.GetParameter(null, "Highlight");
-
-            m_cameraPosition = m_D3DEffect.GetParameter(null, "CameraPosition");
-
             m_depthTextureNear = m_D3DEffect.GetParameter(null, "DepthTextureNear");
             m_depthTextureFar = m_D3DEffect.GetParameter(null, "DepthTextureFar");
             m_halfPixel = m_D3DEffect.GetParameter(null, "HalfPixel");
@@ -241,11 +234,6 @@ namespace MinerWars.AppCode.Game.Effects
             return m_normalTextureSet;
         }
 
-        internal void SetTextureHeight(Texture texture2D)
-        {
-            m_D3DEffect.SetTexture(m_textureHeight, texture2D);
-        }
-
         public override void SetDiffuseColor(Vector3 diffuseColor)
         {
             m_D3DEffect.SetValue(m_diffuseColor, diffuseColor);
@@ -266,7 +254,7 @@ namespace MinerWars.AppCode.Game.Effects
                 m_emissivityOffsetLocal = emissivityOffset;
             }
         }
-        public override void SetEmissivityUVAnim(Vector2 uvAnim) 
+        public override void SetEmissivityUVAnim(Vector2 uvAnim)
         {
             if (m_emissivityUVAnimLocal != uvAnim)
             {
@@ -370,8 +358,8 @@ namespace MinerWars.AppCode.Game.Effects
                 //    m_xnaEffect.Technique = m_lowInstancedTechnique;
                 //    break;
                 //case MyEffectModelsDNSTechniqueEnum.LowBlended:
-                    //m_xnaEffect.Technique = m_lowBlendedTechnique;
-                   // break;
+                //m_xnaEffect.Technique = m_lowBlendedTechnique;
+                // break;
                 case MyEffectModelsDNSTechniqueEnum.LowMasked:
                     m_D3DEffect.Technique = m_lowMaskedTechnique;
                     break;
@@ -380,8 +368,8 @@ namespace MinerWars.AppCode.Game.Effects
                     m_D3DEffect.Technique = m_normalTechnique;
                     break;
                 //case MyEffectModelsDNSTechniqueEnum.Normalnstanced:
-                    //m_xnaEffect.Technique = m_normalInstancedTechnique;
-                  //  break;
+                //m_xnaEffect.Technique = m_normalInstancedTechnique;
+                //  break;
                 case MyEffectModelsDNSTechniqueEnum.NormalBlended:
                     m_D3DEffect.Technique = m_normalBlendedTechnique;
                     break;
@@ -393,8 +381,8 @@ namespace MinerWars.AppCode.Game.Effects
                     m_D3DEffect.Technique = m_highTechnique;
                     break;
                 //case MyEffectModelsDNSTechniqueEnum.HighInstanced:
-                  //  m_xnaEffect.Technique = m_highInstancedTechnique;
-                  //  break;
+                //  m_xnaEffect.Technique = m_highInstancedTechnique;
+                //  break;
                 case MyEffectModelsDNSTechniqueEnum.HighBlended:
                     m_D3DEffect.Technique = m_highBlendedTechnique;
                     break;
@@ -409,8 +397,8 @@ namespace MinerWars.AppCode.Game.Effects
                     m_D3DEffect.Technique = m_extremeTechnique;
                     break;
                 //case MyEffectModelsDNSTechniqueEnum.ExtremeInstanced:
-                 //   m_xnaEffect.Technique = m_extremeInstancedTechnique;
-                   // break;
+                //   m_xnaEffect.Technique = m_extremeInstancedTechnique;
+                // break;
                 case MyEffectModelsDNSTechniqueEnum.ExtremeBlended:
                     m_D3DEffect.Technique = m_extremeBlendedTechnique;
                     break;
@@ -462,10 +450,10 @@ namespace MinerWars.AppCode.Game.Effects
             }
             else  */
             //{
-                //SetTechnique(MyRenderConstants.RenderQualityProfile.ModelsRenderTechnique);
+            //SetTechnique(MyRenderConstants.RenderQualityProfile.ModelsRenderTechnique);
             //}
 
-                base.Begin(pass);
+            base.Begin(pass);
         }
 
 
@@ -498,12 +486,7 @@ namespace MinerWars.AppCode.Game.Effects
             DynamicLights.Dispose();
             Reflector.Dispose();
             base.Dispose();
-        }
 
-        public void UseParallaxMapping()
-        { 
-             useParallaxMapping = true;
-            m_D3DEffect.SetValue(m_useParallaxMappingHandle, true); 
         }
     }
 }

@@ -97,7 +97,7 @@ namespace MinerWarsExpressLauncher
         [STAThread]
         static void Main(string[] args)
         {
-            string path = TestPaths(args.FirstOrDefault(), InstallPath, DefaultPath);
+            string path = TestPaths(args.FirstOrDefault(), InstallPath, FromRegistryPath, DefaultPath);
 
             while (path == null)
             {
