@@ -199,7 +199,6 @@ namespace MinerWars.AppCode.Game.Render
 
         public static void CreateRenderTargets()
         {
-            MyRenderConstants.RenderQualityProfile.ForwardRender = true;
             if (MyRenderConstants.RenderQualityProfile.ForwardRender)
                 return;
 
