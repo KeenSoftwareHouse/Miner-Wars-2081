@@ -300,7 +300,7 @@ namespace MinerWars.AppCode.Game.Entities.CargoBox
             switch (cargoBoxType)
             {
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type1:
-                    return MyModelsEnum.BoxHiRes;
+                    return MyModelsEnum.cargo_box_1;
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type2:
                     return MyModelsEnum.cargo_box_2;
                 case MyMwcObjectBuilder_CargoBox_TypesEnum.Type3:

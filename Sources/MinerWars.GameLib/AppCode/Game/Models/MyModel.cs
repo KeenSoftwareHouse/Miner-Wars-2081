@@ -158,7 +158,7 @@ namespace MinerWars.AppCode.Game.Models
         }
 
         public void GetVertex(int vertexIndex1, int vertexIndex2, int vertexIndex3, out Vector3 v1, out Vector3 v2, out Vector3 v3)
-        {   
+        {
             v1 = GetVertex(vertexIndex1);
             v2 = GetVertex(vertexIndex2);
             v3 = GetVertex(vertexIndex3);
@@ -167,7 +167,7 @@ namespace MinerWars.AppCode.Game.Models
         public Vector3 GetVertexNormal(int vertexIndex)
         {
 #if PACKED_VERTEX_FORMAT
-           return  VF_Packer.UnpackNormal(ref m_vertices[vertexIndex].Normal);
+            return VF_Packer.UnpackNormal(ref m_vertices[vertexIndex].Normal);
 #else
            return m_vertices[vertexIndex].Normal;
 #endif
@@ -256,7 +256,7 @@ namespace MinerWars.AppCode.Game.Models
         //  BUT THE REALITY IS THAT I DON'T HAVE TIME TO ASSERT ALL POSSIBLE COMBINATIONS...                          
 
         public MyModel(string assetName, MyMeshDrawTechnique drawTechnique, MyModelsEnum modelEnum)
-            :this(assetName, drawTechnique, modelEnum, false)
+            : this(assetName, drawTechnique, modelEnum, false)
         {
         }
 
@@ -409,8 +409,9 @@ namespace MinerWars.AppCode.Game.Models
                 List<MyMeshPartInfo> meshes = tagData[MyImporterConstants.TAG_MESH_PARTS] as List<MyMeshPartInfo>;
                 foreach (MyMeshPartInfo meshPart in meshes)
                 {
+                 
                     MyMesh mesh = new MyMesh(meshPart, m_assetName);
-
+                    
                     mesh.IndexStart = indices.Count;
                     mesh.TriCount = meshPart.m_Indicies.Count / 3;
 
@@ -612,7 +613,7 @@ namespace MinerWars.AppCode.Game.Models
                 m_loadedData = false;
                 LoadData();
             }  */
-            
+
             LoadInDraw();
 
 
@@ -637,8 +638,8 @@ namespace MinerWars.AppCode.Game.Models
             */
 
             // Cleaning normals if we do not need vertex normal debug drawing
-           // if (!MyMwcFinalBuildConstants.ENABLE_VERTEX_NORMALS_DEBUG_DRAW)
-             //   m_VertexNormals = null;
+            // if (!MyMwcFinalBuildConstants.ENABLE_VERTEX_NORMALS_DEBUG_DRAW)
+            //   m_VertexNormals = null;
         }
 
         //  Loads vertex/index buffers and textures, access GPU
@@ -660,7 +661,7 @@ namespace MinerWars.AppCode.Game.Models
                 MyModels.LoadModelInDrawInBackground(this);
                 return;
             }
-            
+
 
             Debug.Assert(m_forLoadingTexCoords0 != null && m_meshContainer.Count != 0, "Somebody forget to call LoadData on model before rendering");
 
@@ -715,30 +716,30 @@ namespace MinerWars.AppCode.Game.Models
                             m_vertexBuffer.Tag = this;
                         }
                         else
-                        if (MyRenderConstants.RenderQualityProfile.UseNormals)
-                        {
-                            if (m_forLoadingBinormals == null) 
-                                throw new Exception("Model '" + m_assetName + "' doesn't have binormals calculated, but this shader requires them");
-                            if (m_forLoadingTangents == null) 
-                                throw new Exception("Model '" + m_assetName + "' doesn't have tangent vectors calculated, but this shader requires them");
-
-                            if (UseChannels)
+                            if (MyRenderConstants.RenderQualityProfile.UseNormals)
                             {
-                                if (m_forLoadingTexCoords1 == null || m_forLoadingTexCoords1.Length == 0)
-                                {
-                                    throw new Exception("Model '" + m_assetName + "' doesn't have UVcoords1 calculated, but this shader requires them");
-                                }
+                                if (m_forLoadingBinormals == null)
+                                    throw new Exception("Model '" + m_assetName + "' doesn't have binormals calculated, but this shader requires them");
+                                if (m_forLoadingTangents == null)
+                                    throw new Exception("Model '" + m_assetName + "' doesn't have tangent vectors calculated, but this shader requires them");
 
-                                MyVertexFormatPositionNormalTextureTangentBinormalMask[] vertexArray = new MyVertexFormatPositionNormalTextureTangentBinormalMask[GetVerticesCount()];
-                                for (int i = 0; i < GetVerticesCount(); i++)
+                                if (UseChannels)
                                 {
+                                    if (m_forLoadingTexCoords1 == null || m_forLoadingTexCoords1.Length == 0)
+                                    {
+                                        throw new Exception("Model '" + m_assetName + "' doesn't have UVcoords1 calculated, but this shader requires them");
+                                    }
+
+                                    MyVertexFormatPositionNormalTextureTangentBinormalMask[] vertexArray = new MyVertexFormatPositionNormalTextureTangentBinormalMask[GetVerticesCount()];
+                                    for (int i = 0; i < GetVerticesCount(); i++)
+                                    {
 #if PACKED_VERTEX_FORMAT
-                                    vertexArray[i].PositionPacked = m_vertices[i].Position;
-                                    vertexArray[i].NormalPacked = m_vertices[i].Normal;
-                                    vertexArray[i].TexCoordPacked = m_forLoadingTexCoords0[i];
-                                    vertexArray[i].BinormalPacked = m_forLoadingBinormals[i];
-                                    vertexArray[i].TangentPacked = m_forLoadingTangents[i];
-                                    vertexArray[i].MaskCoordPacked = m_forLoadingTexCoords1[i];
+                                        vertexArray[i].PositionPacked = m_vertices[i].Position;
+                                        vertexArray[i].NormalPacked = m_vertices[i].Normal;
+                                        vertexArray[i].TexCoordPacked = m_forLoadingTexCoords0[i];
+                                        vertexArray[i].BinormalPacked = m_forLoadingBinormals[i];
+                                        vertexArray[i].TangentPacked = m_forLoadingTangents[i];
+                                        vertexArray[i].MaskCoordPacked = m_forLoadingTexCoords1[i];
 #else
                                     vertexArray[i].Position = m_vertices[i].Position;
                                     vertexArray[i].Normal = m_vertices[i].Normal;
@@ -748,27 +749,27 @@ namespace MinerWars.AppCode.Game.Models
                                     vertexArray[i].MaskCoord = m_forLoadingTexCoords1[i];
 
 #endif
-                                }
+                                    }
 
-                                m_vertexDeclaration = MyVertexFormatPositionNormalTextureTangentBinormalMask.VertexDeclaration;
-                                m_vertexStride = MyVertexFormatPositionNormalTextureTangentBinormalMask.Stride;
-                                m_vertexBufferSize = vertexArray.Length * m_vertexStride;
-                                m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly, VertexFormat.None, Pool.Default);
-                                m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
-                                m_vertexBuffer.Unlock();
-                                m_vertexBuffer.Tag = this;
-                            }
-                            else
-                            {
-                                MyVertexFormatPositionNormalTextureTangentBinormal[] vertexArray = new MyVertexFormatPositionNormalTextureTangentBinormal[GetVerticesCount()];
-                                for (int i = 0; i < GetVerticesCount(); i++)
+                                    m_vertexDeclaration = MyVertexFormatPositionNormalTextureTangentBinormalMask.VertexDeclaration;
+                                    m_vertexStride = MyVertexFormatPositionNormalTextureTangentBinormalMask.Stride;
+                                    m_vertexBufferSize = vertexArray.Length * m_vertexStride;
+                                    m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly, VertexFormat.None, Pool.Default);
+                                    m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
+                                    m_vertexBuffer.Unlock();
+                                    m_vertexBuffer.Tag = this;
+                                }
+                                else
                                 {
+                                    MyVertexFormatPositionNormalTextureTangentBinormal[] vertexArray = new MyVertexFormatPositionNormalTextureTangentBinormal[GetVerticesCount()];
+                                    for (int i = 0; i < GetVerticesCount(); i++)
+                                    {
 #if PACKED_VERTEX_FORMAT
-                                    vertexArray[i].PositionPacked = m_vertices[i].Position;
-                                    vertexArray[i].NormalPacked = m_vertices[i].Normal;
-                                    vertexArray[i].TexCoordPacked = m_forLoadingTexCoords0[i];
-                                    vertexArray[i].BinormalPacked = m_forLoadingBinormals[i];
-                                    vertexArray[i].TangentPacked = m_forLoadingTangents[i];
+                                        vertexArray[i].PositionPacked = m_vertices[i].Position;
+                                        vertexArray[i].NormalPacked = m_vertices[i].Normal;
+                                        vertexArray[i].TexCoordPacked = m_forLoadingTexCoords0[i];
+                                        vertexArray[i].BinormalPacked = m_forLoadingBinormals[i];
+                                        vertexArray[i].TangentPacked = m_forLoadingTangents[i];
 #else
                                     vertexArray[i].Position = m_vertices[i].Position;
                                     vertexArray[i].Normal = m_vertices[i].Normal;
@@ -776,68 +777,68 @@ namespace MinerWars.AppCode.Game.Models
                                     vertexArray[i].Binormal = m_forLoadingBinormals[i];
                                     vertexArray[i].Tangent = m_forLoadingTangents[i];
 #endif
-                                }
+                                    }
 
-                                m_vertexDeclaration = MyVertexFormatPositionNormalTextureTangentBinormal.VertexDeclaration;
-                                m_vertexStride = MyVertexFormatPositionNormalTextureTangentBinormal.Stride;
-                                m_vertexBufferSize = vertexArray.Length * m_vertexStride;
-                                m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly, VertexFormat.None, Pool.Default);
-                                m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
-                                m_vertexBuffer.Unlock();
-                                m_vertexBuffer.Tag = this;
+                                    m_vertexDeclaration = MyVertexFormatPositionNormalTextureTangentBinormal.VertexDeclaration;
+                                    m_vertexStride = MyVertexFormatPositionNormalTextureTangentBinormal.Stride;
+                                    m_vertexBufferSize = vertexArray.Length * m_vertexStride;
+                                    m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly, VertexFormat.None, Pool.Default);
+                                    m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
+                                    m_vertexBuffer.Unlock();
+                                    m_vertexBuffer.Tag = this;
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (UseChannels)
+                            else
                             {
-                                MyVertexFormatPositionNormalTextureMask[] vertexArray = new MyVertexFormatPositionNormalTextureMask[GetVerticesCount()];
-                                for (int i = 0; i < GetVerticesCount(); i++)
+                                if (UseChannels)
                                 {
+                                    MyVertexFormatPositionNormalTextureMask[] vertexArray = new MyVertexFormatPositionNormalTextureMask[GetVerticesCount()];
+                                    for (int i = 0; i < GetVerticesCount(); i++)
+                                    {
 #if PACKED_VERTEX_FORMAT
-                                    vertexArray[i].PositionPacked = m_vertices[i].Position;
-                                    vertexArray[i].NormalPacked = m_vertices[i].Normal;
-                                    vertexArray[i].TexCoordPacked = m_forLoadingTexCoords0[i];
-                                    vertexArray[i].MaskCoordPacked = m_forLoadingTexCoords1[i];
+                                        vertexArray[i].PositionPacked = m_vertices[i].Position;
+                                        vertexArray[i].NormalPacked = m_vertices[i].Normal;
+                                        vertexArray[i].TexCoordPacked = m_forLoadingTexCoords0[i];
+                                        vertexArray[i].MaskCoordPacked = m_forLoadingTexCoords1[i];
 #else
                                     vertexArray[i].Position = m_vertices[i].Position;
                                     vertexArray[i].Normal = m_vertices[i].Normal;
                                     vertexArray[i].TexCoord = m_forLoadingTexCoords0[i];
                                     vertexArray[i].MaskCoord = m_forLoadingTexCoords1[i];
 #endif
-                                }
+                                    }
 
-                                m_vertexDeclaration = MyVertexFormatPositionNormalTextureMask.VertexDeclaration;
-                                m_vertexStride = MyVertexFormatPositionNormalTextureMask.Stride;
-                                m_vertexBufferSize = vertexArray.Length * m_vertexStride;
-                                m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly, VertexFormat.None, Pool.Default);
-                                m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
-                                m_vertexBuffer.Unlock();
-                                m_vertexBuffer.Tag = this;
-                            }
-                            else
-                            {
-                                MyVertexFormatPositionNormalTexture[] vertexArray = new MyVertexFormatPositionNormalTexture[GetVerticesCount()];
-                                for (int i = 0; i < GetVerticesCount(); i++)
+                                    m_vertexDeclaration = MyVertexFormatPositionNormalTextureMask.VertexDeclaration;
+                                    m_vertexStride = MyVertexFormatPositionNormalTextureMask.Stride;
+                                    m_vertexBufferSize = vertexArray.Length * m_vertexStride;
+                                    m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly, VertexFormat.None, Pool.Default);
+                                    m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
+                                    m_vertexBuffer.Unlock();
+                                    m_vertexBuffer.Tag = this;
+                                }
+                                else
                                 {
-                                    vertexArray[i].Position = GetVertexInt(i);
-                                    vertexArray[i].Normal = GetVertexNormal(i);
+                                    MyVertexFormatPositionNormalTexture[] vertexArray = new MyVertexFormatPositionNormalTexture[GetVerticesCount()];
+                                    for (int i = 0; i < GetVerticesCount(); i++)
+                                    {
+                                        vertexArray[i].Position = GetVertexInt(i);
+                                        vertexArray[i].Normal = GetVertexNormal(i);
 #if PACKED_VERTEX_FORMAT
-                                    vertexArray[i].TexCoord = m_forLoadingTexCoords0[i].ToVector2();
+                                        vertexArray[i].TexCoord = m_forLoadingTexCoords0[i].ToVector2();
 #else
                                     vertexArray[i].TexCoord = m_forLoadingTexCoords0[i];
 #endif
-                                }
+                                    }
 
-                                m_vertexDeclaration = MyVertexFormatPositionNormalTexture.VertexDeclaration;
-                                m_vertexStride = MyVertexFormatPositionNormalTexture.Stride;
-                                m_vertexBufferSize = vertexArray.Length * m_vertexStride;
-                                m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly , VertexFormat.None, Pool.Default);
-                                m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
-                                m_vertexBuffer.Unlock();
-                                m_vertexBuffer.Tag = this;
+                                    m_vertexDeclaration = MyVertexFormatPositionNormalTexture.VertexDeclaration;
+                                    m_vertexStride = MyVertexFormatPositionNormalTexture.Stride;
+                                    m_vertexBufferSize = vertexArray.Length * m_vertexStride;
+                                    m_vertexBuffer = new VertexBuffer(MyMinerGame.Static.GraphicsDevice, m_vertexBufferSize, Usage.WriteOnly, VertexFormat.None, Pool.Default);
+                                    m_vertexBuffer.Lock(0, 0, LockFlags.None).WriteRange(vertexArray);
+                                    m_vertexBuffer.Unlock();
+                                    m_vertexBuffer.Tag = this;
+                                }
                             }
-                        }
                     }
                     break;
 
@@ -1066,9 +1067,9 @@ namespace MinerWars.AppCode.Game.Models
             Vector3 v1, v2, v3;
             GetVertex(Triangles[triangleIndex].I0, Triangles[triangleIndex].I1, Triangles[triangleIndex].I2, out v1, out v2, out v3);
 
-            BoundingBoxHelper.AddTriangle(ref boundingBox, 
-                v1, 
-                v2, 
+            BoundingBoxHelper.AddTriangle(ref boundingBox,
+                v1,
+                v2,
                 v3);
         }
 
@@ -1111,7 +1112,7 @@ namespace MinerWars.AppCode.Game.Models
         {
             return m_rescaleFactor;
         }
-              
+
 
         /// <summary>
         /// Render
@@ -1313,6 +1314,6 @@ namespace MinerWars.AppCode.Game.Models
                 else
                     mesh.Materials[materialIndex].PreloadTexture(loadingMode);
             }
-        }        
+        }
     }
 }

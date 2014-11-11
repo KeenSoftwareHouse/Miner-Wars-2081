@@ -748,7 +748,7 @@ namespace MinerWars.AppCode.Game.Render
         }
 
 
-        private static MyMeshMaterial m_emptyMaterial = new MyMeshMaterial("", "", null, null);
+        private static MyMeshMaterial m_emptyMaterial = new MyMeshMaterial("", @"K:\\KeenSWH\\MinerWars\\MediaDevelopment\\MinerWars\\Content\\Textures2\\Models\\Prefabs\\v01\v01_cargo_box_d.png", null, null);
 
         private static void DrawRenderElements(List<MyRenderElement> renderElements, bool applyStencil, out int ibChangesStats)
         {

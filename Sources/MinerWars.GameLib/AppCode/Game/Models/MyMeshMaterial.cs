@@ -161,6 +161,12 @@ namespace MinerWars.AppCode.Game.Models
 
         public MyMeshMaterial(string name, string materialName, MyTexture2D diff, MyTexture2D norm)
         {
+            //if (materialName == null)
+            //{ 
+            //    materialName = @"K:\KeenSWH\MinerWars\MediaDevelopment\MinerWars\Content\Textures2\Models\Prefabs\v01\v01_cargo_box_d.png";
+            //}
+            
+            
             if (name!= null)
             {
                 m_diffuseName = name + MyMesh.C_POSTFIX_DIFFUSE_EMISSIVE;

@@ -39,7 +39,10 @@ namespace MinerWars.AppCode.Game.Models
         public MyMesh(MyMeshPartInfo meshInfo, string assetName)
         {
             string textureName = null;
-
+            //if (m_assetName.Contains("BoxHi"))
+            //{
+            //    textureName = @"K:\\KeenSWH\\MinerWars\\MediaDevelopment\\MinerWars\\Content\\Textures2\\Models\\Prefabs\\v01\v01_cargo_box_d.png";
+            //}
             MyMaterialDescriptor matDesc = meshInfo.m_MaterialDesc;
             if (matDesc != null)
             {
@@ -129,7 +132,7 @@ namespace MinerWars.AppCode.Game.Models
                 //We define at least debug material
                 MinerWarsMath.Vector3 color = MinerWarsMath.Color.Pink.ToVector3();
                 Materials = new MyMeshMaterial[8];
-                Materials[0] = new MyMeshMaterial("", null, null, 0, true, ref color, ref color);
+                Materials[0] = new MyMeshMaterial("", "Textures2\\Models\\Prefabs\\v01\\v01_cargo_box_de", "Textures2\\Models\\Prefabs\\v01\\v01_cargo_box_ns", 0, true, ref color, ref color);
                 for (int j = 1; j < Materials.Length; j++)
                 {
                     Materials[j] = Materials[0];
