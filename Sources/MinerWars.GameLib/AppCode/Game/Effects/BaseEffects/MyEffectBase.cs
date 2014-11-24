@@ -17,6 +17,7 @@ namespace MinerWars.AppCode.Game.Effects
     using Vector3 = MinerWarsMath.Vector3;
     using Matrix = MinerWarsMath.Matrix;
     using System;
+    using System.Diagnostics;
 
     //  Base class for all effects
     public abstract class MyEffectBase : IDisposable
@@ -43,42 +44,33 @@ namespace MinerWars.AppCode.Game.Effects
         {
             string curdir = System.IO.Directory.GetCurrentDirectory();
             bool needRecompile = false;
-
-            if (asset.Contains("ModelsDNS"))
-            {
-                needRecompile = true;
-
-                string sourcePath = @"D:\Github\Miner-Wars-2081\";
-                System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(sourcePath + "\\" + asset.Replace("Effects2", "Effects")));
-            }
-
-            else
-            {
-                System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(MyMinerGame.Static.RootDirectoryEffects + "\\" + asset));
-            }
-
+            
+            System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(MyMinerGame.Static.RootDirectoryEffects + "\\" + asset));
+        
+            SetEffectInDebug(asset);
+        
             string sourceFX = Path.GetFileName(asset + ".fx");
             string compiledFX = Path.GetFileName(asset + ".fxo");
 
-            //if (File.Exists(compiledFX))
-            //{
-            //    if (File.Exists(sourceFX))
-            //    {
-            //        DateTime compiledTime = File.GetLastWriteTime(compiledFX);
-            //        DateTime sourceTime = File.GetLastWriteTime(sourceFX);
-            //        if (sourceTime > compiledTime)
-            //            needRecompile = true;
-            //    }
-            //}
-            //else
-            //{
-            //    if (File.Exists(sourceFX))
-            //        needRecompile = true;
-            //    else
-            //    {
-            //        throw new FileNotFoundException("Effect not found: " + asset);
-            //    }
-            //}
+            if (File.Exists(compiledFX))
+            {
+                if (File.Exists(sourceFX))
+                {
+                    DateTime compiledTime = File.GetLastWriteTime(compiledFX);
+                    DateTime sourceTime = File.GetLastWriteTime(sourceFX);
+                    if (sourceTime > compiledTime)
+                        needRecompile = true;
+                }
+            }
+            else
+            {
+                if (File.Exists(sourceFX))
+                    needRecompile = true;
+                else
+                {
+                    throw new FileNotFoundException("Effect not found: " + asset);
+                }
+            }
             //Nepouzivat ShaderFlags.PartialPrecision, kurvi to na GeForce6600
             ShaderFlags flags = ShaderFlags.OptimizationLevel3 | ShaderFlags.SkipValidation;
        
@@ -106,6 +98,13 @@ namespace MinerWars.AppCode.Game.Effects
             System.IO.Directory.SetCurrentDirectory(curdir);
 
             Init();
+        }
+
+        [Conditional("DEBUG")]
+        private static void SetEffectInDebug(string asset)
+        {
+            string sourcePath = @"D:\Github\Miner-Wars-2081\";
+            System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(sourcePath + "\\" + asset.Replace("Effects2", "Effects")));
         }
 
         private void Init()

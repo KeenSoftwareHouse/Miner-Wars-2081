@@ -230,40 +230,30 @@ MyGbufferPixelShaderOutput PixelShaderFunctionLow_DNS(VertexShaderOutputLow_DNS 
 {
     return PixelShaderFunctionLow_DNS_Base(input, DiffuseColor, float3(SpecularIntensity, SpecularPower, Emissivity), Highlight);
 }
+
+float2 GetParallaxMapedCoords(VertexShaderOutput_DNS input)
+{
+	float3x3 worldToTangent = transpose(input.TangentToWorld);
+	float3 directionToCamera = input.BaseOutput.WorldPos - CameraPosition;
+	float3 cameraDirectionWithTangent = mul(directionToCamera, worldToTangent);
+
+	float3 cameraDir = normalize(cameraDirectionWithTangent);
+	float height = tex2D(TextureNormalSampler, input.BaseOutput.TexCoordAndViewDistance.xy).a;
+
+	float scale = 0.12f;
+	float bias = -0.026f;
+
+	height = height * scale + bias;
+
+	return input.BaseOutput.TexCoordAndViewDistance.xy + height * cameraDir.xy;
+}
+
 // Normal, High, Extreme PS
 MyGbufferPixelShaderOutput PixelShaderFunction_DNS_Base(VertexShaderOutput_DNS input, float3 diffuse, float3 si_sp_e, float3 highlight)
 {
-	bool useParallaxMapping = true;
-	if (useParallaxMapping == true)
-	{
-		float3x3 worldToTangent = transpose(input.TangentToWorld);
-
-			//float4 test = input.BaseOutput.ScreenPosition;
-			//float xt = (float)test.w;
-
-			//camera-to-surface vector
-			float3 directionToCamera = input.BaseOutput.ScreenPosition.xyz - CameraPosition; //input.BaseOutput.WorldPos
-			float3 halfVector = normalize(directionToCamera);
-			float3 cameraDirection = mul(halfVector, worldToTangent);
-
-			float3 h = normalize(cameraDirection);
-			float height = tex2D(TextureNormalSampler, input.BaseOutput.TexCoordAndViewDistance.xy).a; //TexCoordAndViewDistance
-
-		/*	float scale = 0.12f;
-			float bias = -0.026f;
-	*/		
-			float scale = 0.04f;
-			float bias = -0.03f;
-
-			height = -height * scale + bias;
-
-			input.BaseOutput.TexCoordAndViewDistance.xy = input.BaseOutput.TexCoordAndViewDistance.xy + height * h.xy; // Camera.xy
-	}
-	
-	//input.BaseOutput.TexCoordAndViewDistance.xy = input.BaseOutput.TexCoordAndViewDistance.xy *  input.BaseOutput.TexCoordAndViewDistance.xy;
+	input.BaseOutput.TexCoordAndViewDistance.xy = GetParallaxMapedCoords(input);
 
 	float4 diffuseTexture = tex2D(TextureDiffuseSampler, input.BaseOutput.TexCoordAndViewDistance.xy);
-	diffuseTexture = float4(1.0, 1.0, 1.0, 0.0) - diffuseTexture;
 
 	input.TangentToWorld[0] = normalize(input.TangentToWorld[0]);
 	input.TangentToWorld[1] = normalize(input.TangentToWorld[1]);

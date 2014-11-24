@@ -39,10 +39,6 @@ namespace MinerWars.AppCode.Game.Models
         public MyMesh(MyMeshPartInfo meshInfo, string assetName)
         {
             string textureName = null;
-            //if (m_assetName.Contains("BoxHi"))
-            //{
-            //    textureName = @"K:\\KeenSWH\\MinerWars\\MediaDevelopment\\MinerWars\\Content\\Textures2\\Models\\Prefabs\\v01\v01_cargo_box_d.png";
-            //}
             MyMaterialDescriptor matDesc = meshInfo.m_MaterialDesc;
             if (matDesc != null)
             {
