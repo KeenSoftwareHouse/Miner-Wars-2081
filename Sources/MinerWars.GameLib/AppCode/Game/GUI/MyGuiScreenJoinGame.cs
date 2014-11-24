@@ -384,7 +384,7 @@ namespace MinerWars.AppCode.Game.GUI
                 m_waitDialog = null;
             }
             MyMultiplayerPeers.Static.ServerDisconnected -= m_serverDisconnectedHandler;
-            ShowNetworkError();
+            //ShowNetworkError();
         }
 
         private static void ShowNetworkError()

@@ -17,6 +17,7 @@ namespace MinerWars.AppCode.Game.Effects
     using Vector3 = MinerWarsMath.Vector3;
     using Matrix = MinerWarsMath.Matrix;
     using System;
+    using System.Diagnostics;
 
     //  Base class for all effects
     public abstract class MyEffectBase : IDisposable
@@ -42,12 +43,15 @@ namespace MinerWars.AppCode.Game.Effects
         protected MyEffectBase(string asset)
         {
             string curdir = System.IO.Directory.GetCurrentDirectory();
+            bool needRecompile = false;
+            
             System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(MyMinerGame.Static.RootDirectoryEffects + "\\" + asset));
-
+        
+            SetEffectInDebug(asset);
+        
             string sourceFX = Path.GetFileName(asset + ".fx");
             string compiledFX = Path.GetFileName(asset + ".fxo");
 
-            bool needRecompile = false;
             if (File.Exists(compiledFX))
             {
                 if (File.Exists(sourceFX))
@@ -67,7 +71,6 @@ namespace MinerWars.AppCode.Game.Effects
                     throw new FileNotFoundException("Effect not found: " + asset);
                 }
             }
-
             //Nepouzivat ShaderFlags.PartialPrecision, kurvi to na GeForce6600
             ShaderFlags flags = ShaderFlags.OptimizationLevel3 | ShaderFlags.SkipValidation;
        
@@ -77,8 +80,9 @@ namespace MinerWars.AppCode.Game.Effects
 //                flags |= ShaderFlags.Debug;
 //#endif
                 //m_D3DEffect = Effect.FromFile(MyMinerGameDX.Static.GraphicsDevice, sourceFX, flags);
-          
+              
                 ShaderBytecode shaderByteCode = ShaderBytecode.CompileFromFile(sourceFX, "fx_2_0", flags);
+                System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(MyMinerGame.Static.RootDirectoryEffects + "\\" + asset));
                 shaderByteCode.Save(compiledFX);
                 shaderByteCode.Dispose();
             }
@@ -94,6 +98,13 @@ namespace MinerWars.AppCode.Game.Effects
             System.IO.Directory.SetCurrentDirectory(curdir);
 
             Init();
+        }
+
+        [Conditional("DEBUG")]
+        private static void SetEffectInDebug(string asset)
+        {
+            string sourcePath = @"D:\Github\Miner-Wars-2081\";
+            System.IO.Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(sourcePath + "\\" + asset.Replace("Effects2", "Effects")));
         }
 
         private void Init()
